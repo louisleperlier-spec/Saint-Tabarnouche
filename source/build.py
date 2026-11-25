@@ -3,7 +3,7 @@ D = os.path.dirname(os.path.abspath(__file__))
 src = open('/mnt/project-files/site-ville/index.html').read()
 data = re.search(r'<script type="application/json" id="data">(.*?)</script>', src, re.S).group(1)
 cfg8 = json.load(open(f'{D}/day8.json'))['cfg']
-dd = json.loads(data); dd['habitants'] = 8815; dd['jour'] = 10; dd['maj'] = '25 novembre 2026'
+dd = json.loads(data); dd['habitants'] = 8815; dd['jour'] = 10; dd['coffre'] = 12000; dd['maj'] = '25 novembre 2026'
 data = json.dumps(dd, ensure_ascii=False, indent=1)
 cfg8.update({'airport': [110, 100], 'airportOn': True, 'trottoirOn': True, 'trottoir': [-2, 12], 'gifts': ['LP', 'Solopy', 'Gab', 'Kéké', 'Chilly', 'Royal', 'Cora', 'Cla', 'P-Y', 'Thom', 'Vinsso'], 'airportName': 'AÉROPORT LOUIS-P.-TESSIER', 'airportSub': 'ALP · SAINT-TABARNOUCHE', 'statueName': 'LOUIS-P. TESSIER', 'royalQuote': ''})
 story = open(f'{D}/story10.js').read().split('\n')
