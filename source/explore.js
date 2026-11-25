@@ -16,7 +16,45 @@ sapinG.visible = true; sapinG.scale.set(1, 1, 1); trottoirG.visible = true;
 airport.visible = true; airport.scale.set(1, 1, 1); plane1.visible = true; airport.userData.statue.visible = true;
 around.visible = true; around.userData.watchers.forEach((c) => (c.visible = true));
 passengers.forEach((c, i) => { c.visible = true; c.position.set(APX - 20 + i * 1.6, 0, APZ + 2.5); c.rotation.y = 0; });
-moto.position.set(9, 0, 47.2); moto.rotation.y = -Math.PI / 2;
+moto.position.set(9, 0, 47.2);
+// ---------- stand de merch (boutique officielle) ----------
+const MSX = 20, MSZ = -8;
+const merch = new THREE.Group(); merch.position.set(MSX, 0, MSZ); scene.add(merch);
+function merchTex(kind) {
+  return texCanvas(256, 256, (ctx) => {
+    ctx.clearRect(0, 0, 256, 256); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    if (kind === 'tee' || kind === 'hoodie') {
+      const c = kind === 'tee' ? '#1f56b8' : '#e0343b';
+      ctx.fillStyle = c; ctx.beginPath();
+      ctx.moveTo(78, 30); ctx.lineTo(178, 30); ctx.lineTo(240, 78); ctx.lineTo(214, 118); ctx.lineTo(188, 100); ctx.lineTo(188, 236); ctx.lineTo(68, 236); ctx.lineTo(68, 100); ctx.lineTo(42, 118); ctx.lineTo(16, 78); ctx.closePath(); ctx.fill();
+      if (kind === 'hoodie') { ctx.fillStyle = '#b8222a'; ctx.beginPath(); ctx.arc(128, 36, 34, Math.PI, 0); ctx.fill(); ctx.fillRect(98, 170, 60, 34); }
+      ctx.fillStyle = '#fff'; ctx.font = '800 54px "Baloo 2", sans-serif'; ctx.fillText('⚜', 128, 112);
+      ctx.font = '800 26px "Baloo 2", sans-serif'; ctx.fillText('SAINT-T', 128, 150);
+    } else if (kind === 'affiche') {
+      ctx.fillStyle = '#fbf7ec'; ctx.fillRect(40, 10, 176, 236); ctx.strokeStyle = '#5a3b22'; ctx.lineWidth = 6; ctx.strokeRect(40, 10, 176, 236);
+      ctx.fillStyle = '#1f56b8'; ctx.fillRect(52, 22, 152, 120); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.moveTo(70, 142); ctx.lineTo(110, 70); ctx.lineTo(150, 142); ctx.fill(); ctx.fillStyle = '#e0343b'; ctx.fillRect(140, 90, 40, 52);
+      ctx.fillStyle = '#222'; ctx.font = '800 22px "Baloo 2", sans-serif'; ctx.fillText('SAINT-', 128, 170); ctx.font = '800 26px "Baloo 2", sans-serif'; ctx.fillText('TABARNOUCHE', 128, 198); ctx.fillStyle = '#e0343b'; ctx.font = '800 16px "Baloo 2", sans-serif'; ctx.fillText('LA VILLE BÂTIE PAR TIKTOK', 128, 226);
+    } else {
+      ctx.fillStyle = '#c79a3a'; ctx.fillRect(14, 40, 228, 176); ctx.fillStyle = '#fffaf0'; ctx.fillRect(26, 52, 204, 152);
+      ctx.fillStyle = '#1d2b55'; ctx.font = '800 20px "Baloo 2", sans-serif'; ctx.fillText('CERTIFICAT', 128, 80); ctx.font = '800 14px "Baloo 2", sans-serif'; ctx.fillText('DE MÉTIER OFFICIEL', 128, 102);
+      ctx.fillStyle = '#c8102e'; ctx.font = '800 24px "Baloo 2", sans-serif'; ctx.fillText('TON NOM ICI', 128, 138); ctx.fillStyle = '#6b7080'; ctx.font = '800 13px "Baloo 2", sans-serif'; ctx.fillText('Ville de Saint-Tabarnouche', 128, 168);
+      ctx.fillStyle = '#d6a531'; ctx.beginPath(); ctx.arc(196, 186, 16, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+}
+{
+  patch(MSX, MSZ + 3, 12, 9, 0xb5946c);
+  box(9, 4.2, 0.4, 0x2a3550, 0, 2.1, -1.8, merch); // mur du fond
+  box(9, 1.1, 1.6, 0xf6f1e6, 0, 0.55, 1.4, merch); box(9.2, 0.15, 1.8, 0xe0343b, 0, 1.15, 1.4, merch); // comptoir
+  for (const x of [-4.4, 4.4]) for (const z of [-1.6, 2.1]) box(0.25, 4.4, 0.25, 0x6b4a2f, x, 2.2, z, merch);
+  for (let i = 0; i < 9; i++) box(1.02, 0.14, 4.4, i % 2 ? 0xffffff : 0xe0343b, -4.1 + i * 1.02, 4.55, 0.25, merch).rotation.x = -0.12;
+  plane(8, 1.3, signTex([{ t: 'BOUTIQUE SAINT-T ⚜️', size: 82, y: 70, color: '#fff' }, { t: 'merch officiel', size: 34, y: 140, color: '#ffd23f' }], { w: 700, h: 180, bg: '#1f56b8', border: '#fff' }), 0, 5.4, 2.3, 0, merch);
+  [['certif', -3.15], ['affiche', -1.05], ['tee', 1.05], ['hoodie', 3.15]].forEach(([k, x]) => { const m = plane(1.9, 1.9, merchTex(k), x, 2.5, -1.58, 0, merch); m.material.transparent = true; });
+  ['CERTIFICAT', 'AFFICHE', 'T-SHIRT', 'HOODIE'].forEach((t, i) => plane(1.6, 0.36, signTex([{ t, size: 60, y: 46, color: '#1d2b55' }], { w: 320, h: 80, bg: '#ffd23f', border: '#ffd23f' }), -3.15 + i * 2.1, 1.3, -1.58, 0, merch));
+  // piles de t-shirts pliés sur le comptoir
+  for (let i = 0; i < 3; i++) { box(0.9, 0.12, 0.7, 0x1f56b8, -2.5, 1.28 + i * 0.13, 1.3, merch); box(0.9, 0.12, 0.7, 0xe0343b, 2.5, 1.28 + i * 0.13, 1.3, merch); }
+  merch.userData.seller = character({ shirt: 0x1f56b8, pants: 0x22252e, hat: 'tuque', hatColor: 0xe0343b, frontTex: staffFront('BOUTIQUE'), pos: [MSX, 0, MSZ + 0.2], ry: 0 });
+} moto.rotation.y = -Math.PI / 2;
 // pancarte « prochain vote » devant les 3 terrains
 plane(6, 1.1, signTex([{ t: 'PROCHAIN VOTE 🗳️', size: 80, y: 90, color: '#fff' }], { w: 640, h: 170, bg: '#e0343b', border: '#fff' }), 0, 3.6, LOTZ - 3.2);
 box(0.2, 3.2, 0.2, 0x6b4a2f, -2.6, 1.6, LOTZ - 3.3); box(0.2, 3.2, 0.2, 0x6b4a2f, 2.6, 1.6, LOTZ - 3.3);
@@ -36,6 +74,7 @@ const PLACES = [
   { id: 'poutine', e: '🍟', n: "La Poutine d'Or", d: 'Gagnante du vote du Jour 6. J est la boss.', x: -46, z: -4, f: 10, j: 7 },
   { id: 'patinoire', e: '⛸️', n: 'La patinoire extérieure', d: 'Gagnante du Jour 8 : 1 500 $ du coffre.', x: 26, z: 27, f: 9, j: 8 },
   { id: 'vote', e: '🗳️', n: 'Les terrains du prochain vote', d: '', x: 0, z: 30, f: 8, j: 8 },
+  { id: 'merch', e: '👕', n: 'Boutique Saint-T', d: 'Le stand de merch officiel : certificat de métier, affiche, t-shirt et hoodie.', x: 20, z: -8, f: 7, j: 10, merch: true },
   { id: 'sapin', e: '🌲', n: 'Le sapin géant', d: 'Le sapin des roses : débloqué par le live du 24 novembre (100 roses). Merci !', x: 9, z: 9, f: 9, j: 9 },
   { id: 'trottoir', e: '⭐', n: 'Le trottoir des gifts', d: 'Les noms des 11 personnes qui ont aidé pendant le live sont gravés dans le trottoir.', x: -2, z: 12, f: -2.5, j: 9, yaw: Math.PI },
   { id: 'usine', e: '🏭', n: 'Usine Vieilles Épices', d: "L'usine de Vinsso, avec sa statue en or devant.", x: -20, z: 120, f: 15, j: 9 },
@@ -66,7 +105,7 @@ const PLACES = [
   { id: 'ecole', e: '🏫', n: "L'école secondaire", d: 'Celle d\'Oli.', x: -42, z: -75, f: 9, j: 6 },
   { id: 'retraite', e: '👵', n: 'La maison de retraite', d: '', x: -24, z: -74, f: 10, j: 6 },
 ];
-const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM"};
+const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM"};
 PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
 const PL_MAPZ = { interieur: -93 };
 const PL = Object.fromEntries(PLACES.map((p) => [p.id, p]));
@@ -237,9 +276,12 @@ function showCard(p, focus) {
   card.innerHTML = `<div class="ch"><span class="ce">${p.e}</span><div><div class="cn">${esc(p.n)}</div><div class="cj">Bâti au Jour ${p.j}</div></div></div>`
     + (focus ? `<div class="found">📍 ${esc(focus.p)} · ${esc(focus.r)}</div>` : '')
     + (p.d ? `<p class="cd">${esc(p.d)}</p>` : '')
+    + (p.merch ? MERCH_HTML : '')
     + (who.length ? `<div class="chips">${who.map(chip).join('')}</div>` : '');
   card.classList.add('show');
 }
+const MERCH = [['📜', 'Certificat de métier', '9,99 $ · lien en bio'], ['🖼️', 'Affiche de la ville', 'Bientôt'], ['👕', 'T-shirt Saint-T', 'Bientôt'], ['🧥', 'Hoodie Saint-T', 'Bientôt']];
+const MERCH_HTML = `<div class="merch">${MERCH.map(([e, n, s]) => `<div class="mi"><span>${e}</span><b>${n}</b><small>${s}</small></div>`).join('')}</div><a class="cta" href="https://www.tiktok.com/@saint.tabarnouche" target="_blank" rel="noopener">Voir le lien en bio</a>`;
 function hideCard() { card.classList.remove('show'); cardPlace = null; }
 card.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (!b) return; const r = RES.find((x) => x.p === decodeURIComponent(b.dataset.p)); if (r) goResident(r); });
 
@@ -353,6 +395,7 @@ function frame() {
   around.userData.pets.forEach((g) => { const o = g.userData.o; g.position.y = Math.abs(Math.sin(t * 6 + o)) * 0.25; g.rotation.y = Math.sin(t * 0.8 + o) * 0.8; });
   around.userData.watchers.forEach((c, i) => anim(c, t, 'point', i)); passengers.forEach((c, i) => anim(c, t, 'wave', i)); anim(lpChar, t, 'wave');
   { const k = (Math.sin(t * 0.25) + 1) / 2; temTrain.position.x = lerp(MLX + 10, -9, ease(k)); }
+  anim(merch.userData.seller, t, 'wave');
   moto.userData.body.rotation.x = -0.35 - Math.sin(t * 3) * 0.1; moto.userData.body.position.y = 0.85;
   // lieu le plus proche → fiche
   if (!fly) {
