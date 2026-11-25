@@ -1,0 +1,121 @@
+<title>Visite Saint-Tabarnouche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--hud:rgba(36,40,54,.86);--ink:#1c1f2a;--paper:#fff;--muted:#6b7080;--red:#e0343b;--blue:#1f56b8;--gold:#ffd23f;--sky:#dfe6ee;--line:#e6e8ee;--chip:#f3f5f9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#f2f4f8;--paper:#1e2230;--muted:#a3a9b8;--line:#2f3446;--chip:#2a2f40}}
+:root[data-theme="dark"]{--ink:#f2f4f8;--paper:#1e2230;--muted:#a3a9b8;--line:#2f3446;--chip:#2a2f40}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--sky);font-family:"Nunito",system-ui,sans-serif;color:var(--ink);overscroll-behavior:none;touch-action:none;user-select:none;-webkit-user-select:none}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+button{font:inherit;cursor:pointer}
+#hud{position:fixed;top:max(10px,env(safe-area-inset-top));left:12px;right:12px;display:flex;gap:8px;align-items:flex-start;pointer-events:none;z-index:5}
+.pill{background:var(--hud);color:#fff;border-radius:12px;padding:5px 10px;line-height:1.1;pointer-events:auto;white-space:nowrap}
+@media (max-width:420px){.pill{padding:4px 8px}.pill .v{font-size:16px}#hud{gap:6px}#mm{width:96px;height:108px}}
+.pill .l{font-size:10px;font-weight:800;letter-spacing:.6px;opacity:.8}
+.pill .v{font-size:18px;font-weight:900}
+#cofw .v{color:var(--gold)}
+#jour{white-space:nowrap;background:var(--red);color:#fff;font-weight:900;font-size:13px;border-radius:20px;padding:6px 12px;margin-top:8px}
+#mm{margin-left:auto;width:112px;height:126px;border-radius:14px;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:auto;cursor:pointer;background:#eef2f7}
+#goalbox{position:fixed;top:calc(max(10px,env(safe-area-inset-top)) + 54px);left:12px;width:min(230px,52vw);background:var(--hud);color:#fff;border-radius:12px;padding:6px 10px;z-index:5;font-size:11px;font-weight:800}
+#goalbox .track{height:8px;border-radius:5px;background:rgba(255,255,255,.2);margin-top:4px;overflow:hidden}
+#goal{height:100%;background:linear-gradient(90deg,var(--red),#ff7a3b)}
+#tools{position:fixed;right:12px;bottom:calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;z-index:6}
+.tb{width:58px;height:58px;border-radius:50%;border:3px solid #fff;background:var(--hud);color:#fff;font-size:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.tb small{font-size:9px;font-weight:900;margin-top:2px;letter-spacing:.3px}
+.tb.on{background:var(--red)}
+#joy{position:fixed;left:22px;bottom:calc(26px + env(safe-area-inset-bottom));width:128px;height:128px;border-radius:50%;background:rgba(36,40,54,.28);border:3px solid rgba(255,255,255,.7);z-index:6;touch-action:none}
+#knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+@media (hover:hover) and (pointer:fine){#joy{display:none}}
+#help{position:fixed;left:14px;bottom:14px;background:var(--hud);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:10px;z-index:5}
+@media not ((hover:hover) and (pointer:fine)){#help{display:none}}
+#card{position:fixed;left:14px;right:82px;bottom:calc(168px + env(safe-area-inset-bottom));transform:translateY(14px);background:var(--paper);color:var(--ink);border-radius:16px;padding:10px 12px;box-shadow:0 8px 26px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:.25s;z-index:7}
+@media (hover:hover) and (pointer:fine){#card{left:50%;right:auto;width:380px;bottom:24px;transform:translate(-50%,20px);padding:12px 14px}#card.show{transform:translate(-50%,0)!important}}
+#card.show{opacity:1;transform:none;pointer-events:auto}
+.ch{display:flex;gap:10px;align-items:center}.ce{font-size:30px}.cn{font-family:"Baloo 2";font-size:21px;line-height:1}.cj{font-size:12px;color:var(--muted);font-weight:800}
+.cd{margin:8px 0 0;font-size:14px;font-weight:700;line-height:1.3}
+.found{margin-top:8px;background:var(--gold);color:#1c1f2a;border-radius:10px;padding:5px 10px;font-weight:900;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:96px;overflow:auto;touch-action:pan-y}
+.chip{border:0;background:var(--chip);color:var(--ink);border-radius:10px;padding:5px 9px;text-align:left;display:flex;flex-direction:column;line-height:1.15}
+.chip b{font-size:13px}.chip span{font-size:11px;color:var(--muted);font-weight:800}
+#who{position:fixed;inset:auto 0 0 0;max-height:78vh;background:var(--paper);color:var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.3);transform:translateY(105%);transition:.3s;z-index:9;display:flex;flex-direction:column;padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+@media (min-width:700px){#who{left:auto;right:16px;bottom:16px;top:16px;width:380px;max-height:none;border-radius:20px;transform:translateX(110%)}}
+#who.open{transform:none}
+.wh{display:flex;align-items:center;gap:10px}.wh h2{margin:0;font-family:"Baloo 2";font-size:24px;flex:1}
+.x{border:0;background:var(--chip);color:var(--ink);width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:900}
+#q{margin:10px 0;width:100%;font:800 16px "Nunito";padding:11px 14px;border-radius:12px;border:2px solid var(--line);background:var(--chip);color:var(--ink);user-select:text;-webkit-user-select:text}
+#list{overflow:auto;flex:1;touch-action:pan-y}
+.row{width:100%;border:0;background:none;color:var(--ink);display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);text-align:left}
+.re{font-size:24px}.rt{flex:1;display:flex;flex-direction:column;min-width:0}.rt b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rt small{font-size:12px;color:var(--muted);font-weight:800}
+.go{background:var(--blue);color:#fff;font-weight:900;font-size:12px;border-radius:20px;padding:5px 10px;white-space:nowrap}
+.empty{padding:16px 4px;font-weight:800;color:var(--muted);line-height:1.4}
+.cta{margin-top:10px;display:block;text-align:center;background:var(--red);color:#fff;text-decoration:none;font-weight:900;padding:11px;border-radius:12px}
+#mapwrap{position:fixed;inset:0;background:rgba(20,24,34,.6);z-index:10;display:none;align-items:center;justify-content:center;padding:16px}
+#mapwrap.open{display:flex}
+.mapbox{background:var(--paper);border-radius:18px;padding:12px;width:min(560px,100%);height:min(640px,calc(100vh - 32px));display:flex;flex-direction:column;gap:8px}
+.mapbox .wh h2{font-size:20px}.mapbox p{margin:0;font-size:12px;color:var(--muted);font-weight:800}
+#bigmap{flex:1;width:100%;border-radius:12px;min-height:0}
+#intro{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(180deg,rgba(31,86,184,.55),rgba(20,24,34,.75));transition:opacity .4s}
+#intro.gone{opacity:0;pointer-events:none}
+.ib{background:var(--paper);color:var(--ink);border-radius:22px;padding:22px 20px;width:min(400px,100%);text-align:center;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.sign{display:inline-block;background:#f6f1e6;border:6px solid #f6f1e6;border-radius:6px;box-shadow:0 3px 0 #5a3b22;color:#222;font-family:"Baloo 2";line-height:.95;padding:6px 14px 0;overflow:hidden}
+.sign .s1{font-size:18px}.sign .s2{font-size:34px}.sign .s3{background:var(--blue);color:#fff;font:900 12px "Nunito";margin:6px -14px 0;padding:5px}
+.ib p{font-weight:800;font-size:15px;line-height:1.35;margin:14px 0}
+.ib label{display:block;text-align:left;font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
+#name{width:100%;font:800 17px "Nunito";padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--chip);color:var(--ink);user-select:text;-webkit-user-select:text}
+#swatches{display:flex;gap:10px;justify-content:center;margin:12px 0 4px}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}.sw.on{box-shadow:0 0 0 3px var(--ink)}
+#enter{margin-top:14px;width:100%;border:0;background:var(--red);color:#fff;font:900 19px "Nunito";padding:14px;border-radius:14px;box-shadow:0 4px 0 #a3222a}
+.hint{font-size:12px;color:var(--muted);font-weight:800;margin-top:10px}
+#toast{position:fixed;top:calc(max(10px,env(safe-area-inset-top)) + 150px);left:50%;transform:translate(-50%,-10px);background:var(--gold);color:#1c1f2a;font-weight:900;font-size:17px;padding:10px 18px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;transition:.3s;z-index:15;pointer-events:none;text-align:center;max-width:calc(100vw - 32px)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--sky);z-index:30;font:900 20px "Nunito";color:#1c1f2a}
+</style>
+
+<canvas id="c"></canvas>
+<div id="ov" hidden></div>
+<div id="hud">
+  <div class="pill"><div class="l">POPULATION</div><div class="v" id="pop">0</div></div>
+  <div class="pill" id="cofw"><div class="l">COFFRE</div><div class="v" id="cof">0</div></div>
+  <div id="jour">JOUR</div>
+  <canvas id="mm" width="224" height="252" title="Carte"></canvas>
+</div>
+<div id="goalbox"><span id="goalt"></span> · objectif : vraie ville<div class="track"><div id="goal"></div></div></div>
+<div id="joy"><div id="knob"></div></div>
+<div id="help">WASD / flèches pour marcher · Shift pour courir · glisse pour tourner · M = carte</div>
+<div id="tools">
+  <button class="tb" id="btnWho" aria-label="Habitants">🔎<small>HABITANTS</small></button>
+  <button class="tb" id="sky" aria-label="Vue du ciel">🦅<small>CIEL</small></button>
+  <button class="tb" id="run" aria-label="Courir">🏃<small>COURIR</small></button>
+</div>
+<div id="card"></div>
+<div id="who">
+  <div class="wh"><h2>Trouve ta place</h2><button class="x" id="whoclose" aria-label="Fermer">✕</button></div>
+  <input id="q" placeholder="Ton nom TikTok, une job, un lieu…" autocomplete="off">
+  <div id="list"></div>
+  <a class="cta" href="https://www.tiktok.com/@saint.tabarnouche" target="_blank" rel="noopener">Pas dans la liste ? Commente ton nom + ta job sur TikTok</a>
+</div>
+<div id="mapwrap"><div class="mapbox"><div class="wh"><h2>Carte de Saint-Tabarnouche</h2><button class="x" id="mapclose" aria-label="Fermer">✕</button></div><p>Touche un lieu pour t'y rendre.</p><canvas id="bigmap"></canvas></div></div>
+<div id="intro"><div class="ib">
+  <div class="sign"><div class="s1">SAINT-</div><div class="s2">TABARNOUCHE</div><div class="s3" id="isub">LA VILLE BÂTIE PAR TIKTOK</div></div>
+  <p>Promène-toi dans la ville que les abonnés bâtissent, un vote à la fois. Écris ton nom TikTok : si t'as une maison ou une job ici, on t'y amène direct.</p>
+  <label for="name">Ton nom TikTok (optionnel)</label>
+  <input id="name" maxlength="24" placeholder="ex. Margot" autocomplete="off">
+  <div id="swatches"></div>
+  <button id="enter">Entrer dans la ville</button>
+  <div class="hint">Joystick à gauche pour marcher · glisse l'écran pour tourner</div>
+</div></div>
+<div id="toast"></div>
+<div id="loading">Construction de la ville… 🏗️</div>
+<!--DATA-->
+<script>
+(function(){function show(m){var l=document.getElementById('loading');if(!l)return;l.style.flexDirection='column';l.style.padding='24px';l.style.textAlign='center';l.innerHTML='Oups, la ville n\'a pas pu charger 😕<small style="display:block;font-size:13px;font-weight:700;margin-top:10px;opacity:.7;word-break:break-word">'+String(m).slice(0,240)+'</small>';}
+window.addEventListener('error',function(e){show(e.message||'erreur');});
+window.addEventListener('unhandledrejection',function(e){show((e.reason&&e.reason.message)||e.reason);});
+setTimeout(function(){if(!window.READY)show(window.THREE?'Chargement trop long (WebGL ?)':'Librairie 3D absente');},25000);})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script type="module">
+/*MAIN*/
+</script>
+

@@ -1,0 +1,1907 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="description" content="Promène-toi en 3D dans Saint-Tabarnouche, la ville bâtie par TikTok (@saint.tabarnouche).">
+<meta property="og:title" content="Visite Saint-Tabarnouche">
+<meta property="og:description" content="La ville bâtie par TikTok. Trouve ta maison ou ta job.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+</head>
+<body>
+<title>Visite Saint-Tabarnouche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--hud:rgba(36,40,54,.86);--ink:#1c1f2a;--paper:#fff;--muted:#6b7080;--red:#e0343b;--blue:#1f56b8;--gold:#ffd23f;--sky:#dfe6ee;--line:#e6e8ee;--chip:#f3f5f9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#f2f4f8;--paper:#1e2230;--muted:#a3a9b8;--line:#2f3446;--chip:#2a2f40}}
+:root[data-theme="dark"]{--ink:#f2f4f8;--paper:#1e2230;--muted:#a3a9b8;--line:#2f3446;--chip:#2a2f40}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--sky);font-family:"Nunito",system-ui,sans-serif;color:var(--ink);overscroll-behavior:none;touch-action:none;user-select:none;-webkit-user-select:none}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+button{font:inherit;cursor:pointer}
+#hud{position:fixed;top:max(10px,env(safe-area-inset-top));left:12px;right:12px;display:flex;gap:8px;align-items:flex-start;pointer-events:none;z-index:5}
+.pill{background:var(--hud);color:#fff;border-radius:12px;padding:5px 10px;line-height:1.1;pointer-events:auto;white-space:nowrap}
+@media (max-width:420px){.pill{padding:4px 8px}.pill .v{font-size:16px}#hud{gap:6px}#mm{width:96px;height:108px}}
+.pill .l{font-size:10px;font-weight:800;letter-spacing:.6px;opacity:.8}
+.pill .v{font-size:18px;font-weight:900}
+#cofw .v{color:var(--gold)}
+#jour{white-space:nowrap;background:var(--red);color:#fff;font-weight:900;font-size:13px;border-radius:20px;padding:6px 12px;margin-top:8px}
+#mm{margin-left:auto;width:112px;height:126px;border-radius:14px;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:auto;cursor:pointer;background:#eef2f7}
+#goalbox{position:fixed;top:calc(max(10px,env(safe-area-inset-top)) + 54px);left:12px;width:min(230px,52vw);background:var(--hud);color:#fff;border-radius:12px;padding:6px 10px;z-index:5;font-size:11px;font-weight:800}
+#goalbox .track{height:8px;border-radius:5px;background:rgba(255,255,255,.2);margin-top:4px;overflow:hidden}
+#goal{height:100%;background:linear-gradient(90deg,var(--red),#ff7a3b)}
+#tools{position:fixed;right:12px;bottom:calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;z-index:6}
+.tb{width:58px;height:58px;border-radius:50%;border:3px solid #fff;background:var(--hud);color:#fff;font-size:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.tb small{font-size:9px;font-weight:900;margin-top:2px;letter-spacing:.3px}
+.tb.on{background:var(--red)}
+#joy{position:fixed;left:22px;bottom:calc(26px + env(safe-area-inset-bottom));width:128px;height:128px;border-radius:50%;background:rgba(36,40,54,.28);border:3px solid rgba(255,255,255,.7);z-index:6;touch-action:none}
+#knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+@media (hover:hover) and (pointer:fine){#joy{display:none}}
+#help{position:fixed;left:14px;bottom:14px;background:var(--hud);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:10px;z-index:5}
+@media not ((hover:hover) and (pointer:fine)){#help{display:none}}
+#card{position:fixed;left:14px;right:82px;bottom:calc(168px + env(safe-area-inset-bottom));transform:translateY(14px);background:var(--paper);color:var(--ink);border-radius:16px;padding:10px 12px;box-shadow:0 8px 26px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:.25s;z-index:7}
+@media (hover:hover) and (pointer:fine){#card{left:50%;right:auto;width:380px;bottom:24px;transform:translate(-50%,20px);padding:12px 14px}#card.show{transform:translate(-50%,0)!important}}
+#card.show{opacity:1;transform:none;pointer-events:auto}
+.ch{display:flex;gap:10px;align-items:center}.ce{font-size:30px}.cn{font-family:"Baloo 2";font-size:21px;line-height:1}.cj{font-size:12px;color:var(--muted);font-weight:800}
+.cd{margin:8px 0 0;font-size:14px;font-weight:700;line-height:1.3}
+.found{margin-top:8px;background:var(--gold);color:#1c1f2a;border-radius:10px;padding:5px 10px;font-weight:900;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:96px;overflow:auto;touch-action:pan-y}
+.chip{border:0;background:var(--chip);color:var(--ink);border-radius:10px;padding:5px 9px;text-align:left;display:flex;flex-direction:column;line-height:1.15}
+.chip b{font-size:13px}.chip span{font-size:11px;color:var(--muted);font-weight:800}
+#who{position:fixed;inset:auto 0 0 0;max-height:78vh;background:var(--paper);color:var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.3);transform:translateY(105%);transition:.3s;z-index:9;display:flex;flex-direction:column;padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+@media (min-width:700px){#who{left:auto;right:16px;bottom:16px;top:16px;width:380px;max-height:none;border-radius:20px;transform:translateX(110%)}}
+#who.open{transform:none}
+.wh{display:flex;align-items:center;gap:10px}.wh h2{margin:0;font-family:"Baloo 2";font-size:24px;flex:1}
+.x{border:0;background:var(--chip);color:var(--ink);width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:900}
+#q{margin:10px 0;width:100%;font:800 16px "Nunito";padding:11px 14px;border-radius:12px;border:2px solid var(--line);background:var(--chip);color:var(--ink);user-select:text;-webkit-user-select:text}
+#list{overflow:auto;flex:1;touch-action:pan-y}
+.row{width:100%;border:0;background:none;color:var(--ink);display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);text-align:left}
+.re{font-size:24px}.rt{flex:1;display:flex;flex-direction:column;min-width:0}.rt b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rt small{font-size:12px;color:var(--muted);font-weight:800}
+.go{background:var(--blue);color:#fff;font-weight:900;font-size:12px;border-radius:20px;padding:5px 10px;white-space:nowrap}
+.empty{padding:16px 4px;font-weight:800;color:var(--muted);line-height:1.4}
+.cta{margin-top:10px;display:block;text-align:center;background:var(--red);color:#fff;text-decoration:none;font-weight:900;padding:11px;border-radius:12px}
+#mapwrap{position:fixed;inset:0;background:rgba(20,24,34,.6);z-index:10;display:none;align-items:center;justify-content:center;padding:16px}
+#mapwrap.open{display:flex}
+.mapbox{background:var(--paper);border-radius:18px;padding:12px;width:min(560px,100%);height:min(640px,calc(100vh - 32px));display:flex;flex-direction:column;gap:8px}
+.mapbox .wh h2{font-size:20px}.mapbox p{margin:0;font-size:12px;color:var(--muted);font-weight:800}
+#bigmap{flex:1;width:100%;border-radius:12px;min-height:0}
+#intro{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(180deg,rgba(31,86,184,.55),rgba(20,24,34,.75));transition:opacity .4s}
+#intro.gone{opacity:0;pointer-events:none}
+.ib{background:var(--paper);color:var(--ink);border-radius:22px;padding:22px 20px;width:min(400px,100%);text-align:center;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.sign{display:inline-block;background:#f6f1e6;border:6px solid #f6f1e6;border-radius:6px;box-shadow:0 3px 0 #5a3b22;color:#222;font-family:"Baloo 2";line-height:.95;padding:6px 14px 0;overflow:hidden}
+.sign .s1{font-size:18px}.sign .s2{font-size:34px}.sign .s3{background:var(--blue);color:#fff;font:900 12px "Nunito";margin:6px -14px 0;padding:5px}
+.ib p{font-weight:800;font-size:15px;line-height:1.35;margin:14px 0}
+.ib label{display:block;text-align:left;font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
+#name{width:100%;font:800 17px "Nunito";padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--chip);color:var(--ink);user-select:text;-webkit-user-select:text}
+#swatches{display:flex;gap:10px;justify-content:center;margin:12px 0 4px}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}.sw.on{box-shadow:0 0 0 3px var(--ink)}
+#enter{margin-top:14px;width:100%;border:0;background:var(--red);color:#fff;font:900 19px "Nunito";padding:14px;border-radius:14px;box-shadow:0 4px 0 #a3222a}
+.hint{font-size:12px;color:var(--muted);font-weight:800;margin-top:10px}
+#toast{position:fixed;top:calc(max(10px,env(safe-area-inset-top)) + 150px);left:50%;transform:translate(-50%,-10px);background:var(--gold);color:#1c1f2a;font-weight:900;font-size:17px;padding:10px 18px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;transition:.3s;z-index:15;pointer-events:none;text-align:center;max-width:calc(100vw - 32px)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--sky);z-index:30;font:900 20px "Nunito";color:#1c1f2a}
+</style>
+
+<canvas id="c"></canvas>
+<div id="ov" hidden></div>
+<div id="hud">
+  <div class="pill"><div class="l">POPULATION</div><div class="v" id="pop">0</div></div>
+  <div class="pill" id="cofw"><div class="l">COFFRE</div><div class="v" id="cof">0</div></div>
+  <div id="jour">JOUR</div>
+  <canvas id="mm" width="224" height="252" title="Carte"></canvas>
+</div>
+<div id="goalbox"><span id="goalt"></span> · objectif : vraie ville<div class="track"><div id="goal"></div></div></div>
+<div id="joy"><div id="knob"></div></div>
+<div id="help">WASD / flèches pour marcher · Shift pour courir · glisse pour tourner · M = carte</div>
+<div id="tools">
+  <button class="tb" id="btnWho" aria-label="Habitants">🔎<small>HABITANTS</small></button>
+  <button class="tb" id="sky" aria-label="Vue du ciel">🦅<small>CIEL</small></button>
+  <button class="tb" id="run" aria-label="Courir">🏃<small>COURIR</small></button>
+</div>
+<div id="card"></div>
+<div id="who">
+  <div class="wh"><h2>Trouve ta place</h2><button class="x" id="whoclose" aria-label="Fermer">✕</button></div>
+  <input id="q" placeholder="Ton nom TikTok, une job, un lieu…" autocomplete="off">
+  <div id="list"></div>
+  <a class="cta" href="https://www.tiktok.com/@saint.tabarnouche" target="_blank" rel="noopener">Pas dans la liste ? Commente ton nom + ta job sur TikTok</a>
+</div>
+<div id="mapwrap"><div class="mapbox"><div class="wh"><h2>Carte de Saint-Tabarnouche</h2><button class="x" id="mapclose" aria-label="Fermer">✕</button></div><p>Touche un lieu pour t'y rendre.</p><canvas id="bigmap"></canvas></div></div>
+<div id="intro"><div class="ib">
+  <div class="sign"><div class="s1">SAINT-</div><div class="s2">TABARNOUCHE</div><div class="s3" id="isub">LA VILLE BÂTIE PAR TIKTOK</div></div>
+  <p>Promène-toi dans la ville que les abonnés bâtissent, un vote à la fois. Écris ton nom TikTok : si t'as une maison ou une job ici, on t'y amène direct.</p>
+  <label for="name">Ton nom TikTok (optionnel)</label>
+  <input id="name" maxlength="24" placeholder="ex. Margot" autocomplete="off">
+  <div id="swatches"></div>
+  <button id="enter">Entrer dans la ville</button>
+  <div class="hint">Joystick à gauche pour marcher · glisse l'écran pour tourner</div>
+</div></div>
+<div id="toast"></div>
+<div id="loading">Construction de la ville… 🏗️</div>
+<script type="application/json" id="data">{
+ "maj": "25 novembre 2026",
+ "jour": 10,
+ "habitants": 8815,
+ "objectif": 10000,
+ "recensement": "25 novembre",
+ "coffre": 7600,
+ "residents": [
+  {
+   "p": "JT9816",
+   "r": "Résidente",
+   "lot": 0,
+   "j": 6
+  },
+  {
+   "p": "Margot",
+   "r": "Résidente",
+   "lot": 1,
+   "j": 6
+  },
+  {
+   "p": "justine",
+   "r": "Résidente",
+   "lot": 2,
+   "j": 6
+  },
+  {
+   "p": "Urfav_blondie",
+   "r": "Résidente",
+   "lot": 3,
+   "j": 6
+  },
+  {
+   "p": "Émilie",
+   "r": "Résidente",
+   "lot": 4,
+   "j": 6
+  },
+  {
+   "p": "Lélé",
+   "r": "Résidente",
+   "lot": 5,
+   "j": 6
+  },
+  {
+   "p": "Marie",
+   "r": "Résidente",
+   "lot": 6,
+   "j": 6
+  },
+  {
+   "p": "edou8",
+   "r": "Résident",
+   "lot": 7,
+   "j": 6
+  },
+  {
+   "p": "Bastéyien",
+   "r": "Résident",
+   "lot": 8,
+   "j": 6
+  },
+  {
+   "p": "Les boys",
+   "r": "Maison des boys",
+   "lot": 9,
+   "j": 6
+  },
+  {
+   "p": "Zaélie",
+   "r": "Résidente",
+   "lot": 10,
+   "j": 6
+  },
+  {
+   "p": "alyy",
+   "r": "Résidente",
+   "lot": 11,
+   "j": 6
+  },
+  {
+   "p": "edward.dubthibaul",
+   "r": "Employé de la Poutine d'Or",
+   "b": "poutine",
+   "j": 8
+  },
+  {
+   "p": "J ♡",
+   "r": "Boss de la Poutine d'Or",
+   "b": "poutine",
+   "j": 7
+  },
+  {
+   "p": "beaa.privatee",
+   "r": "Le Grinch de la ville",
+   "b": "place",
+   "j": 8
+  },
+  {
+   "p": "malie3410",
+   "r": "Commanditaire du hockey",
+   "b": "arena",
+   "j": 8
+  },
+  {
+   "p": "GallyxQc",
+   "r": "Commanditaire officiel du hockey",
+   "b": "arena",
+   "j": 5
+  },
+  {
+   "p": "user_coralie27",
+   "r": "Directrice de la garderie",
+   "b": "garderie",
+   "j": 7
+  },
+  {
+   "p": "not_roroleb",
+   "r": "Roi des wheelies en Surron",
+   "b": "garage",
+   "j": 7
+  },
+  {
+   "p": "iamtalk",
+   "r": "Les Poupées qui parlent",
+   "b": "commerces",
+   "j": 7
+  },
+  {
+   "p": "Théa Michaud",
+   "r": "Fermière",
+   "b": "ferme",
+   "j": 5
+  },
+  {
+   "p": "Lavende",
+   "r": "Boutique Crisstement",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "gamixlepoisson",
+   "r": "Propriétaire du Gym Nark",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "..L.SHANA.L..",
+   "r": "Boutique beauté Sphero",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "Mathix",
+   "r": "A nommé la Galerie de la Capitale",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "Ludo",
+   "r": "Applenouch, électronique",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "emmagmorena",
+   "r": "Gérante de la sandwicherie",
+   "b": "commerces",
+   "j": 5
+  },
+  {
+   "p": "Émile",
+   "r": "Commandant de police",
+   "b": "place",
+   "j": 5
+  },
+  {
+   "p": "Maudit Grizzli",
+   "r": "Policier",
+   "b": "place",
+   "j": 5
+  },
+  {
+   "p": "Oli",
+   "r": "Capitaine de hockey",
+   "b": "arena",
+   "j": 5
+  },
+  {
+   "p": "Anna",
+   "r": "Capitaine, équipe féminine",
+   "b": "arena",
+   "j": 4
+  },
+  {
+   "p": "Rachou",
+   "r": "Capitaine, équipe féminine",
+   "b": "arena",
+   "j": 4
+  },
+  {
+   "p": "jxst_eve21",
+   "r": "Coach du hockey féminin",
+   "b": "arena",
+   "j": 5
+  },
+  {
+   "p": "Sœur Marie",
+   "r": "Paroisse",
+   "b": "place",
+   "j": 4
+  },
+  {
+   "p": "Sœur Rosa",
+   "r": "Paroisse",
+   "b": "place",
+   "j": 4
+  },
+  {
+   "p": "Mike",
+   "r": "Quincaillerie",
+   "b": "commerces",
+   "j": 4
+  },
+  {
+   "p": "Anthony",
+   "r": "Employé chez Tim",
+   "b": "tim",
+   "j": 4
+  },
+  {
+   "p": "leolaurin_08",
+   "r": "OG #1",
+   "b": "place",
+   "j": 1
+  },
+  {
+   "p": "Jo_lachance22",
+   "r": "OG #2, a imaginé Chez Jo",
+   "b": "jo",
+   "j": 1
+  },
+  {
+   "p": "PHM_Cxrlot",
+   "r": "OG #3, joueur de hockey",
+   "b": "arena",
+   "j": 1
+  }
+ ],
+ "batiments": [
+  {
+   "j": 1,
+   "n": "Hôtel de ville et place publique",
+   "d": "Là où le maire travaille"
+  },
+  {
+   "j": 3,
+   "n": "L'aréna",
+   "d": "Hockey, 2e division et équipe féminine"
+  },
+  {
+   "j": 4,
+   "n": "Chez Tim",
+   "d": "Le café du coin"
+  },
+  {
+   "j": 5,
+   "n": "La cabane à sucre",
+   "d": "Choisie par vous au vote"
+  },
+  {
+   "j": 6,
+   "n": "Rue des Érables",
+   "d": "Les premières maisons des abonnés"
+  },
+  {
+   "j": 7,
+   "n": "La Poutine d'Or et la garderie",
+   "d": "Gagnante du vote du Jour 6"
+  },
+  {
+   "j": 8,
+   "n": "La patinoire extérieure",
+   "d": "1 500 $ du coffre"
+  }
+ ],
+ "prochainVote": [
+  "⚡ Bureau d'Hydro-Québec",
+  "⛷️ Montagne de ski",
+  "🛻 Concession de quads"
+ ],
+ "og": [
+  "leolaurin_08",
+  "Jo_lachance22",
+  "PHM_Cxrlot"
+ ],
+ "regions": [
+  [
+   "Montréal",
+   0
+  ],
+  [
+   "Laval",
+   0
+  ],
+  [
+   "Montérégie",
+   0
+  ],
+  [
+   "Laurentides",
+   0
+  ],
+  [
+   "Lanaudière",
+   0
+  ],
+  [
+   "Capitale-Nationale",
+   0
+  ],
+  [
+   "Beauce / Chaudière-Appalaches",
+   0
+  ],
+  [
+   "Mauricie",
+   0
+  ],
+  [
+   "Estrie",
+   0
+  ],
+  [
+   "Outaouais",
+   0
+  ],
+  [
+   "Saguenay–Lac-Saint-Jean",
+   0
+  ],
+  [
+   "Abitibi-Témiscamingue",
+   0
+  ],
+  [
+   "Bas-Saint-Laurent",
+   0
+  ],
+  [
+   "Gaspésie",
+   0
+  ],
+  [
+   "Côte-Nord",
+   0
+  ],
+  [
+   "Centre-du-Québec",
+   0
+  ],
+  [
+   "Nord-du-Québec",
+   0
+  ],
+  [
+   "Hors Québec",
+   0
+  ]
+ ]
+}</script>
+<script>
+(function(){function show(m){var l=document.getElementById('loading');if(!l)return;l.style.flexDirection='column';l.style.padding='24px';l.style.textAlign='center';l.innerHTML='Oups, la ville n\'a pas pu charger 😕<small style="display:block;font-size:13px;font-weight:700;margin-top:10px;opacity:.7;word-break:break-word">'+String(m).slice(0,240)+'</small>';}
+window.addEventListener('error',function(e){show(e.message||'erreur');});
+window.addEventListener('unhandledrejection',function(e){show((e.reason&&e.reason.message)||e.reason);});
+setTimeout(function(){if(!window.READY)show(window.THREE?'Chargement trop long (WebGL ?)':'Librairie 3D absente');},25000);})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script type="module">
+const THREE = window.THREE;
+await Promise.race([Promise.all([document.fonts.load('800 40px "Baloo 2"'), document.fonts.load('900 40px "Nunito"')]), new Promise((r) => setTimeout(r, 2500))]);
+const __D = JSON.parse(document.getElementById('data').textContent);
+const T = [{ dur: 1, caps: [] }];
+const CFG = Object.assign({"day": 8, "pill": "JOUR 8 · J-1", "popFrom": 7492, "popTo": 7492, "cofFrom": 9100, "cofTo": 9100, "cost": 1500, "cofAfter": 7600, "win": "patinoire", "vote": [["⚡", "Un bureau d'Hydro-Québec"], ["⛷️", "Une montagne de ski"], ["🛻", "Concession de quads"]], "goal": 10000, "goal2": 10000, "xmas": true, "next": "recensement demain", "builtBefore": ["cabane", "maisons", "garderie", "poutine"], "kinds": ["hook", "rule", "build", "jobs", "census", "vote"], "houseNames": ["JT9816", "Margot", "justine", "Urfav_blondie", "Émilie", "Lélé", "Marie", "edou8", "Bastéyien", "Les boys", "Zaélie", "alyy"], "jobs": [{"n": "edward.dubthibaul", "t": "Je veux être employé de la poutine d'or", "l": "3", "r": "Poutine d'Or 🍟", "c": "#e08a1e"}, {"n": "beaa.privatee", "t": "J'peux être le grinch?", "l": "2", "r": "Le Grinch 🎄", "c": "#2e9b48"}, {"n": "malie3410", "t": "je peux être la commanditaire des game de hockey svppp", "l": "3", "r": "Commanditaire 🏒", "c": "#1f56b8"}], "airport": [110, 100], "airportOn": true, "trottoirOn": true, "trottoir": [-2, 12], "gifts": ["LP", "Solopy", "Gab", "Kéké", "Chilly", "Royal", "Cora", "Cla", "P-Y", "Thom", "Vinsso"], "airportName": "AÉROPORT LOUIS-P.-TESSIER", "airportSub": "ALP · SAINT-TABARNOUCHE", "statueName": "LOUIS-P. TESSIER", "royalQuote": ""}, { popTo: __D.habitants, xmas: true, houseNames: __D.residents.filter((r) => r.lot !== undefined).sort((a, b) => a.lot - b.lot).map((r) => r.p), vote: __D.prochainVote.map((s) => { const i = s.indexOf(' '); return [s.slice(0, i), s.slice(i + 1)]; }) });
+
+// ---------- timeline ----------
+const DUR = T.map((s) => s.dur);
+const GAP = 0.35;
+const START = []; { let t = 0; for (const d of DUR) { START.push(t); t += d + GAP; } }
+const NS = DUR.length;
+const TOTAL = START[NS - 1] + DUR[NS - 1] + 1.6;
+window.TOTAL = TOTAL; window.START = START;
+
+// ---------- renderer ----------
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: false });
+renderer.setPixelRatio(window.devicePixelRatio || 1);
+renderer.setSize(540, 960, false);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xdfe6ee);
+scene.fog = new THREE.Fog(0xdfe6ee, 45, 130);
+const camera = new THREE.PerspectiveCamera(50, 540 / 960, 0.1, 400);
+
+scene.add(new THREE.HemisphereLight(0xf4f7ff, 0x9aa4b8, 1.35));
+const sun = new THREE.DirectionalLight(0xfff4e6, 1.6);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+const sc = sun.shadow.camera; sc.left = -28; sc.right = 28; sc.top = 28; sc.bottom = -28; sc.near = 1; sc.far = 120;
+sun.shadow.bias = -0.0005;
+scene.add(sun, sun.target);
+function sunAt(x, z) { sun.position.set(x + 18, 40, z + 22); sun.target.position.set(x, 0, z); }
+
+// ---------- helpers ----------
+const matCache = {};
+function mat(color, opts = {}) {
+  const k = color + JSON.stringify(opts);
+  if (!matCache[k]) matCache[k] = new THREE.MeshLambertMaterial({ color, ...opts });
+  return matCache[k];
+}
+function box(w, h, d, m, x = 0, y = 0, z = 0, parent = scene) {
+  const g = new THREE.BoxGeometry(w, h, d);
+  const mesh = new THREE.Mesh(g, typeof m === 'number' ? mat(m) : m);
+  mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true;
+  parent.add(mesh); return mesh;
+}
+function cyl(rt, rb, h, seg, m, x, y, z, parent = scene) {
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), typeof m === 'number' ? mat(m) : m);
+  mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
+}
+function texCanvas(w, h, draw) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+function fitText(ctx, text, maxW, size, font = '"Baloo 2"') {
+  let s = size; ctx.font = `800 ${s}px ${font}`;
+  while (ctx.measureText(text).width > maxW && s > 10) { s -= 2; ctx.font = `800 ${s}px ${font}`; }
+  return s;
+}
+function signTex(lines, { bg = '#f6f1e6', fg = '#222', w = 512, h = 256, border = '#5a3b22', band } = {}) {
+  return texCanvas(w, h, (ctx) => {
+    ctx.fillStyle = border; ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = bg; ctx.fillRect(10, 10, w - 20, h - 20);
+    if (band) { ctx.fillStyle = band.color; ctx.fillRect(10, h - 10 - band.h, w - 20, band.h); }
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (const L of lines) {
+      ctx.fillStyle = L.color || fg;
+      fitText(ctx, L.t, w - 50, L.size);
+      ctx.fillText(L.t, w / 2, L.y);
+    }
+  });
+}
+function plane(w, h, tex, x, y, z, ry = 0, parent = scene) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshLambertMaterial({ map: tex, transparent: true }));
+  m.position.set(x, y, z); m.rotation.y = ry; parent.add(m); return m;
+}
+// seeded random
+let seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+
+// ---------- ground ----------
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), mat(0xf3f5f9));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+function patch(x, z, w, d, color = 0xb5946c) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat(color)); m.rotation.x = -Math.PI / 2; m.position.set(x, 0.02, z); m.receiveShadow = true; scene.add(m); return m;
+}
+function puddle(x, z, r) {
+  const m = new THREE.Mesh(new THREE.CircleGeometry(r, 6), mat(0xc9dde9)); m.rotation.x = -Math.PI / 2; m.position.set(x, 0.035, z); scene.add(m);
+}
+// main dirt road through village
+patch(0, 6, 5, 30); patch(-14, 4, 30, 4.5); patch(15, -1, 26, 4.5);
+puddle(-0.8, 10, 0.9); puddle(1.2, 4, 0.7); puddle(-8, 4.5, 0.8); puddle(12, -1.3, 0.8);
+for (let i = 0; i < 18; i++) { const r = new THREE.Mesh(new THREE.DodecahedronGeometry(0.25 + rnd() * 0.3, 0), mat(0x8a7560)); r.position.set(-2.8 + rnd() * 5.6 * (i % 2), 0.1, -2 + rnd() * 18); r.castShadow = true; scene.add(r); }
+
+// ---------- trees ----------
+function tree(x, z, s = 1) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s); scene.add(g);
+  cyl(0.25, 0.3, 1.2, 6, 0x6b4a2f, 0, 0.6, 0, g);
+  const layers = [[2.2, 2.4, 1.9], [1.75, 2.1, 3.3], [1.25, 1.9, 4.6]];
+  for (const [r, h, y] of layers) {
+    const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 7), mat(0x2f7a3e)); c.position.y = y; c.castShadow = true; g.add(c);
+    const s2 = new THREE.Mesh(new THREE.ConeGeometry(r * 0.45, h * 0.42, 7), mat(0xf7f9fc)); s2.position.y = y + h * 0.3; g.add(s2);
+  }
+  return g;
+}
+for (let i = 0; i < 70; i++) {
+  const a = rnd() * Math.PI * 2, d = 26 + rnd() * 40;
+  const x = Math.cos(a) * d, z = Math.sin(a) * d - 10;
+  const ex = [[-95, -48, -80, 30], [35, 110, -35, 35], [20, 70, -50, -20], [-58, 12, -22, 34], [-16, 16, 14, 56], [-46, -8, 6, 62], [5, 95, -54, -26], [-102, -50, -42, 12], [10, 78, -98, -56], [-84, -8, -98, -52], [-48, 28, -178, -102], [-44, -18, 38, 70], [14, 40, 16, 38], [-60, -30, -12, 22]];
+  if (ex.some(([x0, x1, z0, z1]) => x > x0 && x < x1 && z > z0 && z < z1)) continue;
+  tree(x, z, 0.9 + rnd() * 0.8);
+}
+[[-6, -14], [7, -15], [10, -12], [-4, -18], [4, -19], [12, -6], [9, -5.5]].forEach(([x, z]) => tree(x, z, 1 + rnd() * 0.5));
+// ---------- character ----------
+function faceTex(kind = 'smile', skin = '#f1c9a0', beard = false) {
+  return texCanvas(128, 128, (ctx) => {
+    ctx.fillStyle = skin; ctx.fillRect(0, 0, 128, 128);
+    ctx.fillStyle = '#1b1b1b';
+    if (kind === 'angry') {
+      ctx.fillRect(30, 50, 16, 12); ctx.fillRect(82, 50, 16, 12);
+      ctx.lineWidth = 7; ctx.strokeStyle = '#1b1b1b';
+      ctx.beginPath(); ctx.moveTo(24, 36); ctx.lineTo(54, 46); ctx.moveTo(104, 36); ctx.lineTo(74, 46); ctx.stroke();
+      ctx.beginPath(); ctx.arc(64, 100, 18, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+    } else if (kind === 'sing') {
+      ctx.fillRect(32, 46, 14, 8); ctx.fillRect(82, 46, 14, 8);
+      ctx.beginPath(); ctx.ellipse(64, 88, 13, 17, 0, 0, Math.PI * 2); ctx.fill();
+    } else if (kind === 'serious') {
+      ctx.fillRect(34, 50, 12, 12); ctx.fillRect(82, 50, 12, 12);
+      ctx.fillRect(46, 92, 36, 6);
+    } else {
+      ctx.fillRect(34, 46, 12, 16); ctx.fillRect(82, 46, 12, 16);
+      ctx.lineWidth = 7; ctx.strokeStyle = '#1b1b1b';
+      ctx.beginPath(); ctx.arc(64, 70, 26, Math.PI * 0.2, Math.PI * 0.8); ctx.stroke();
+    }
+    if (beard) {
+      ctx.fillStyle = '#5b3a24'; ctx.fillRect(0, 74, 128, 54); ctx.fillRect(0, 40, 14, 60); ctx.fillRect(114, 40, 14, 60);
+      ctx.fillStyle = '#f1c9a0'; ctx.fillRect(40, 84, 48, 12);
+      ctx.fillStyle = '#7a3b2a'; ctx.fillRect(46, 87, 36, 6);
+    }
+  });
+}
+function jerseyTex(name, num, color = '#1d4fa8') {
+  return texCanvas(256, 256, (ctx) => {
+    ctx.fillStyle = color; ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 196, 256, 18); ctx.fillStyle = '#e0343b'; ctx.fillRect(0, 214, 256, 14);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+    ctx.strokeStyle = '#e0343b'; ctx.lineWidth = 6;
+    fitText(ctx, name, 236, 46); ctx.strokeText(name, 128, 40); ctx.fillText(name, 128, 40);
+    if (num !== '') { ctx.font = '800 120px "Baloo 2"'; ctx.strokeText(num, 128, 132); ctx.fillText(num, 128, 132); }
+  });
+}
+function jerseyFront(color = '#1d4fa8') {
+  return texCanvas(256, 256, (ctx) => {
+    ctx.fillStyle = color; ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 196, 256, 18); ctx.fillStyle = '#e0343b'; ctx.fillRect(0, 214, 256, 14);
+    ctx.beginPath(); ctx.arc(128, 105, 62, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.beginPath(); ctx.arc(128, 105, 52, 0, Math.PI * 2); ctx.fillStyle = '#e0343b'; ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = '800 80px "Baloo 2"'; ctx.fillText('D', 128, 112);
+  });
+}
+const sashTex = texCanvas(128, 32, (ctx) => {
+  const cols = ['#d3312f', '#f2c230', '#2c6fd1', '#2e9b48', '#f07c2a'];
+  for (let i = 0; i < 16; i++) { ctx.fillStyle = cols[i % 5]; ctx.beginPath(); ctx.moveTo(i * 10, 0); ctx.lineTo(i * 10 + 10, 0); ctx.lineTo(i * 10 - 6, 32); ctx.lineTo(i * 10 - 16, 32); ctx.fill(); }
+});
+
+function character(o = {}) {
+  const g = new THREE.Group();
+  const skin = o.skin || 0xf1c9a0;
+  const shirt = o.shirt ?? 0x3a7bd5, pants = o.pants ?? 0x2a2f3d;
+  const legL = box(0.46, 1.0, 0.46, pants, -0.25, 0.5, 0, g), legR = box(0.46, 1.0, 0.46, pants, 0.25, 0.5, 0, g);
+  if (o.boots) { box(0.5, 0.25, 0.56, o.boots, -0.25, 0.12, 0.03, g); box(0.5, 0.25, 0.56, o.boots, 0.25, 0.12, 0.03, g); }
+  // torso with per-face materials
+  const tm = mat(shirt);
+  const faces = [tm, tm, tm, tm, o.frontTex ? new THREE.MeshLambertMaterial({ map: o.frontTex }) : tm, o.backTex ? new THREE.MeshLambertMaterial({ map: o.backTex }) : tm];
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.05, 0.55), faces); torso.position.y = 1.52; torso.castShadow = true; g.add(torso);
+  const armMat = o.arm ?? shirt;
+  const armL = new THREE.Group(); armL.position.set(-0.72, 2.0, 0); g.add(armL); box(0.4, 1.0, 0.42, armMat, 0, -0.45, 0, armL); box(0.38, 0.2, 0.4, skin, 0, -1.02, 0, armL);
+  const armR = new THREE.Group(); armR.position.set(0.72, 2.0, 0); g.add(armR); box(0.4, 1.0, 0.42, armMat, 0, -0.45, 0, armR); box(0.38, 0.2, 0.4, skin, 0, -1.02, 0, armR);
+  const head = new THREE.Group(); head.position.y = 2.5; g.add(head);
+  const hm = mat(skin);
+  const ft = new THREE.MeshLambertMaterial({ map: faceTex(o.face || 'smile', '#' + new THREE.Color(skin).getHexString(), o.beard) });
+  const bm = o.beard ? mat(0x5b3a24) : hm;
+  const hd = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.82, 0.82), [o.beard ? bm : hm, o.beard ? bm : hm, hm, bm, ft, hm]); hd.position.y = 0.41; hd.castShadow = true; head.add(hd);
+  if (o.hat === 'tuque') {
+    box(0.9, 0.36, 0.9, o.hatColor ?? 0xd8262b, 0, 0.92, 0, head); box(0.92, 0.16, 0.92, 0xf7f7f7, 0, 0.76, 0, head);
+    const p = new THREE.Mesh(new THREE.IcosahedronGeometry(0.17, 0), mat(0xffffff)); p.position.y = 1.18; head.add(p);
+  } else if (o.hat === 'helmet') {
+    box(0.9, 0.34, 0.9, o.hatColor ?? 0x1d4fa8, 0, 0.92, 0, head); box(0.9, 0.08, 0.2, 0x222222, 0, 0.62, 0.42, head);
+  } else if (o.hat === 'cap') {
+    box(0.88, 0.25, 0.88, o.hatColor ?? 0x2e9b48, 0, 0.92, 0, head); box(0.88, 0.06, 0.45, o.hatColor ?? 0x2e9b48, 0, 0.82, 0.6, head);
+  } else if (o.hat === 'hair') {
+    box(0.88, 0.22, 0.88, o.hatColor ?? 0x6b4a2f, 0, 0.9, 0, head); box(0.88, 0.6, 0.18, o.hatColor ?? 0x6b4a2f, 0, 0.55, -0.38, head);
+  } else if (o.hat === 'longhair') {
+    box(0.9, 0.24, 0.9, o.hatColor, 0, 0.9, 0, head); box(0.92, 1.25, 0.25, o.hatColor, 0, 0.25, -0.38, head);
+    box(0.14, 0.9, 0.7, o.hatColor, -0.46, 0.4, -0.05, head); box(0.14, 0.9, 0.7, o.hatColor, 0.46, 0.4, -0.05, head);
+  }
+  if (o.glasses) { box(0.25, 0.14, 0.04, 0x111111, -0.18, 0.5, 0.42, head); box(0.25, 0.14, 0.04, 0x111111, 0.18, 0.5, 0.42, head); }
+  if (o.mayor) {
+    // gold chain, buttons, sash
+    const ch = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.04, 6, 16, Math.PI), mat(0xd6a531)); ch.position.set(0, 1.85, 0.29); ch.rotation.z = Math.PI; g.add(ch);
+    box(0.12, 0.12, 0.05, 0xd6a531, 0, 1.55, 0.29, g);
+    const s = new THREE.Mesh(new THREE.BoxGeometry(1.04, 0.18, 0.6), new THREE.MeshLambertMaterial({ map: sashTex })); s.position.y = 1.15; g.add(s);
+    box(0.12, 0.5, 0.05, 0xd3312f, 0.3, 0.88, 0.3, g);
+    box(1.02, 0.12, 0.57, 0xc6262c, 0, 1.0, 0, g);
+  }
+  if (o.dress) { const d = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.85, 1.2, 8), o.dress); d.position.y = 0.6; g.add(d); legL.visible = legR.visible = false; }
+  g.userData = { armL, armR, head, legL, legR };
+  if (o.pos) g.position.set(...o.pos);
+  if (o.ry !== undefined) g.rotation.y = o.ry;
+  (o.parent || scene).add(g);
+  return g;
+}
+function anim(ch, t, mode = 'idle', ph = 0) {
+  const u = ch.userData;
+  u.head.rotation.y = Math.sin(t * 1.3 + ph) * 0.12;
+  u.armL.rotation.x = 0; u.armR.rotation.x = 0; u.armL.rotation.z = 0; u.armR.rotation.z = 0;
+  if (mode === 'wave') { u.armR.rotation.z = 2.5 + Math.sin(t * 9 + ph) * 0.35; }
+  else if (mode === 'point') { u.armR.rotation.x = -1.45; u.armR.rotation.z = 0.15; }
+  else if (mode === 'cheer') { u.armL.rotation.z = -2.6 - Math.sin(t * 8 + ph) * 0.3; u.armR.rotation.z = 2.6 + Math.sin(t * 8 + ph) * 0.3; ch.position.y = Math.abs(Math.sin(t * 6 + ph)) * 0.25; }
+  else if (mode === 'fist') { u.armR.rotation.z = 2.8; u.armR.rotation.x = Math.sin(t * 12 + ph) * 0.25; u.head.rotation.x = -0.35; }
+  else if (mode === 'sing') { u.armL.rotation.z = -1.9; u.armR.rotation.z = 1.9; u.head.rotation.x = -0.25; }
+  else { u.armL.rotation.x = Math.sin(t * 2 + ph) * 0.08; u.armR.rotation.x = -Math.sin(t * 2 + ph) * 0.08; }
+}
+
+// ---------- town hall ----------
+function hall() {
+  const g = new THREE.Group(); g.position.set(-1, 0, -7); scene.add(g);
+  box(10, 4.6, 6, 0xe9dcc4, 0, 2.3, 0, g);
+  box(10.4, 0.5, 6.4, 0x8f8f96, 0, 0.25, 0, g);
+  const roof = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 4.6, 3, 4, 1), mat(0xc7302e)); roof.rotation.y = Math.PI / 4; roof.scale.set(1.62, 1, 1.0); roof.position.y = 6.1; roof.castShadow = true; g.add(roof);
+  box(11, 0.3, 7, 0xffffff, 0, 4.7, 0, g);
+  box(1.0, 2.2, 1.0, 0xa4473a, 3, 7.2, -1, g); box(1.2, 0.3, 1.2, 0xffffff, 3, 8.35, -1, g);
+  for (let i = 0; i < 14; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.5 + (i % 3) * 0.25, 4), mat(0xd9eef9, { transparent: true, opacity: 0.85 })); c.rotation.x = Math.PI; c.position.set(-5 + i * 0.75, 4.3, 3.15); g.add(c); }
+  plane(5, 0.8, signTex([{ t: 'HÔTEL DE VILLE', size: 70, y: 64 }], { w: 640, h: 128, bg: '#f4f1ea', border: '#333' }), 0, 4.05, 3.02, 0, g);
+  box(2.4, 2.8, 0.15, 0xc5ccd6, 0, 1.9, 3.0, g);
+  box(1.6, 1.4, 0.12, 0xf3d27a, -3.4, 2.6, 3.0, g); box(1.6, 1.4, 0.12, 0xf3d27a, 3.4, 2.6, 3.0, g);
+  box(1.75, 0.12, 0.15, 0xc79a3a, -3.4, 2.6, 3.06, g); box(0.12, 1.5, 0.15, 0xc79a3a, -3.4, 2.6, 3.06, g);
+  box(1.75, 0.12, 0.15, 0xc79a3a, 3.4, 2.6, 3.06, g); box(0.12, 1.5, 0.15, 0xc79a3a, 3.4, 2.6, 3.06, g);
+}
+hall();
+// flag
+const flagTex = texCanvas(300, 200, (ctx) => {
+  ctx.fillStyle = '#0a3fa0'; ctx.fillRect(0, 0, 300, 200); ctx.fillStyle = '#fff'; ctx.fillRect(125, 0, 50, 200); ctx.fillRect(0, 75, 300, 50);
+  ctx.font = '60px "Noto Color Emoji"'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = '800 58px serif'; for (const [x, y] of [[62, 38], [238, 38], [62, 162], [238, 162]]) ctx.fillText('⚜', x, y + 4);
+});
+cyl(0.08, 0.1, 9, 8, 0x9aa0a8, 5, 4.5, -4);
+const flagGeo = new THREE.PlaneGeometry(3, 2, 12, 4);
+const flag = new THREE.Mesh(flagGeo, new THREE.MeshLambertMaterial({ map: flagTex, side: THREE.DoubleSide })); flag.position.set(6.55, 7.9, -4); scene.add(flag);
+const flagBase = flagGeo.attributes.position.array.slice();
+function flagAt(t) { const p = flagGeo.attributes.position.array; for (let i = 0; i < p.length; i += 3) { const x = flagBase[i] + 1.5; p[i + 2] = Math.sin(x * 2.2 - t * 5) * 0.12 * x / 3; } flagGeo.attributes.position.needsUpdate = true; }
+// village sign
+const villageSign = new THREE.Group(); villageSign.position.set(5, 0, 1.5); scene.add(villageSign);
+box(0.25, 2.2, 0.25, 0x6b4a2f, -1.6, 1.1, 0, villageSign); box(0.25, 2.2, 0.25, 0x6b4a2f, 1.6, 1.1, 0, villageSign);
+const vsTex = signTex([{ t: 'SAINT-', size: 46, y: 62 }, { t: 'TABARNOUCHE', size: 84, y: 128 }, { t: 'POP. ' + CFG.popTo.toLocaleString('fr-CA').replace(/\u202f|\u00a0|,/g, ' ') + ' · RECENSEMENT LE 25 NOV.', size: 32, y: 212, color: '#fff' }], { w: 640, h: 260, bg: '#f6f1e6', border: '#f6f1e6', band: { color: '#1f56b8', h: 70 } });
+box(4.2, 1.75, 0.2, new THREE.MeshLambertMaterial({ color: 0xf6f1e6 }), 0, 2.4, -0.05, villageSign);
+plane(4.0, 1.62, vsTex, 0, 2.4, 0.07, 0, villageSign);
+box(4.4, 0.15, 0.4, 0xffffff, 0, 3.33, 0, villageSign);
+
+// mayor + chest
+const mayor = character({ mayor: true, beard: true, hat: 'tuque', shirt: 0x1d2b55, pants: 0x1c1c22, boots: 0x3b2a20, pos: [1.6, 0, 2.2], ry: 0.2 });
+const chest = new THREE.Group(); chest.position.set(-0.6, 0, 2.6); scene.add(chest);
+box(1.4, 0.8, 0.9, 0x8b5a2b, 0, 0.4, 0, chest); box(1.45, 0.12, 0.95, 0xd6a531, 0, 0.75, 0, chest);
+const lid = new THREE.Group(); lid.position.set(0, 0.8, -0.45); chest.add(lid); box(1.4, 0.3, 0.9, 0x8b5a2b, 0, 0.15, 0.45, lid);
+for (let i = 0; i < 14; i++) { const c = cyl(0.13, 0.13, 0.05, 10, 0xf2c230, -0.5 + (i % 5) * 0.25, 0.85 + Math.floor(i / 5) * 0.06, -0.25 + (i % 3) * 0.22, chest); c.rotation.x = 0.3 * (i % 3); }
+lid.rotation.x = -1.9;
+// villagers around hall
+const villagers = [];
+const vcol = [[0xe0343b, 0x2a2f3d], [0x2e9b48, 0x3d3020], [0x7b4fd0, 0x22252e], [0xf2c230, 0x3a4a7a], [0xff8a3d, 0x2a2f3d], [0x29a3c9, 0x3a2a20], [0xe85d9b, 0x22252e]];
+for (let i = 0; i < 9; i++) {
+  const c = vcol[i % vcol.length];
+  const v = character({ shirt: c[0], pants: c[1], skin: [0xf1c9a0, 0xc68a5a, 0x8d5a3b, 0xf6d2b4][i % 4], hat: ['cap', 'tuque', 'hair', null][i % 4], hatColor: [0x2e9b48, 0x3a7bd5, 0x4a2f1e, 0][i % 4], pos: [[-6, 0], [-4.5, 1], [-7.2, 2], [-5.6, 3.2], [-3.6, -0.6], [8.8, -1.6], [10.4, 0], [9.6, -3.2], [-8.2, -1]][i].flatMap((v, j) => j ? [0, v] : [v]), ry: (i < 5 || i == 8 ? 0.5 : -0.5) + (rnd() - 0.5) * 0.4 });
+  villagers.push(v);
+}
+// ---------- arena (west) ----------
+const AX = -26, AZ = -6;
+const arena = new THREE.Group(); arena.position.set(AX, 0, AZ); scene.add(arena);
+const arenaParts = new THREE.Group(); arena.add(arenaParts);
+box(18, 6, 12, 0xcfd3da, 0, 3, 0, arenaParts);
+box(18.2, 0.6, 12.2, 0x8f8f96, 0, 0.3, 0, arenaParts);
+{ const r = new THREE.Mesh(new THREE.CylinderGeometry(6.4, 6.4, 18.4, 18, 1, false, 0, Math.PI), mat(0xc7302e)); r.rotation.z = Math.PI / 2; r.scale.set(1, 1, 0.55); r.position.y = 6; r.castShadow = true; arenaParts.add(r); }
+// glass facade
+const glassTex = texCanvas(512, 256, (ctx) => {
+  ctx.fillStyle = '#2b3550'; ctx.fillRect(0, 0, 512, 256);
+  for (let i = 0; i < 8; i++) for (let j = 0; j < 3; j++) { ctx.fillStyle = j === 2 ? '#ffd88a' : '#ffcf6b'; ctx.globalAlpha = 0.75 + 0.25 * ((i + j) % 2); ctx.fillRect(8 + i * 63, 10 + j * 82, 55, 72); }
+  ctx.globalAlpha = 1;
+});
+box(14, 4, 0.2, new THREE.MeshLambertMaterial({ map: glassTex, emissive: 0x332a10 }), 0, 2.6, 6.05, arenaParts);
+plane(9, 1.8, signTex([{ t: 'ARÉNA', size: 150, y: 128, color: '#ffffff' }], { w: 512, h: 256, bg: '#d32a2f', border: '#ffffff' }), 0, 5.6, 6.18, 0, arenaParts);
+// cantine
+const cantine = new THREE.Group(); cantine.position.set(AX + 13, 0, AZ + 7); scene.add(cantine);
+box(5, 3, 3.5, 0xf2c230, 0, 1.5, 0, cantine); box(5.6, 0.35, 4.2, 0xe0343b, 0, 3.15, 0, cantine);
+box(4.2, 1.2, 0.2, 0x2b3550, 0, 1.9, 1.76, cantine); box(4.6, 0.25, 0.9, 0xffffff, 0, 1.2, 2.1, cantine);
+plane(4.2, 1.0, signTex([{ t: 'CANTINE', size: 110, y: 118, color: '#e0343b' }], { w: 512, h: 220, bg: '#fff8e5', border: '#e0343b' }), 0, 3.9, 0.6, 0, cantine);
+// awning stripes
+for (let i = 0; i < 6; i++) box(0.8, 0.12, 1.2, i % 2 ? 0xffffff : 0xe0343b, -2.0 + i * 0.8, 2.75, 2.2, cantine).rotation.x = 0.35;
+// poutine + hot chocolate
+const poutine = new THREE.Group(); poutine.position.set(-0.9, 1.36, 2.15); cantine.add(poutine);
+box(0.6, 0.25, 0.45, 0xffffff, 0, 0, 0, poutine); for (let i = 0; i < 8; i++) box(0.08, 0.08, 0.35, 0xf5c542, -0.2 + (i % 4) * 0.13, 0.17, -0.08 + Math.floor(i / 4) * 0.1, poutine).rotation.y = i;
+box(0.5, 0.06, 0.3, 0x7a4a24, 0, 0.24, 0, poutine);
+const mug = cyl(0.16, 0.14, 0.32, 10, 0xe0343b, 0.8, 1.4, 2.15, cantine);
+const hotdog = new THREE.Group(); hotdog.position.set(0.1, 1.33, 2.2); cantine.add(hotdog); box(0.6, 0.14, 0.22, 0xe7b46a, 0, 0, 0, hotdog); box(0.7, 0.1, 0.1, 0xb64a2e, 0, 0.08, 0, hotdog);
+const steam = []; for (let i = 0; i < 3; i++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.12, 0), mat(0xffffff, { transparent: true, opacity: 0.7 })); cantine.add(s); steam.push(s); }
+const cantineGuy = character({ shirt: 0xffffff, pants: 0x2a2f3d, hat: 'cap', hatColor: 0xe0343b, pos: [0, 0, 0.6], parent: cantine });
+// construction crane + dust
+const TX = -22, TZ = 16;
+const crane = new THREE.Group(); crane.position.set(TX + 9, 0, TZ - 6); scene.add(crane);
+box(0.6, 16, 0.6, 0xf2c230, 0, 8, 0, crane); box(14, 0.5, 0.5, 0xf2c230, -4, 16, 0, crane); box(0.08, 6, 0.08, 0x333333, -9, 13, 0, crane);
+const dust = []; for (let i = 0; i < 26; i++) { const d = new THREE.Mesh(new THREE.IcosahedronGeometry(0.6 + rnd() * 0.8, 0), mat(0xe9e4dc, { transparent: true, opacity: 0.8 })); d.position.set(TX + (rnd() - 0.5) * 16, 0.5, TZ + (rnd() - 0.5) * 12); d.userData.v = [(rnd() - 0.5) * 2, rnd() * 1.2 + 0.3, (rnd() - 0.5) * 2]; d.userData.o = d.position.clone(); scene.add(d); dust.push(d); }
+// census official
+const official = character({ shirt: 0x5a6070, pants: 0x3a3f4a, hat: 'hair', hatColor: 0x8a8a8a, face: 'serious', glasses: true, pos: [7.5, 0, 3.6], ry: -0.5 });
+box(0.6, 0.45, 0.15, 0x5a3b22, 0, -1.1, 0.15, official.userData.armR);
+box(0.5, 0.65, 0.05, 0xffffff, 0, -0.9, 0.3, official.userData.armL);
+// vote lots
+const LOTX = 0, LOTZ = 30; const lotSigns = [];
+for (let i = 0; i < 3; i++) {
+  const x = LOTX - 7 + i * 7;
+  patch(x, LOTZ, 5.5, 5, 0xe1e6ee);
+  box(5.5, 0.4, 0.15, 0x8b5a2b, x, 0.6, LOTZ + 2.5); box(5.5, 0.4, 0.15, 0x8b5a2b, x, 0.6, LOTZ - 2.5);
+  for (const sx of [-2.7, 2.7]) for (const sz of [-2.5, 2.5]) box(0.25, 1.2, 0.25, 0x6b4a2f, x + sx, 0.6, LOTZ + sz);
+  box(0.2, 2.2, 0.2, 0x6b4a2f, x, 1.1, LOTZ + 1.6);
+  lotSigns.push(plane(2.2, 1.4, signTex([{ t: CFG.vote[i][0], size: 120, y: 95 }, { t: '?', size: 60, y: 190 }], { w: 300, h: 240, bg: '#fbf7ec', border: '#5a3b22' }), x, 2.4, LOTZ + 1.72));
+}
+patch(0, 21, 5, 18);
+const mayor2 = character({ mayor: true, beard: true, hat: 'tuque', shirt: 0x1d2b55, pants: 0x1c1c22, boots: 0x3b2a20, pos: [3.6, 0, LOTZ + 5.2], ry: -0.4 });
+// ---------- falling snow (global, attached to camera space region) ----------
+const SN = 900; const snowGeo = new THREE.BufferGeometry(); const snowPos = new Float32Array(SN * 3); const snowSeed = [];
+for (let i = 0; i < SN; i++) snowSeed.push([rnd(), rnd(), rnd(), rnd()]);
+snowGeo.setAttribute('position', new THREE.BufferAttribute(snowPos, 3));
+const flake = texCanvas(32, 32, (ctx) => { const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 32, 32); });
+const snow = new THREE.Points(snowGeo, new THREE.PointsMaterial({ size: 0.16, map: flake, transparent: true, depthWrite: false })); scene.add(snow);
+function snowAt(t, c) {
+  for (let i = 0; i < SN; i++) {
+    const [a, b, d, e] = snowSeed[i];
+    const x = c.x + (a - 0.5) * 30, z = c.z + (b - 0.5) * 30;
+    const y = c.y + 10 - (((d * 20) + t * (0.8 + e * 0.6)) % 20);
+    snowPos[i * 3] = x + Math.sin(t * 0.8 + e * 6) * 0.4; snowPos[i * 3 + 1] = y; snowPos[i * 3 + 2] = z;
+  }
+  snowGeo.attributes.position.needsUpdate = true;
+}
+
+// ---------- overlay ----------
+const ov = document.getElementById('ov');
+const fmt = (n) => Math.round(n).toLocaleString('fr-CA').replace(/ | /g, ' ');
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x); return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+const pop = (x) => { x = clamp(x); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+// ================= JOUR 4 =================
+// ---------- Chez Tim (café-beigne) ----------
+patch(TX, TZ + 1, 16, 12, 0xb5946c);
+const tim = new THREE.Group(); tim.position.set(TX, 0, TZ); scene.add(tim);
+const timParts = new THREE.Group(); tim.add(timParts);
+box(12, 4.6, 8, 0x9b2f2a, 0, 2.3, 0, timParts);
+box(12.3, 0.5, 8.3, 0x8f8f96, 0, 0.25, 0, timParts);
+box(12.6, 0.6, 8.6, 0xf4ead6, 0, 4.9, 0, timParts);
+box(12.2, 0.9, 0.2, 0xf4ead6, 0, 3.9, 4.05, timParts);
+// windows
+const winTex = texCanvas(512, 200, (ctx) => { ctx.fillStyle = '#3a2a22'; ctx.fillRect(0, 0, 512, 200); for (let i = 0; i < 4; i++) { ctx.fillStyle = '#ffd88a'; ctx.fillRect(10 + i * 126, 12, 114, 176); } });
+box(6.4, 2.4, 0.15, new THREE.MeshLambertMaterial({ map: winTex, emissive: 0x2a1a08 }), -2.4, 2.0, 4.05, timParts);
+box(1.6, 2.6, 0.15, 0x4a2b1e, 3.5, 1.3, 4.06, timParts);
+box(1.2, 2.2, 0.16, 0xc9e3ef, 3.5, 1.3, 4.1, timParts);
+// sign
+plane(7.5, 1.5, signTex([{ t: 'CHEZ TIM', size: 120, y: 92, color: '#ffffff' }, { t: 'CAFÉ · BEIGNES', size: 40, y: 178, color: '#ffe3a3' }], { w: 640, h: 220, bg: '#c8102e', border: '#ffffff' }), 0, 5.9, 4.4, 0, timParts);
+// awning stripes
+for (let i = 0; i < 8; i++) box(0.8, 0.12, 1.3, i % 2 ? 0xffffff : 0xc8102e, -5.6 + i * 0.8, 3.35, 4.6, timParts).rotation.x = 0.35;
+// giant donut + hockey stick on roof
+const donut = new THREE.Mesh(new THREE.TorusGeometry(1.4, 0.65, 10, 24), mat(0xd59a52)); donut.position.set(-3, 7.4, 0); donut.castShadow = true; timParts.add(donut);
+const icing = new THREE.Mesh(new THREE.TorusGeometry(1.4, 0.5, 10, 24, Math.PI * 2), mat(0xe86aa8)); icing.position.set(-3, 7.4, 0.25); icing.scale.set(1, 1, 0.6); timParts.add(icing);
+for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; box(0.08, 0.25, 0.08, [0xf2c230, 0x29a3c9, 0xffffff, 0x2e9b48][i % 4], -3 + Math.cos(a) * 1.4, 7.4 + Math.sin(a) * 1.4, 0.75, timParts).rotation.z = a * 3; }
+cyl(0.12, 0.12, 2.2, 6, 0x777777, -3, 6.1, 0, timParts);
+const stick = new THREE.Group(); stick.position.set(3.2, 5.2, 0); stick.rotation.z = -0.25; timParts.add(stick);
+box(0.35, 6, 0.35, 0xc9a26b, 0, 3, 0, stick); box(2.2, 0.6, 0.35, 0x222222, 1.0, 0.3, 0, stick); box(0.38, 0.8, 0.38, 0x222222, 0, 5.4, 0, stick);
+// giant coffee cup
+const cup = new THREE.Group(); cup.position.set(5.2, 0, 5.2); timParts.add(cup);
+cyl(0.9, 0.7, 2.0, 14, 0xc8102e, 0, 1.0, 0, cup); cyl(0.95, 0.95, 0.25, 14, 0xffffff, 0, 2.1, 0, cup);
+const steamT = []; for (let i = 0; i < 3; i++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.25, 0), mat(0xffffff, { transparent: true, opacity: 0.7 })); cup.add(s); steamT.push(s); }
+
+// staff + comptoir extérieur
+function staffFront(name) {
+  return texCanvas(256, 256, (ctx) => {
+    ctx.fillStyle = '#7a1f1f'; ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = '#fff'; ctx.fillRect(40, 70, 176, 80); ctx.fillStyle = '#7a1f1f';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; fitText(ctx, name, 160, 58); ctx.fillText(name, 128, 112);
+  });
+}
+box(7.4, 1.15, 0.9, 0xf4ead6, TX - 4, 0.58, TZ + 6.4); box(7.6, 0.12, 1.1, 0xc8102e, TX - 4, 1.2, TZ + 6.4);
+const STAFF = [
+  { n: 'MASSÉ', x: -6.6, o: { hat: 'longhair', hatColor: 0x3a2418, skin: 0xf6d2b4 } },
+  { n: 'JAY #74', x: -4.9, o: { hat: 'cap', hatColor: 0x7a1f1f, skin: 0xc68a5a } },
+  { n: 'TRISTAN', x: -3.2, o: { hat: 'cap', hatColor: 0x7a1f1f } },
+  { n: 'MARLEAU', x: -1.5, o: { hat: 'hair', hatColor: 0x6b4a2f, skin: 0xf1c9a0 } },
+];
+const staffChars = STAFF.map((s) => character({ shirt: 0x7a1f1f, pants: 0x2a2f3d, frontTex: staffFront(s.n), pos: [TX + s.x, 0, TZ + 5.4], ry: 0, ...s.o }));
+// cards in Marleau's hand
+{ const m = staffChars[3]; const cardTex = signTex([{ t: '#9', size: 120, y: 120, color: '#c8102e' }], { w: 160, h: 230, bg: '#fff', border: '#1d4fa8' });
+  for (let i = 0; i < 3; i++) { const p = plane(0.42, 0.6, cardTex, -0.3 + i * 0.3, 1.9 + (i % 2) * 0.05, 0.75, 0, m); p.rotation.z = (i - 1) * 0.25; }
+  box(0.7, 0.45, 0.45, 0xc8102e, 0, 1.25, 0.55, m); }
+// donuts + cups on the counter
+for (let i = 0; i < 5; i++) { const d = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.08, 6, 12), mat([0xd59a52, 0xe86aa8, 0x5b3a24][i % 3])); d.rotation.x = -Math.PI / 2; d.position.set(TX - 7 + i * 1.3, 1.32, TZ + 6.5); scene.add(d); }
+for (let i = 0; i < 3; i++) cyl(0.13, 0.1, 0.3, 10, 0xc8102e, TX - 6.3 + i * 2.2, 1.42, TZ + 6.6);
+
+// queue with residents' names
+const QUEUE = ['John_therod', 'Olivier', 'Victoria Z.', 'Frank leboeuf', 'sophie_val', 'Momo', 'Koko_baddies', 'Sam Joly Janelle', 'Abygaël', 'Ben 🇨🇦', 'MattketchupF1', 'BEDARD92', 'Jo 🫧', 'LAURA', 'Zk72', 'Logan'];
+const QX = TX + 3.5, QZ0 = TZ + 6.2, QS = 1.75;
+const queueChars = []; const queueSigns = new THREE.Group(); scene.add(queueSigns);
+QUEUE.forEach((n, i) => {
+  const c = vcol[i % vcol.length];
+  const z = QZ0 + i * QS;
+  const ch = character({ shirt: c[0], pants: c[1], skin: [0xf1c9a0, 0xc68a5a, 0x8d5a3b, 0xf6d2b4][i % 4], hat: ['tuque', 'cap', 'hair', 'longhair', 'tuque'][i % 5], hatColor: [0xd8262b, 0x2e9b48, 0x4a2f1e, 0x6b4a2f, 0x3a7bd5][i % 5], pos: [QX + (i % 2 ? 0.25 : -0.25), 0, z], ry: Math.PI - 0.9 });
+  queueChars.push(ch);
+  const gold = i === 0;
+  plane(1.9, 0.57, signTex([{ t: (gold ? '★ ' : '') + n, size: 84, y: 64 }], { w: 512, h: 150, bg: gold ? '#fff3c4' : '#fbf7ec', border: gold ? '#c79a3a' : '#4a2f1b' }), QX + 0.2, i % 2 ? 4.0 : 4.75, z, Math.PI / 2, queueSigns);
+  if (gold) plane(1.6, 0.45, signTex([{ t: '1er CLIENT', size: 70, y: 52, color: '#fff' }], { w: 360, h: 100, bg: '#c8102e', border: '#c8102e' }), QX + 0.25, 5.35, z, Math.PI / 2, queueSigns);
+});
+
+
+// ---------- Ti-Gus en quad ----------
+const plaidTex = texCanvas(128, 128, (ctx) => { ctx.fillStyle = '#c8202a'; ctx.fillRect(0, 0, 128, 128); ctx.fillStyle = 'rgba(0,0,0,.55)'; for (let i = 0; i < 4; i++) { ctx.fillRect(i * 32, 0, 12, 128); ctx.fillRect(0, i * 32, 128, 12); } });
+const camoTex = texCanvas(128, 128, (ctx) => { ctx.fillStyle = '#5b6b3a'; ctx.fillRect(0, 0, 128, 128); for (let i = 0; i < 26; i++) { ctx.fillStyle = ['#3d4a26', '#7a7a4a', '#2b2b1e'][i % 3]; ctx.beginPath(); ctx.ellipse(rnd() * 128, rnd() * 128, 8 + rnd() * 14, 5 + rnd() * 8, rnd() * 3, 0, Math.PI * 2); ctx.fill(); } });
+function quadWithTigus() {
+  const q = new THREE.Group(); scene.add(q);
+  const cm = new THREE.MeshLambertMaterial({ map: camoTex });
+  box(1.6, 0.6, 2.6, cm, 0, 1.0, 0, q); box(1.9, 0.18, 1.0, cm, 0, 1.4, 1.0, q); box(1.9, 0.18, 0.9, cm, 0, 1.4, -1.0, q);
+  box(0.9, 0.3, 1.0, 0x222222, 0, 1.45, -0.1, q);
+  box(1.4, 0.1, 0.1, 0x333333, 0, 1.95, 0.8, q); box(0.1, 0.5, 0.1, 0x333333, 0, 1.7, 0.85, q);
+  box(0.5, 0.2, 0.1, 0xfff2b0, -0.4, 1.15, 1.32, q); box(0.5, 0.2, 0.1, 0xfff2b0, 0.4, 1.15, 1.32, q);
+  for (const sx of [-0.95, 0.95]) for (const sz of [-0.95, 0.95]) { const w = cyl(0.5, 0.5, 0.45, 12, 0x1b1b1b, sx, 0.5, sz, q); w.rotation.z = Math.PI / 2; }
+  const g = character({ hat: 'cap', hatColor: 0xf07c2a, beard: true, shirt: 0xc8202a, frontTex: plaidTex, backTex: plaidTex, arm: new THREE.MeshLambertMaterial({ map: plaidTex }), pants: 0x3a4a2a, boots: 0x3b2a20, pos: [0, 0.55, -0.15], parent: q });
+  g.userData.legL.visible = g.userData.legR.visible = false; box(1.0, 0.3, 1.0, 0x3a4a2a, 0, 0.85, 0.2, g);
+  q.userData.rider = g; return q;
+}
+const quadIntro = quadWithTigus(); quadIntro.rotation.y = Math.PI;
+const quadQ = quadWithTigus(); quadQ.rotation.y = Math.PI; quadQ.position.set(QX, 0, QZ0 + QUEUE.length * QS + 1.2); queueChars.push(quadQ);
+plane(2.2, 0.66, signTex([{ t: '★ Ti-Gus en quad', size: 80, y: 64 }], { w: 512, h: 150, bg: '#fff3c4', border: '#f07c2a' }), QX + 0.4, 5.4, QZ0 + QUEUE.length * QS + 1.2, Math.PI / 2, queueSigns);
+
+// ---------- nouveaux résidents (rue nord-est) ----------
+const JX = 30, JZ = -40;
+patch(JX + 18, JZ + 6, 50, 4.5);
+// bank
+const bank = new THREE.Group(); bank.position.set(JX, 0, JZ); scene.add(bank);
+box(9, 4.6, 5.5, 0xd9d4c8, 0, 2.3, 0, bank); box(9.6, 0.5, 6, 0xb9b4a8, 0, 4.85, 0, bank);
+{ const r = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 5.4, 1.8, 4, 1), mat(0xb9b4a8)); r.rotation.y = Math.PI / 4; r.scale.set(1.25, 1, 0.75); r.position.y = 6; bank.add(r); }
+for (let i = 0; i < 4; i++) cyl(0.32, 0.32, 4.2, 10, 0xf4f1ea, -3 + i * 2, 2.3, 3.1, bank);
+plane(6, 1.1, signTex([{ t: 'BANQUE', size: 110, y: 92, color: '#f2c230' }], { w: 600, h: 180, bg: '#1d2b55', border: '#f2c230' }), 0, 4.3, 3.45, 0, bank);
+box(1.6, 2.6, 0.15, 0x5a3b22, 0, 1.3, 2.8, bank);
+const julien = character({ shirt: 0x22252e, pants: 0x22252e, hat: 'hair', hatColor: 0x2b1d14, glasses: true, pos: [1.6, 0, 3.9], ry: -0.2, parent: bank });
+box(0.12, 0.6, 0.05, 0xc8102e, 0, 1.6, 0.29, julien);
+box(0.55, 0.42, 0.18, 0x5a3b22, 0, -1.15, 0.15, julien.userData.armR);
+const citron = character({ shirt: 0x6b5a45, pants: 0x4a4038, hat: 'tuque', hatColor: 0x777777, beard: true, face: 'smile', pos: [-2.3, 0, 3.9], ry: 0.25, parent: bank });
+cyl(0.16, 0.12, 0.3, 10, 0xf2c230, 0, -1.2, 0.3, citron.userData.armR);
+plane(1.4, 0.7, signTex([{ t: 'UN 2 $', size: 60, y: 46 }, { t: 'SVP 🙏', size: 46, y: 100 }], { w: 220, h: 130, bg: '#d9b98a', border: '#6b4a2f' }), -3.5, 0.6, 4.3, 0.2, bank);
+// épicerie
+const epi = new THREE.Group(); epi.position.set(JX + 12, 0, JZ); scene.add(epi);
+box(9, 4, 5.5, 0xf4f4f4, 0, 2, 0, epi); box(9.4, 0.4, 5.9, 0x2e9b48, 0, 4.2, 0, epi);
+plane(6.5, 1.2, signTex([{ t: 'ÉPICERIE', size: 110, y: 96, color: '#fff' }], { w: 600, h: 190, bg: '#2e9b48', border: '#fff' }), 0, 4.95, 2.9, 0, epi);
+box(6, 2.2, 0.15, 0x9fd3e8, 0, 1.9, 2.8, epi);
+for (let i = 0; i < 6; i++) box(0.8, 0.12, 1.2, i % 2 ? 0xffffff : 0x2e9b48, -2.0 + i * 0.8, 3.25, 3.3, epi).rotation.x = 0.35;
+for (let i = 0; i < 3; i++) { box(1.1, 0.5, 0.8, 0x8b5a2b, 2.5 + (i % 2) * 1.2, 0.25 + Math.floor(i / 2) * 0.5, 3.6, epi); for (let k = 0; k < 6; k++) { const f = new THREE.Mesh(new THREE.IcosahedronGeometry(0.15, 0), mat([0xe0343b, 0xf2c230, 0x2e9b48][i])); f.position.set(2.1 + (i % 2) * 1.2 + (k % 3) * 0.3, 0.6 + Math.floor(i / 2) * 0.5, 3.45 + Math.floor(k / 3) * 0.3); epi.add(f); } }
+const gally = character({ shirt: 0x2e9b48, pants: 0x2a2f3d, hat: 'cap', hatColor: 0x2e9b48, skin: 0xf6d2b4, frontTex: staffFront('GALLY'), pos: [0, 0, 3.9], ry: 0, parent: epi });
+// ferme
+const farm = new THREE.Group(); farm.position.set(JX + 24, 0, JZ); scene.add(farm);
+box(8, 4.4, 6, 0xb3302b, 0, 2.2, 0, farm);
+{ const r = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 5.0, 2.4, 4, 1), mat(0x4a4a52)); r.rotation.y = Math.PI / 4; r.scale.set(1.15, 1, 0.85); r.position.y = 5.6; farm.add(r); }
+box(3, 3, 0.15, 0xf4f4f4, 0, 1.5, 3.02, farm); box(2.6, 2.6, 0.17, 0xb3302b, 0, 1.5, 3.05, farm);
+plane(5.5, 1.1, signTex([{ t: 'FERME LAJOIE', size: 90, y: 92, color: '#fff' }], { w: 600, h: 180, bg: '#6b4a2f', border: '#f4f4f4' }), 0, 3.9, 3.12, 0, farm);
+for (let i = 0; i < 3; i++) { const h = cyl(0.6, 0.6, 1.1, 12, 0xe6c35c, 3.6 + (i % 2) * 0.4, 0.6 + Math.floor(i / 2) * 1.0, 3.5 - i * 0.6, farm); h.rotation.z = Math.PI / 2; }
+const cow = new THREE.Group(); cow.position.set(-3.4, 0, 4.4); cow.rotation.y = 0.6; farm.add(cow);
+box(1.8, 1.0, 0.9, 0xffffff, 0, 1.1, 0, cow); box(0.6, 0.5, 0.5, 0x222222, 0.3, 1.3, 0.25, cow); box(0.6, 0.6, 0.6, 0xffffff, 1.1, 1.5, 0, cow); box(0.3, 0.25, 0.5, 0xf0a8b8, 1.45, 1.35, 0, cow);
+for (const [x, z] of [[-0.6, -0.3], [-0.6, 0.3], [0.6, -0.3], [0.6, 0.3]]) box(0.22, 0.6, 0.22, 0xffffff, x, 0.3, z, cow);
+const tristanL = character({ shirt: 0xc8302e, pants: 0x2f5fa8, hat: 'cap', hatColor: 0x2e9b48, pos: [1.6, 0, 4.1], ry: -0.2, parent: farm });
+box(1.02, 0.7, 0.57, 0x2f5fa8, 0, 1.3, 0.01, tristanL);
+{ const pf = new THREE.Group(); pf.position.set(0, -1.05, 0.2); tristanL.userData.armR.add(pf); box(0.07, 2.4, 0.07, 0x8b5a2b, 0, 0.5, 0, pf); for (const dx of [-0.15, 0, 0.15]) box(0.04, 0.4, 0.04, 0x999999, dx, 1.85, 0, pf); box(0.36, 0.05, 0.05, 0x999999, 0, 1.65, 0, pf); }
+// caserne
+const fire = new THREE.Group(); fire.position.set(JX + 36, 0, JZ); scene.add(fire);
+box(9, 4.6, 6, 0xa4473a, 0, 2.3, 0, fire); box(9.4, 0.4, 6.4, 0xf4f1ea, 0, 4.8, 0, fire);
+plane(6, 1.1, signTex([{ t: 'CASERNE', size: 110, y: 92, color: '#fff' }], { w: 600, h: 180, bg: '#c8102e', border: '#fff' }), 0, 4.0, 3.05, 0, fire);
+box(4.2, 3.0, 0.15, 0x2a2e3a, -1.6, 1.5, 3.0, fire);
+const truck = new THREE.Group(); truck.position.set(-1.6, 0, 4.4); fire.add(truck);
+box(2.4, 1.6, 4.4, 0xd3262b, 0, 1.2, 0, truck); box(2.2, 0.9, 1.2, 0xd3262b, 0, 2.3, 1.4, truck); box(2.0, 0.6, 0.1, 0x9fd3e8, 0, 2.35, 2.02, truck);
+box(0.6, 0.15, 3.4, 0xcccccc, 0, 2.2, -0.6, truck); box(1.0, 0.25, 0.25, 0x2c6fd1, 0, 2.85, 1.4, truck);
+for (const sx of [-1.2, 1.2]) for (const sz of [-1.4, 1.4]) { const w = cyl(0.45, 0.45, 0.3, 10, 0x222222, sx, 0.45, sz, truck); w.rotation.z = Math.PI / 2; }
+const ced = character({ shirt: 0x2a2a2a, pants: 0x2a2a2a, hat: 'helmet', hatColor: 0xf2c230, boots: 0x111111, pos: [2.6, 0, 4.2], ry: -0.3, parent: fire });
+box(1.02, 0.12, 0.57, 0xf2c230, 0, 1.25, 0, ced); box(1.02, 0.12, 0.57, 0xf2c230, 0, 1.75, 0, ced);
+
+
+// spa / massothérapie
+const spa = new THREE.Group(); spa.position.set(JX + 48, 0, JZ); scene.add(spa);
+box(9, 4, 5.5, 0xcfe7ea, 0, 2, -0.5, spa); box(9.4, 0.4, 5.9, 0x8b5a2b, 0, 4.2, -0.5, spa);
+plane(7, 1.3, signTex([{ t: 'SPA', size: 100, y: 78, color: '#2a6f7a' }, { t: 'MASSOTHÉRAPIE', size: 48, y: 170, color: '#2a6f7a' }], { w: 600, h: 220, bg: '#ffffff', border: '#8b5a2b' }), 0, 3.2, 2.3, 0, spa);
+box(1.4, 2.2, 0.15, 0x8b5a2b, 3, 1.1, 2.26, spa);
+// massage table + client
+box(2.6, 0.18, 1.0, 0xffffff, -1.9, 1.0, 4.2, spa); for (const [x, z] of [[-1.1, -0.4], [-1.1, 0.4], [1.1, -0.4], [1.1, 0.4]]) box(0.12, 0.95, 0.12, 0x8b5a2b, -1.9 + x, 0.48, 4.2 + z, spa);
+const client = character({ shirt: 0xf1c9a0, pants: 0xffffff, hat: 'hair', hatColor: 0x4a2f1e, parent: spa });
+client.rotation.set(-Math.PI / 2, 0, Math.PI / 2); client.position.set(-0.6, 1.4, 4.2); client.scale.setScalar(0.8);
+box(0.9, 0.12, 0.7, 0xffffff, -1.9, 1.17, 4.2, spa);
+const masso = character({ shirt: 0xffffff, pants: 0xffffff, hat: 'longhair', hatColor: 0x2b1d14, skin: 0xc68a5a, pos: [-1.9, 0, 3.0], ry: 0.15, parent: spa });
+const assistant = character({ shirt: 0xf2c230, pants: 0x2a2f3d, hat: 'cap', hatColor: 0xf2c230, frontTex: signTex([{ t: 'MVP', size: 110, y: 130, color: '#1d2b55' }], { w: 256, h: 256, bg: '#f2c230', border: '#f2c230' }), pos: [0.2, 0, 3.5], ry: 0, parent: spa });
+plane(2.4, 0.7, signTex([{ t: '★ PHM_Cxrlot · MVP', size: 70, y: 64 }], { w: 560, h: 140, bg: '#fff3c4', border: '#c79a3a' }), 0.2, 4.0, 3.5, 0, spa);
+// hot tub
+const tub = new THREE.Group(); tub.position.set(2.2, 0, 4.6); spa.add(tub);
+cyl(1.5, 1.5, 0.9, 16, 0x8b5a2b, 0, 0.45, 0, tub);
+const water = cyl(1.32, 1.32, 0.1, 16, new THREE.MeshLambertMaterial({ color: 0x5ccbe0, emissive: 0x0a3a44 }), 0, 0.88, 0, tub);
+const tubSteam = []; for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.3, 0), mat(0xffffff, { transparent: true, opacity: 0.5 })); tub.add(s); tubSteam.push(s); }
+const bather = character({ shirt: 0x29a3c9, pants: 0x29a3c9, hat: 'tuque', hatColor: 0xd8262b, pos: [0.3, -0.9, -0.3], ry: 0.3, parent: tub });
+plane(1.5, 0.6, signTex([{ t: 'BAIN CHAUD', size: 70, y: 56, color: '#fff' }], { w: 360, h: 120, bg: '#2a6f7a', border: '#fff' }), 0, 1.4, 1.55, 0, tub);
+
+
+
+// ================= JOUR 5 : monde =================
+function gabled(w, h, d, wallC, roofC, x, z, parent = scene, ry = 0) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; parent.add(g);
+  box(w, h, d, wallC, 0, h / 2, 0, g);
+  const r = new THREE.Mesh(new THREE.CylinderGeometry(0.01, Math.max(w, d) * 0.72, h * 0.6, 4, 1), mat(roofC)); r.rotation.y = Math.PI / 4; r.scale.set(w / Math.max(w, d), 1, d / Math.max(w, d)); r.position.y = h + h * 0.3; r.castShadow = true; g.add(r);
+  return g;
+}
+function shopFront(w, h, d, wallC, label, signBg, signFg, x, z, parent = scene) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); parent.add(g);
+  box(w, h, d, wallC, 0, h / 2, 0, g); box(w + 0.4, 0.4, d + 0.4, 0xf4f1ea, 0, h + 0.2, 0, g);
+  plane(w * 0.8, 1.15, signTex([{ t: label, size: 96, y: 92, color: signFg }], { w: 640, h: 180, bg: signBg, border: '#ffffff' }), 0, h - 0.6, d / 2 + 0.05, 0, g);
+  box(w * 0.6, h * 0.4, 0.12, 0x9fd3e8, -w * 0.12, h * 0.33, d / 2 + 0.02, g);
+  box(1.2, 2.2, 0.14, 0x5a3b22, w * 0.32, 1.1, d / 2 + 0.03, g);
+  return g;
+}
+function nameTag(text, x, y, z, parent = scene, gold = false, w = 2.6) {
+  return plane(w, w * 0.29, signTex([{ t: text, size: 80, y: 64 }], { w: 512, h: 150, bg: gold ? '#fff3c4' : '#fbf7ec', border: gold ? '#c79a3a' : '#4a2f1b' }), x, y, z, 0, parent);
+}
+
+// ---------- Ferme Michaud (Théa) ----------
+const FX = -76, FZ = -16;
+patch(FX + 14, FZ + 10, 34, 4, 0xb5946c); // rang
+const theaFarm = new THREE.Group(); theaFarm.position.set(FX, 0, FZ); scene.add(theaFarm);
+{
+  const barn = gabled(8, 5, 7, 0xb3302b, 0x4a4a52, -6, -2, theaFarm);
+  box(3, 3.4, 0.15, 0xf4f4f4, 0, 1.7, 3.52, barn); box(2.6, 3.0, 0.17, 0xb3302b, 0, 1.6, 3.55, barn);
+  plane(6, 1.1, signTex([{ t: 'FERME MICHAUD', size: 90, y: 92, color: '#fff' }], { w: 600, h: 180, bg: '#6b4a2f', border: '#f4f4f4' }), 0, 4.3, 3.6, 0, barn);
+  cyl(1.6, 1.6, 9, 14, 0xc9ccd2, -12, 4.5, -3, theaFarm); { const d = new THREE.Mesh(new THREE.SphereGeometry(1.6, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(0x9aa0a8)); d.position.set(-12, 9, -3); theaFarm.add(d); }
+  // fence enclosure + animals
+  for (let i = 0; i < 9; i++) { box(0.2, 1.1, 0.2, 0x8b5a2b, -10 + i * 1.5, 0.55, 4.2, theaFarm); }
+  box(12, 0.15, 0.12, 0x8b5a2b, -4, 0.9, 4.2, theaFarm); box(12, 0.15, 0.12, 0x8b5a2b, -4, 0.5, 4.2, theaFarm);
+  const animals = [];
+  const cowAt = (x, z, ry) => { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; theaFarm.add(c); box(1.8, 1.0, 0.9, 0xffffff, 0, 1.1, 0, c); box(0.6, 0.5, 0.5, 0x222222, 0.3, 1.3, 0.25, c); box(0.6, 0.6, 0.6, 0xffffff, 1.1, 1.5, 0, c); box(0.3, 0.25, 0.5, 0xf0a8b8, 1.45, 1.35, 0, c); for (const [a, b] of [[-0.6, -0.3], [-0.6, 0.3], [0.6, -0.3], [0.6, 0.3]]) box(0.22, 0.6, 0.22, 0xffffff, a, 0.3, b, c); animals.push(c); };
+  const sheepAt = (x, z, ry) => { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; theaFarm.add(c); box(1.2, 0.8, 0.8, 0xf2efe6, 0, 0.8, 0, c); box(0.45, 0.45, 0.45, 0x2b2b2b, 0.75, 1.0, 0, c); for (const [a, b] of [[-0.4, -0.25], [-0.4, 0.25], [0.4, -0.25], [0.4, 0.25]]) box(0.16, 0.45, 0.16, 0x2b2b2b, a, 0.22, b, c); animals.push(c); };
+  const henAt = (x, z) => { const c = new THREE.Group(); c.position.set(x, 0, z); theaFarm.add(c); box(0.4, 0.35, 0.5, 0xffffff, 0, 0.35, 0, c); box(0.2, 0.2, 0.2, 0xffffff, 0, 0.6, 0.22, c); box(0.08, 0.1, 0.08, 0xe0343b, 0, 0.75, 0.22, c); box(0.08, 0.06, 0.12, 0xf2c230, 0, 0.58, 0.36, c); animals.push(c); };
+  cowAt(-8, 1.5, 0.4); cowAt(-4.5, 2.3, -0.3); sheepAt(-1.6, 1.8, 0.8); sheepAt(-0.4, 3.0, 2.2); henAt(1.2, 5.5); henAt(1.8, 6.2); henAt(0.6, 6.4);
+  theaFarm.userData.animals = animals;
+  // house
+  const house = gabled(7, 3.6, 6, 0x6fa8dc, 0x3b3f4a, 8, 0.5, theaFarm);
+  box(1.2, 2.2, 0.14, 0xffffff, 0, 1.1, 3.03, house); box(1.4, 1.1, 0.12, 0xfff2b0, -2.1, 2.0, 3.03, house); box(1.4, 1.1, 0.12, 0xfff2b0, 2.1, 2.0, 3.03, house);
+  box(7.4, 0.25, 1.6, 0xffffff, 0, 0.5, 3.8, house); for (const px of [-3.4, 3.4]) box(0.2, 2.6, 0.2, 0xffffff, px, 1.8, 4.5, house); box(7.6, 0.2, 2.0, 0x3b3f4a, 0, 3.1, 3.8, house);
+  plane(4.2, 0.8, signTex([{ t: 'CHEZ THÉA ♥', size: 86, y: 64, color: '#c8102e' }], { w: 512, h: 128, bg: '#fff', border: '#6fa8dc' }), 0, 3.75, 3.06, 0, house);
+  // mailbox
+  box(0.15, 1.2, 0.15, 0x6b4a2f, 11.5, 0.6, 6.5, theaFarm); box(0.6, 0.45, 0.9, 0x2c6fd1, 11.5, 1.35, 6.5, theaFarm);
+  plane(1.6, 0.42, signTex([{ t: 'T. MICHAUD', size: 70, y: 56 }], { w: 360, h: 110, bg: '#fff', border: '#2c6fd1' }), 11.5, 1.95, 6.98, 0, theaFarm);
+}
+const thea = character({ shirt: 0xe86aa8, pants: 0x2f5fa8, hat: 'longhair', hatColor: 0xc98a3a, boots: 0x6b4a2f, pos: [FX + 8, 0, FZ + 5.4], ry: 0 });
+box(1.02, 0.7, 0.57, 0x2f5fa8, 0, 1.3, 0.01, thea);
+
+// ---------- Rue du live (paroisse, quincaillerie, jus, Crisstement) ----------
+const LX = 40, LZ = 6;
+patch(LX + 18, LZ + 5.5, 50, 4.5);
+const church = new THREE.Group(); church.position.set(LX, 0, LZ - 1); scene.add(church);
+box(7, 5, 8, 0xe9e2d4, 0, 2.5, 0, church);
+{ const r = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 5.6, 2.8, 4, 1), mat(0x7a8a9a)); r.rotation.y = Math.PI / 4; r.scale.set(0.9, 1, 1.1); r.position.y = 6.4; church.add(r); }
+box(2.2, 7, 2.2, 0xe9e2d4, 0, 3.5, 4.4, church);
+{ const sp = new THREE.Mesh(new THREE.ConeGeometry(1.4, 4.5, 4), mat(0x7a8a9a)); sp.rotation.y = Math.PI / 4; sp.position.set(0, 9.2, 4.4); church.add(sp); }
+box(0.15, 1.4, 0.15, 0xd6a531, 0, 12.1, 4.4, church); box(0.8, 0.15, 0.15, 0xd6a531, 0, 12.3, 4.4, church);
+box(1.4, 2.6, 0.15, 0x5a3b22, 0, 1.3, 5.52, church);
+plane(4.5, 0.9, signTex([{ t: 'PAROISSE', size: 96, y: 70, color: '#fff' }], { w: 512, h: 120, bg: '#5a3b22', border: '#d6a531' }), 0, 5.6, 5.55, 0, church);
+const nun = (x) => { const n = character({ shirt: 0x1b1b1b, pants: 0x1b1b1b, hat: 'longhair', hatColor: 0x1b1b1b, skin: 0xf1c9a0, dress: mat(0x1b1b1b), pos: [x, 0, 6.7], parent: church }); box(0.86, 0.14, 0.2, 0xffffff, 0, 3.15, 0.42, n); return n; };
+const soeurMarie = nun(-1.4), soeurRosa = nun(1.4);
+nameTag('Sœur Marie', -1.4, 4.4, 6.7, church, false, 2.0); nameTag('Sœur Rosa', 1.4, 4.4, 6.7, church, false, 2.0);
+const quinc = shopFront(8, 4, 5.5, 0xd9d9d9, 'QUINCAILLERIE', '#1d4fa8', '#ffffff', LX + 12, LZ);
+for (let i = 0; i < 3; i++) { box(0.6, 1.4, 0.1, 0x8b5a2b, -3 + i * 0.5, 0.9, 3.4, quinc).rotation.z = 0.15; }
+const mike = character({ shirt: 0x1d4fa8, pants: 0x2a2f3d, hat: 'cap', hatColor: 0x1d4fa8, frontTex: staffFront('MIKE'), pos: [1.2, 0, 3.9], parent: quinc });
+{ const h = new THREE.Group(); mike.userData.armR.add(h); h.position.set(0, -1.05, 0.2); box(0.08, 0.7, 0.08, 0x8b5a2b, 0, 0.3, 0, h); box(0.35, 0.18, 0.18, 0x555555, 0, 0.65, 0, h); }
+const jus = shopFront(8, 4, 5.5, 0x2e9b48, 'LA SAQ… DE JUS', '#ffffff', '#2e9b48', LX + 24, LZ);
+for (let i = 0; i < 6; i++) { box(0.4, 0.55, 0.3, [0xf2c230, 0xe0343b, 0xff8a3d][i % 3], -2.6 + i * 0.55, 1.4, 2.95, jus); }
+const jusKid = character({ shirt: 0xff8a3d, pants: 0x3a7bd5, hat: 'cap', hatColor: 0xe0343b, pos: [-1.4, 0, 3.9], parent: jus }); jusKid.scale.setScalar(0.7);
+box(0.3, 0.45, 0.25, 0xf2c230, 0, -1.2, 0.2, jusKid.userData.armR);
+const crist = shopFront(8, 4, 5.5, 0xe8c7e8, 'CRISSTEMENT', '#7b2d8b', '#ffffff', LX + 36, LZ);
+for (let i = 0; i < 3; i++) { const m = character({ shirt: [0xe86aa8, 0xf2c230, 0x29a3c9][i], pants: 0x22252e, hat: 'longhair', hatColor: 0x4a2f1e, pos: [-3 + i * 1.3, 0, 2.2], parent: crist }); m.scale.setScalar(0.75); }
+const lavende = character({ shirt: 0x9b6bd6, pants: 0x22252e, hat: 'longhair', hatColor: 0xe6c35c, dress: mat(0x9b6bd6), pos: [1.6, 0, 3.9], parent: crist });
+
+// ---------- Rue 2 : crèmerie, Calisthèque, Walks to the Mart ----------
+const L2Z = -15;
+patch(LX + 18, L2Z + 5.5, 50, 4.5);
+const creme = shopFront(7, 3.6, 5, 0xfff0f5, 'FOLIE GLACÉE', '#e86aa8', '#ffffff', LX, L2Z);
+{ const c = new THREE.Mesh(new THREE.ConeGeometry(1.0, 2.6, 10), mat(0xd59a52)); c.rotation.x = Math.PI; c.position.set(0, 5.4, 0); creme.add(c); const s = new THREE.Mesh(new THREE.SphereGeometry(1.1, 12, 10), mat(0xf7c6d9)); s.position.set(0, 7.0, 0); creme.add(s); const s2 = new THREE.Mesh(new THREE.SphereGeometry(0.9, 12, 10), mat(0xfff6e8)); s2.position.set(0, 7.9, 0); creme.add(s2); }
+const biblio = shopFront(9, 4.4, 6, 0xc9a26b, 'LA CALISTHÈQUE', '#3a2418', '#ffd23f', LX + 13, L2Z);
+for (let i = 0; i < 5; i++) box(0.3, 0.9, 0.6, [0xe0343b, 0x2c6fd1, 0x2e9b48, 0xf2c230, 0x7b4fd0][i], -3.2 + i * 0.35, 1.0, 3.0, biblio);
+const mart = new THREE.Group(); mart.position.set(LX + 30, 0, L2Z - 1); scene.add(mart);
+box(16, 5, 8, 0x2a6fd1, 0, 2.5, 0, mart); box(16.4, 0.5, 8.4, 0xf2c230, 0, 5.2, 0, mart);
+plane(12, 1.5, signTex([{ t: 'WALKS TO THE MART 🚶', size: 92, y: 96, color: '#ffffff' }], { w: 900, h: 190, bg: '#2a6fd1', border: '#f2c230' }), 0, 4.2, 4.08, 0, mart);
+box(5, 2.6, 0.12, 0x9fd3e8, 0, 1.3, 4.05, mart);
+for (let i = 0; i < 4; i++) { const cart = new THREE.Group(); cart.position.set(-6 + i * 0.9, 0, 6.2); mart.add(cart); box(0.8, 0.6, 1.1, 0x9aa0a8, 0, 0.8, 0, cart); for (const sx of [-0.3, 0.3]) for (const sz of [-0.4, 0.4]) box(0.12, 0.3, 0.12, 0x222222, sx, 0.2, sz, cart); }
+// métiers
+const METIERS = [['FERMIER', 0x2f5fa8, 'cap', 0x2e9b48], ['BOULANGER', 0xffffff, 'tuque', 0xffffff], ['BOUCHER', 0xffffff, 'cap', 0xe0343b], ['ÉPICIER', 0x2e9b48, 'cap', 0x2e9b48]];
+const metierChars = METIERS.map(([n, sh, hat, hc], i) => { const c = character({ shirt: sh, pants: 0x2a2f3d, hat, hatColor: hc, frontTex: staffFront(n), pos: [LX + 25 + i * 2.2, 0, L2Z + 5.4], ry: 0 }); return c; });
+box(0.6, 0.5, 0.15, 0xc8302e, 0, 1.4, 0.32, metierChars[2]); // tablier boucher
+// Anthony au Tim
+const anthony = character({ shirt: 0x7a1f1f, pants: 0x2a2f3d, hat: 'cap', hatColor: 0x7a1f1f, skin: 0xc68a5a, frontTex: staffFront('ANTHONY'), pos: [TX + 0.3, 0, TZ + 5.4], ry: 0 });
+
+// ---------- Aréna intérieure : 3 équipes ----------
+const RX = -10, RZ = -140;
+const rink = new THREE.Group(); rink.position.set(RX, 0, RZ); scene.add(rink);
+{
+  const ice = new THREE.Mesh(new THREE.PlaneGeometry(40, 22), new THREE.MeshLambertMaterial({ map: texCanvas(1024, 564, (ctx) => {
+    ctx.fillStyle = '#f2f7fb'; ctx.fillRect(0, 0, 1024, 564);
+    ctx.fillStyle = '#d32a2f'; ctx.fillRect(506, 0, 12, 564); ctx.fillStyle = '#1f56b8'; ctx.fillRect(330, 0, 14, 564); ctx.fillRect(680, 0, 14, 564);
+    ctx.strokeStyle = '#1f56b8'; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(512, 282, 90, 0, Math.PI * 2); ctx.stroke();
+    ctx.font = '120px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#1f56b8'; ctx.globalAlpha = 0.8; ctx.fillText('⚜', 512, 290);
+  }) }));
+  ice.rotation.x = -Math.PI / 2; ice.position.y = 0.05; ice.receiveShadow = true; rink.add(ice);
+  const boardTex = texCanvas(1024, 64, (ctx) => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 1024, 64); for (let i = 0; i < 4; i++) { ctx.fillStyle = '#2e9b48'; ctx.fillRect(20 + i * 256, 8, 216, 48); ctx.fillStyle = '#fff'; ctx.font = '800 34px "Baloo 2"'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('COMMANDITAIRE : GallyxQc', 128 + i * 256, 34); } });
+  box(40, 1.1, 0.25, new THREE.MeshLambertMaterial({ map: boardTex }), 0, 0.55, -11, rink); box(40, 0.15, 0.3, 0xf2c230, 0, 1.15, -11, rink);
+  box(40, 1.1, 0.25, new THREE.MeshLambertMaterial({ map: boardTex }), 0, 0.55, 11, rink);
+  box(0.25, 1.1, 22, 0xffffff, -20, 0.55, 0, rink); box(0.25, 1.1, 22, 0xffffff, 20, 0.55, 0, rink);
+  for (let k = 0; k < 6; k++) { box(46, 0.9, 1.6, 0x1d2b55, 0, 1.4 + k * 0.9, -12.5 - k * 1.6, rink); box(46, 0.9, 1.6, 0x1d2b55, 0, 1.4 + k * 0.9, 12.5 + k * 1.6, rink); }
+  for (let i = 0; i < 160; i++) { const side = i % 2 ? 1 : -1, k = Math.floor(rnd() * 6); box(0.55, 0.8, 0.45, [0xe0343b, 0x1f56b8, 0xffffff, 0xf2c230, 0xe86aa8][i % 5], -22 + rnd() * 44, 2.2 + k * 0.9, side * (12.5 + k * 1.6), rink); }
+  box(60, 22, 1, 0x2a2e3a, 0, 11, -24, rink); box(60, 22, 1, 0x2a2e3a, 0, 11, 24, rink); box(1, 22, 50, 0x2a2e3a, -28, 11, 0, rink); box(1, 22, 50, 0x2a2e3a, 28, 11, 0, rink);
+  box(60, 1, 50, 0x23262f, 0, 22, 0, rink);
+  plane(9, 5, signTex([{ t: 'VIVE LE', size: 80, y: 80, color: '#fff' }, { t: 'QUÉBEC ⚜️', size: 100, y: 180, color: '#ffffff' }, { t: '2e DIVISION', size: 50, y: 262, color: '#ffd23f' }], { w: 512, h: 300, bg: '#1f56b8', border: '#fff' }), 10, 12, -23.3, 0, rink);
+  plane(9, 5, signTex([{ t: 'ÉQUIPE', size: 80, y: 80, color: '#fff' }, { t: 'FÉMININE', size: 100, y: 180, color: '#fff' }, { t: 'ANNA · RACHOU', size: 50, y: 262, color: '#ffd23f' }], { w: 512, h: 300, bg: '#b8327a', border: '#fff' }), -10, 12, -23.3, 0, rink);
+  const lt1 = new THREE.PointLight(0xffffff, 60, 60); lt1.position.set(0, 18, 0); rink.add(lt1);
+}
+function jerseyFL(color = '#ffffff', fg = '#1f56b8') { return texCanvas(256, 256, (ctx) => { ctx.fillStyle = color; ctx.fillRect(0, 0, 256, 256); ctx.fillStyle = fg; ctx.fillRect(0, 196, 256, 30); ctx.font = '140px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('⚜', 128, 105); }); }
+function jerseyBack(name, num, bg, fg) { return texCanvas(256, 256, (ctx) => { ctx.fillStyle = bg; ctx.fillRect(0, 0, 256, 256); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = fg; fitText(ctx, name, 236, 46); ctx.fillText(name, 128, 40); if (num !== '') { ctx.font = '800 120px "Baloo 2"'; ctx.fillText(num, 128, 140); } }); }
+function player(o) {
+  const ch = character({ shirt: o.shirt, pants: o.pants, skin: o.skin, hat: o.hair ? 'longhair' : 'helmet', hatColor: o.hair ? o.hair : o.helmet, frontTex: o.front, backTex: o.back, boots: 0x111111, pos: o.pos, ry: o.ry });
+  if (o.hair) box(0.9, 0.3, 0.9, o.helmet, 0, 0.98, 0, ch.userData.head);
+  if (o.c) { const ct = texCanvas(64, 64, (ctx) => { ctx.fillStyle = o.cbg; ctx.fillRect(0, 0, 64, 64); ctx.fillStyle = '#fff'; ctx.font = '800 54px "Baloo 2"'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('C', 32, 36); }); plane(0.3, 0.3, ct, -0.3, 1.8, 0.29, 0, ch); }
+  const st = box(0.1, 1.8, 0.1, 0x8b5a2b, 0, -0.9, 0.15, ch.userData.armR); st.rotation.x = 0.3; box(0.12, 0.12, 0.6, 0x222222, 0, -1.75, 0.45, ch.userData.armR);
+  return ch;
+}
+// Vive le Québec (blanc) : rangée à droite, face caméra (+z)
+const VLQ = [['OLI', '1', true], ['ÉMILE LAFLAMME', '17', false], ['JAY#74', '74', false], ['VLQ', '22'], ['VLQ', '9'], ['VLQ', '30']];
+const vlqChars = VLQ.map(([n, num, c], i) => player({ shirt: 0xffffff, pants: 0x1f56b8, helmet: 0x1f56b8, front: jerseyFL(), back: jerseyBack(n, num, '#ffffff', '#1f56b8'), pos: [RX + 3 + i * 1.8, 0, RZ + 2 + (i % 2) * 0.5], ry: 0, c, cbg: '#1f56b8', skin: [0xf1c9a0, 0xc68a5a, 0xf6d2b4][i % 3] }));
+vlqChars.slice(0, 3).forEach((ch, i) => nameTag(VLQ[i][0] + (VLQ[i][2] ? ' (C)' : ''), RX + 3 + i * 1.8, 4.3 + (i % 2) * 0.7, RZ + 2.3 + (i % 2) * 0.5, scene, i === 0, 2.2));
+// Équipe féminine (rose) : rangée à gauche
+const FEM = [['ANNA', '7', true], ['RACHOU', '11', true], ['FÉM', '4'], ['FÉM', '19'], ['FÉM', '2']];
+const femChars = FEM.map(([n, num, c], i) => player({ shirt: 0xb8327a, pants: 0x22252e, helmet: 0xb8327a, hair: [0xc98a3a, 0x3a2418, 0xe6c35c, 0x6b4a2f, 0x1b1b1b][i], front: jerseyBack('', '', '#b8327a', '#fff'), back: jerseyBack(n, num, '#b8327a', '#ffffff'), pos: [RX - 14 + i * 1.8, 0, RZ + 2 + (i % 2) * 0.5], ry: 0, c, cbg: '#b8327a', skin: [0xf6d2b4, 0xc68a5a, 0xf1c9a0][i % 3] }));
+const coachEve = character({ shirt: 0x22252e, pants: 0x22252e, hat: 'longhair', hatColor: 0x3a2418, frontTex: staffFront('COACH'), pos: [RX - 5.5, 0, RZ + 3.6], ry: 0 });
+box(0.5, 0.65, 0.05, 0xffffff, 0, -0.9, 0.3, coachEve.userData.armL);
+[['ANNA (C)', -14], ['RACHOU (C)', -12.2], ['COACH jxst_eve21', -5.5]].forEach(([n, x], i) => nameTag(n, RX + x, 4.3 + (i % 2) * 0.7, RZ + 2.3 + (i === 1 ? 0.5 : 0) + (i === 2 ? 1.6 : 0), scene, i < 2, 2.4));
+
+// ---------- les 3 constructions possibles ----------
+const builds = {};
+{ // cabane à sucre au bout du rang
+  const g = new THREE.Group(); g.position.set(-36, 0, 32); scene.add(g); builds.cabane = g;
+  const c = gabled(9, 3.4, 6, 0x8b5a2b, 0x7a1f1f, 0, 0, g);
+  box(1.2, 2.2, 0.14, 0x4a2b1e, 0, 1.1, 3.03, c);
+  plane(6, 1.1, signTex([{ t: 'CABANE À SUCRE', size: 82, y: 92, color: '#fff' }], { w: 600, h: 180, bg: '#7a1f1f', border: '#f2c230' }), 0, 2.85, 3.08, 0, c);
+  box(1.2, 2.6, 1.2, 0xc9ccd2, 2.5, 5.2, -1, g);
+  for (let i = 0; i < 6; i++) { const t = new THREE.Group(); t.position.set(-8 + (i % 3) * 3.2, 0, -6 - Math.floor(i / 3) * 3.5); g.add(t); cyl(0.35, 0.45, 5, 8, 0x5b3a24, 0, 2.5, 0, t); const f = new THREE.Mesh(new THREE.IcosahedronGeometry(2.0, 0), mat(0xf3f5f9)); f.position.y = 5.4; t.add(f); cyl(0.2, 0.16, 0.35, 8, 0x9aa0a8, 0, 1.4, 0.42, t); }
+  // tire sur la neige
+  box(3, 0.4, 1.4, 0xffffff, -3.5, 0.6, 5, g); for (let i = 0; i < 5; i++) box(0.4, 0.08, 0.9, 0xc8822a, -4.5 + i * 0.5, 0.84, 5, g);
+  const smoke = []; for (let i = 0; i < 4; i++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 0), mat(0xf0f0f0, { transparent: true, opacity: 0.6 })); g.add(s); smoke.push(s); } g.userData.smoke = smoke;
+}
+{ // rue de maisons (Jour 6)
+  const g = new THREE.Group(); g.position.set(0, 0, 0); scene.add(g); builds.maisons = g;
+  patch(-1, 47, 32, 4, 0xb5946c);
+  const MN = CFG.houseNames || [];
+  const cols = [0xe6a72a, 0x6fa8dc, 0xe86aa8, 0x2e8b4a, 0xc7302e, 0x9b6bd6, 0xf2efe6];
+  MN.forEach((n, i) => { const side = i % 2, k = Math.floor(i / 2); const x = -13 + k * 4.8, z = side ? 43 : 51.5; const h = gabled(3.6, 2.8, 3.4, cols[i % cols.length], 0x3b3f4a, x, z, g, side ? 0 : Math.PI); box(0.9, 1.7, 0.12, 0x5a3b22, 0, 0.85, 1.72, h); plane(3.2, 0.8, signTex([{ t: n, size: 80, y: 64 }], { w: 512, h: 128, bg: '#fbf7ec', border: '#4a2f1b' }), 0, 2.35, 1.78, 0, h); });
+}
+{ // resto de poutine
+  const g = new THREE.Group(); g.position.set(-46, 0, -4); scene.add(g); builds.poutine = g;
+  box(8, 4, 6, 0xf2c230, 0, 2, 0, g); box(8.4, 0.4, 6.4, 0x7a1f1f, 0, 4.2, 0, g);
+  plane(6.5, 1.2, signTex([{ t: "POUTINE D'OR 🍟", size: 96, y: 96, color: '#7a1f1f' }], { w: 600, h: 190, bg: '#ffd84a', border: '#7a1f1f' }), 0, 3.4, 3.06, 0, g);
+  box(1.3, 2.2, 0.14, 0x5a3b22, 2.5, 1.1, 3.03, g); box(3.4, 1.4, 0.12, 0x9fd3e8, -1.4, 1.9, 3.03, g);
+  const bowl = cyl(1.8, 1.3, 1.1, 16, 0xffffff, 0, 5.0, 0, g); for (let i = 0; i < 18; i++) box(0.22, 0.22, 1.1, 0xf5c542, -1.1 + (i % 6) * 0.45, 5.7, -0.8 + Math.floor(i / 6) * 0.8, g).rotation.y = i;
+  cyl(1.5, 1.5, 0.15, 16, 0x7a4a24, 0, 5.85, 0, g);
+  // comptoir de cartons, chacun au nom d'un résident
+  const PN = ['John_therod', 'Olivier', 'Victoria Z.', 'Frank leboeuf', 'sophie_val', 'Momo', 'Koko_baddies', 'Abygaël', 'MattketchupF1', 'BEDARD92', 'LAURA', 'Zk72', 'Charles_8', 'brandonmainville2'];
+  box(11, 1.0, 2.2, 0x8b5a2b, 0, 0.5, 5.6, g);
+  PN.forEach((n, i) => { const row = Math.floor(i / 7), k = i % 7; const x = -4.5 + k * 1.5 + row * 0.75, z = 5.1 + row * 1.0, y = 1.0 + row * 0.25;
+    if (row) box(11, 0.25, 1.0, 0x8b5a2b, 0, 1.12, 6.1, g);
+    box(1.0, 0.35, 0.7, 0xffffff, x, y + 0.18, z, g); box(0.85, 0.12, 0.55, 0xf5c542, x, y + 0.4, z, g); box(0.8, 0.06, 0.5, 0x7a4a24, x, y + 0.48, z, g);
+    const tg = nameTag(n, x, y + 0.85 + row * 0.55, z + 0.36, g, false, 1.4); tg.rotation.x = -0.25; });
+  const boss = character({ shirt: 0xffd84a, pants: 0x22252e, hat: 'longhair', hatColor: 0x3a2418, frontTex: staffFront('BOSS'), pos: [-3.2, 0, 3.6], parent: g });
+  nameTag('J · LA BOSS 👑', -3.2, 3.7, 3.7, g, true, 2.6);
+  const line = []; for (let i = 0; i < 5; i++) { const c = character({ shirt: 0xe0343b, pants: 0x1d2b55, hat: 'helmet', hatColor: 0x1d2b55, frontTex: jerseyFront('#e0343b'), boots: 0x111111, pos: [-6.5 - i * 1.5, 0, 3.4 + (i % 2) * 0.4], ry: 1.2, parent: g }); line.push(c); }
+  g.userData.boss = boss; g.userData.line = line;
+}
+{ // concession de quads (Ti-Gus)
+  const g = new THREE.Group(); g.position.set(-31, 0, 58); scene.add(g); builds.quads = g;
+  patch(-31, 62, 16, 8, 0x8f8f96);
+  box(10, 4, 6, 0xd9d4c8, 0, 2, -3, g); box(10.4, 0.4, 6.4, 0xf07c2a, 0, 4.2, -3, g);
+  plane(8, 1.3, signTex([{ t: 'QUADS TI-GUS 🛻', size: 88, y: 96, color: '#fff' }], { w: 640, h: 190, bg: '#f07c2a', border: '#222' }), 0, 3.3, 0.06, 0, g);
+  box(5, 2.4, 0.12, 0x9fd3e8, -1.5, 1.4, 0.03, g);
+  const qs = []; for (let i = 0; i < 4; i++) { const q = new THREE.Group(); q.position.set(-5.4 + i * 3.6, 0, 4.2); q.rotation.y = 0.5; g.add(q);
+    const c = [0xd3312f, 0x2e9b48, 0x2c6fd1, 0xf2c230][i]; box(1.4, 0.5, 2.2, c, 0, 0.75, 0, q); box(1.2, 0.3, 0.9, 0x222222, 0, 1.15, -0.2, q); box(1.6, 0.12, 0.25, 0x333333, 0, 1.3, 0.85, q);
+    for (const sx of [-0.8, 0.8]) for (const sz of [-0.75, 0.75]) { const w = cyl(0.42, 0.42, 0.35, 10, 0x1b1b1b, sx, 0.42, sz, q); w.rotation.z = Math.PI / 2; }
+    plane(1.0, 0.45, signTex([{ t: ['1 200 $', '1 500 $', '999 $', 'VENDU'][i], size: 80, y: 60, color: '#c8102e' }], { w: 240, h: 110, bg: '#fff', border: '#c8102e' }), 0, 1.75, 1.0, 0, q); qs.push(q); }
+  g.userData.quads = qs;
+}
+{ // patinoire extérieure
+  const g = new THREE.Group(); g.position.set(26, 0, 27); scene.add(g); builds.patinoire = g;
+  const ice = new THREE.Mesh(new THREE.PlaneGeometry(16, 9), mat(0xdff1fb)); ice.rotation.x = -Math.PI / 2; ice.position.y = 0.06; g.add(ice);
+  for (const z of [-4.6, 4.6]) box(16.4, 0.8, 0.25, 0xffffff, 0, 0.4, z, g); for (const x of [-8.1, 8.1]) box(0.25, 0.8, 9.4, 0xffffff, x, 0.4, 0, g);
+  for (const x of [-7.4, 7.4]) { box(0.08, 1.2, 1.8, 0xd3312f, x, 0.6, 0, g); }
+  for (let i = 0; i < 4; i++) { cyl(0.1, 0.1, 5, 6, 0x6b4a2f, -8 + i * 5.33, 2.5, -5.2, g); box(0.5, 0.3, 0.3, 0xfff2b0, -8 + i * 5.33, 5.1, -5.0, g); }
+  box(16, 0.06, 0.06, 0x333333, 0, 4.9, -5.2, g);
+  plane(7, 1.2, signTex([{ t: 'PATINOIRE ⛸️', size: 96, y: 96, color: '#fff' }], { w: 640, h: 190, bg: '#1f56b8', border: '#fff' }), 0, 3.2, -5.1, 0, g);
+  cyl(0.1, 0.1, 3, 6, 0x6b4a2f, -2.5, 1.5, -5.2, g); cyl(0.1, 0.1, 3, 6, 0x6b4a2f, 2.5, 1.5, -5.2, g);
+  const sk = []; for (let i = 0; i < 6; i++) { const c = character({ shirt: [0xe0343b, 0x2c6fd1, 0xf2c230, 0xe86aa8, 0x2e9b48, 0x7b4fd0][i], pants: 0x22252e, hat: i % 2 ? 'tuque' : 'longhair', hatColor: [0xd8262b, 0x3a2418, 0x2c6fd1, 0xc98a3a, 0xf2c230, 0x1b1b1b][i], parent: g }); c.scale.setScalar(0.8); sk.push(c); }
+  g.userData.skaters = sk;
+}
+{ // garderie (Jour 7, demande de user_coralie27)
+  const g = new THREE.Group(); g.position.set(-28, 0, 40); scene.add(g); builds.garderie = g;
+  const h = gabled(7, 3.2, 5, 0xfff0a8, 0xe86aa8, 0, 0, g);
+  box(1.2, 2.0, 0.14, 0x2c6fd1, 0, 1.0, 2.53, h); box(1.3, 1.0, 0.12, 0x9fd3e8, -2.2, 1.8, 2.53, h); box(1.3, 1.0, 0.12, 0x9fd3e8, 2.2, 1.8, 2.53, h);
+  plane(5.4, 1.0, signTex([{ t: 'GARDERIE 🧸', size: 96, y: 92, color: '#fff' }], { w: 600, h: 170, bg: '#e86aa8', border: '#fff' }), 0, 2.85, 2.56, 0, h);
+  // clôture + jeux
+  for (let i = 0; i < 11; i++) box(0.15, 0.8, 0.15, 0xffffff, -5 + i, 0.4, 7, g); box(10, 0.1, 0.1, 0xffffff, 0, 0.7, 7, g);
+  const sl = new THREE.Group(); sl.position.set(3.4, 0, 5); g.add(sl); box(1.2, 1.6, 1.2, 0xe0343b, 0, 0.8, 0, sl); const ramp = box(0.9, 0.12, 2.4, 0xf2c230, 0, 0.9, 1.5, sl); ramp.rotation.x = 0.6;
+  box(1.6, 0.3, 1.6, 0xf2c230, -3.4, 0.15, 5, g); for (let i = 0; i < 6; i++) box(0.3, 0.3, 0.3, [0xe0343b, 0x2c6fd1, 0x2e9b48][i % 3], -3.9 + (i % 3) * 0.5, 0.45, 4.6 + Math.floor(i / 3) * 0.6, g);
+  const kids = []; for (let i = 0; i < 4; i++) { const c = character({ shirt: [0x2c6fd1, 0xe86aa8, 0x2e9b48, 0xf2c230][i], pants: 0x22252e, hat: i % 2 ? 'tuque' : 'hair', hatColor: [0x6b4a2f, 0xe0343b, 0x3a2418, 0x2c6fd1][i], pos: [-2.6 + i * 1.3 + (i > 1 ? 2.2 : 0), 0, 4.6], parent: g }); c.scale.setScalar(0.55); kids.push(c); }
+  const coralie = character({ shirt: 0xe86aa8, pants: 0x22252e, hat: 'longhair', hatColor: 0x6b4a2f, frontTex: staffFront('GARDIENNE'), pos: [0.6, 0, 5.9], parent: g });
+  nameTag('coralie27', 0.6, 3.5, 5.9, g, true, 2.2);
+  g.userData.kids = kids; g.userData.coralie = coralie;
+}
+{ // Les Poupées qui parlent (TALK) — version IG
+  const g = new THREE.Group(); g.position.set(13, 0, 18); scene.add(g); builds.poupees = g;
+  const sf = shopFront(9, 4.4, 6, 0xf7d6e6, 'LES POUPÉES QUI PARLENT', '#c2185b', '#ffffff', 0, 0, g);
+  for (let i = 0; i < 4; i++) { const d = character({ shirt: [0xe86aa8, 0xf2c230, 0x9b6bd6, 0x29a3c9][i], pants: 0xffffff, hat: 'longhair', hatColor: [0xe6c35c, 0x3a2418, 0xc98a3a, 0x1b1b1b][i], dress: mat([0xe86aa8, 0xf2c230, 0x9b6bd6, 0x29a3c9][i]), pos: [-3.4 + i * 1.0, 1.0, 2.6], parent: g }); d.scale.setScalar(0.4); }
+  // ruban + ballons
+  box(9.6, 0.25, 0.06, 0xe0343b, 0, 1.3, 4.6, g); for (const x of [-4.8, 4.8]) cyl(0.08, 0.08, 1.6, 6, 0xd6a531, x, 0.8, 4.6, g);
+  const balloons = []; for (let i = 0; i < 6; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.45, 10, 8), new THREE.MeshPhongMaterial({ color: [0xe86aa8, 0xffffff, 0xc2185b][i % 3], shininess: 80 })); b.position.set(i < 3 ? -5.4 : 5.4, 4.6 + (i % 3) * 0.6, 3.2 + (i % 3) * 0.3); g.add(b); balloons.push(b); }
+  plane(5.4, 0.9, signTex([{ t: 'GRANDE OUVERTURE 🎉', size: 80, y: 66, color: '#fff' }], { w: 640, h: 130, bg: '#e0343b', border: '#ffd23f' }), 0, 5.3, 3.1, 0, g);
+  const talk = character({ shirt: 0x111111, pants: 0x111111, hat: 'longhair', hatColor: 0x1b1b1b, pos: [1.6, 0, 5.4], parent: g });
+  nameTag('TALK 🎀', 1.6, 3.5, 5.4, g, true, 2.0);
+  g.userData.talk = talk; g.userData.balloons = balloons;
+}
+Object.values(builds).forEach((g) => (g.visible = false));
+
+// moto électrique de not_roroleb (wheelie)
+const moto = new THREE.Group(); scene.add(moto);
+{ const b = new THREE.Group(); b.position.y = 0.55; moto.add(b); moto.userData.body = b;
+  for (const z of [-0.85, 0.85]) { const w = new THREE.Mesh(new THREE.TorusGeometry(0.45, 0.14, 8, 16), mat(0x1b1b1b)); w.rotation.y = Math.PI / 2; w.position.set(0, 0, z); b.add(w); }
+  box(0.25, 0.5, 1.2, 0x1b1b1b, 0, 0.35, 0, b); box(0.3, 0.12, 0.8, 0x111111, 0, 0.7, -0.15, b); for (let i = 0; i < 3; i++) box(0.31, 0.03, 0.1, 0x8a3fc7, 0, 0.77, -0.35 + i * 0.14, b); box(0.35, 0.3, 0.35, 0x1b1b1b, 0, 0.6, 0.55, b);
+  for (const x of [-0.12, 0.12]) box(0.07, 0.8, 0.07, 0xd6a531, x, 0.5, 0.82, b); box(0.9, 0.08, 0.08, 0x111111, 0, 0.95, 0.75, b);
+  const r = character({ shirt: 0x8fe03a, pants: 0x22252e, hat: 'helmet', hatColor: 0x111111, boots: 0x111111, parent: b });
+  r.position.set(0, 0.05, -0.1); r.scale.setScalar(0.75); r.userData.legL.rotation.x = -1.2; r.userData.legR.rotation.x = -1.2; r.userData.armL.rotation.x = -1.3; r.userData.armR.rotation.x = -1.3;
+  moto.userData.rider = r; }
+const motoTag = nameTag('not_roroleb', 0, 3.4, 0, moto, true, 2.4);
+// ---------- confettis ----------
+const confetti = []; for (let i = 0; i < 140; i++) { const c = new THREE.Mesh(new THREE.PlaneGeometry(0.18, 0.1), new THREE.MeshBasicMaterial({ color: [0xe0343b, 0xf2c230, 0x2c6fd1, 0x2e9b48, 0xe86aa8][i % 5], side: THREE.DoubleSide })); c.userData = { x: (rnd() - 0.5) * 14, z: (rnd() - 0.5) * 8, o: rnd(), s: 0.6 + rnd() * 0.8 }; c.visible = false; scene.add(c); confetti.push(c); }
+function confettiAt(on, t, cx, cz) { confetti.forEach((c) => { c.visible = on; if (!on) return; const u = c.userData; const ph = (t * 0.25 * u.s + u.o) % 1; c.position.set(cx + u.x + Math.sin(t * 2 + u.o * 9) * 0.4, 9 - ph * 9, cz + u.z); c.rotation.set(t * 3 * u.s, t * 2, u.o * 6); }); }
+
+
+// ================= JOUR 6 : monde =================
+// ---------- Galerie de la Capitale ----------
+const MX = 42, MZ = -78;
+patch(MX, MZ + 9, 40, 8, 0x8f8f96);
+const mall = new THREE.Group(); mall.position.set(MX, 0, MZ); scene.add(mall);
+box(34, 6, 10, 0xe4ddd0, 0, 3, 0, mall); box(34.6, 0.6, 10.6, 0x8b2e3c, 0, 6.3, 0, mall);
+box(6, 8.5, 3, 0xd9cfbd, 0, 4.25, 4.6, mall);
+plane(5.8, 1.6, signTex([{ t: 'GALERIE DE', size: 70, y: 66, color: '#fff' }, { t: 'LA CAPITALE', size: 96, y: 150, color: '#ffd23f' }], { w: 600, h: 210, bg: '#8b2e3c', border: '#ffd23f' }), 0, 7.3, 6.12, 0, mall);
+box(3.4, 3, 0.12, 0x9fd3e8, 0, 1.5, 6.1, mall);
+function mallShop(x, label, bg, fg, wall) { const g = new THREE.Group(); g.position.set(x, 0, 5.05); mall.add(g); box(6.2, 4.6, 0.3, wall, 0, 2.3, 0, g); box(5.2, 2.6, 0.12, 0x9fd3e8, 0, 1.6, 0.2, g); plane(5.8, 1.0, signTex([{ t: label, size: 100, y: 92, color: fg }], { w: 640, h: 180, bg, border: fg }), 0, 3.85, 0.2, 0, g); return g; }
+const shopApple = mallShop(-8, 'APPLENOUCH', '#ffffff', '#222222', 0xf4f4f4);
+for (let i = 0; i < 3; i++) box(0.5, 0.9, 0.08, 0x222222, -1.5 + i * 1.5, 1.6, 0.35, shopApple);
+const shopSphero = mallShop(7, 'SPHERO', '#111111', '#ffffff', 0x111111);
+const shopSub = mallShop(13.6, 'CHEZ SUB 🥪', '#2e9b48', '#f2c230', 0x2e9b48);
+// statue dorée du maire sur le toit du Sphero
+const goldMat = new THREE.MeshPhongMaterial({ color: 0xd6a531, shininess: 90, specular: 0xffffff });
+const statue = character({ mayor: true, beard: true, hat: 'tuque', shirt: 0xd6a531, pants: 0xd6a531, skin: 0xd6a531, hatColor: 0xd6a531, boots: 0xd6a531, pos: [MX + 7, 6.6, MZ + 3.2], ry: 0 });
+statue.traverse((o) => { if (o.isMesh) o.material = goldMat; }); statue.scale.setScalar(1.8);
+box(2.4, 0.6, 2.4, 0xbfb8aa, MX + 7, 6.9, MZ + 3.2);
+const ludo = character({ shirt: 0x22252e, pants: 0x2a2f3d, hat: 'hair', hatColor: 0x2b1d14, glasses: true, frontTex: staffFront('LUDO'), pos: [MX - 8, 0, MZ + 6.6], ry: 0 });
+const shana = character({ shirt: 0x111111, pants: 0x111111, hat: 'longhair', hatColor: 0x1b1b1b, skin: 0xc68a5a, frontTex: staffFront('SHANA'), pos: [MX + 7, 0, MZ + 6.6], ry: 0 });
+const emma = character({ shirt: 0x2e9b48, pants: 0x2a2f3d, hat: 'longhair', hatColor: 0xc98a3a, frontTex: staffFront('EMMA'), pos: [MX + 13.6, 0, MZ + 6.6], ry: 0 });
+box(0.9, 0.25, 0.3, 0xe7b46a, 0, -1.15, 0.25, emma.userData.armR);
+const mathixSign = plane(4.6, 1.1, signTex([{ t: 'NOM : Mathix 🙌', size: 80, y: 64 }], { w: 512, h: 128, bg: '#fff3c4', border: '#c79a3a' }), MX - 1, 2.6, MZ + 10.5);
+cyl(0.08, 0.08, 2.4, 6, 0x6b4a2f, MX - 1, 1.2, MZ + 10.45);
+
+// ---------- services : gym, police, école, retraite ----------
+const SVX = -74, SVZ = -74;
+patch(SVX + 24, SVZ + 7, 62, 4.5);
+const gym = shopFront(9, 4.4, 6, 0x2a2e3a, 'GYM NARK 💪', '#e0343b', '#ffffff', SVX, SVZ);
+const gamixG = character({ shirt: 0xe0343b, pants: 0x22252e, hat: 'hair', hatColor: 0x4a2f1e, pos: [0.5, 0, 4.1], ry: 0, parent: gym });
+const barbell = new THREE.Group(); gamixG.add(barbell); box(3, 0.12, 0.12, 0x777777, 0, 0, 0, barbell); for (const s of [-1.4, 1.4]) cyl(0.45, 0.45, 0.2, 12, 0x111111, s, 0, 0, barbell).rotation.z = Math.PI / 2;
+const police = new THREE.Group(); police.position.set(SVX + 16, 0, SVZ); scene.add(police);
+box(10, 4.6, 6, 0xd9d4c8, 0, 2.3, 0, police); box(10.4, 0.5, 6.4, 0x1d2b55, 0, 4.85, 0, police);
+plane(7, 1.2, signTex([{ t: 'POSTE DE POLICE', size: 80, y: 92, color: '#fff' }], { w: 640, h: 180, bg: '#1d2b55', border: '#fff' }), 0, 3.9, 3.06, 0, police);
+box(1.6, 2.6, 0.14, 0x1d2b55, 0, 1.3, 3.03, police);
+const pcar = new THREE.Group(); pcar.position.set(-3.6, 0, 5.4); pcar.rotation.y = Math.PI / 2; police.add(pcar);
+box(4, 1.0, 2, 0xffffff, 0, 0.8, 0, pcar); box(2.2, 0.8, 1.8, 0x1d2b55, -0.2, 1.7, 0, pcar);
+const lightR = box(0.4, 0.25, 0.5, 0xff2222, -0.2, 2.25, -0.35, pcar), lightB = box(0.4, 0.25, 0.5, 0x2255ff, -0.2, 2.25, 0.35, pcar);
+for (const sx of [-1.3, 1.3]) for (const sz of [-1.0, 1.0]) { const w = cyl(0.4, 0.4, 0.3, 10, 0x1b1b1b, sx, 0.4, sz, pcar); w.rotation.x = Math.PI / 2; }
+const cop = (x, n, cap) => { const c = character({ shirt: 0x1d2b55, pants: 0x1d2b55, hat: 'cap', hatColor: cap, frontTex: staffFront(n), boots: 0x111111, pos: [x, 0, 4.2], ry: 0, parent: police }); return c; };
+const emile = cop(0, 'ÉMILE', 0xd6a531), grizzli = cop(1.8, 'GRIZZLI', 0x1d2b55), tsun = cop(3.6, 'TSUNDERE', 0x1d2b55);
+box(0.9, 0.12, 0.92, 0xd6a531, 0, 1.0, 0, emile.userData.head);
+const ecole = new THREE.Group(); ecole.position.set(SVX + 32, 0, SVZ - 1); scene.add(ecole);
+box(14, 6, 7, 0xb5452f, 0, 3, 0, ecole); box(14.4, 0.4, 7.4, 0xf4f1ea, 0, 6.2, 0, ecole);
+for (let r = 0; r < 2; r++) for (let i = 0; i < 6; i++) box(1.4, 1.2, 0.12, 0xfff2b0, -5.5 + i * 2.2, 2.0 + r * 2.4, 3.53, ecole);
+plane(8, 1.2, signTex([{ t: 'ÉCOLE SECONDAIRE', size: 76, y: 92, color: '#fff' }], { w: 640, h: 180, bg: '#3a2418', border: '#ffd23f' }), 0, 5.4, 3.6, 0, ecole);
+box(1.8, 2.4, 0.14, 0x5a3b22, 0, 1.2, 3.55, ecole);
+const oliE = character({ shirt: 0x2c6fd1, pants: 0x22252e, hat: 'hair', hatColor: 0x6b4a2f, glasses: true, frontTex: staffFront('OLI'), pos: [SVX + 32, 0, SVZ + 4.0], ry: 0 });
+box(0.5, 0.65, 0.05, 0x2e9b48, 0, -0.9, 0.3, oliE.userData.armL);
+const retraite = gabled(12, 4, 6, 0xf2e6c9, 0x6b4a2f, SVX + 50, SVZ);
+plane(8, 1.1, signTex([{ t: 'MAISON DE RETRAITE', size: 70, y: 90, color: '#3a2418' }], { w: 640, h: 170, bg: '#fff', border: '#6b4a2f' }), 0, 3.4, 3.06, 0, retraite);
+box(12.4, 0.3, 2.4, 0xffffff, 0, 0.4, 4.2, retraite); box(12.6, 0.2, 2.6, 0x6b4a2f, 0, 3.0, 4.2, retraite);
+const elders = []; for (let i = 0; i < 4; i++) { const ch = new THREE.Group(); ch.position.set(-4.5 + i * 3, 0.55, 4.4); retraite.add(ch); box(1.0, 0.12, 1.0, 0x8b5a2b, 0, 0.5, 0, ch); box(1.0, 1.2, 0.12, 0x8b5a2b, 0, 1.1, -0.45, ch); for (const s of [-0.45, 0.45]) { const rk = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.05, 4, 12, Math.PI / 2), mat(0x6b4a2f)); rk.rotation.set(0, Math.PI / 2, Math.PI * 1.25); rk.position.set(s, 0.35, 0); ch.add(rk); } const e = character({ shirt: [0x9b6bd6, 0x6b5a45, 0xe86aa8, 0x2f5fa8][i], pants: 0x5a6070, hat: 'hair', hatColor: 0xdddddd, glasses: i % 2 === 0, pos: [0, 0.1, 0], parent: ch }); e.userData.legL.rotation.x = e.userData.legR.rotation.x = -1.4; e.scale.setScalar(0.85); elders.push(ch); }
+
+// ---------- Noël ----------
+const xmas = new THREE.Group(); scene.add(xmas);
+const bulbs = [];
+function lightString(x0, y0, z0, x1, y1, z1, n) { for (let i = 0; i <= n; i++) { const k = i / n; const b = new THREE.Mesh(new THREE.SphereGeometry(0.13, 6, 4), new THREE.MeshBasicMaterial({ color: [0xff3b3b, 0x3bff6b, 0xffd23f, 0x3b9bff][i % 4] })); b.position.set(lerp(x0, x1, k), lerp(y0, y1, k) - Math.sin(k * Math.PI) * 0.3, lerp(z0, z1, k)); xmas.add(b); bulbs.push(b); } }
+lightString(-6.5, 4.6, -3.9, 4.5, 4.6, -3.9, 26); // hôtel de ville
+lightString(TX - 6, 4.7, TZ + 4.3, TX + 6, 4.7, TZ + 4.3, 26); // Chez Tim
+lightString(MX - 17, 6.1, MZ + 5.4, MX + 17, 6.1, MZ + 5.4, 60);
+function wreath(x, y, z, parent = xmas) { const w = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.18, 6, 14), mat(0x1f6b33)); w.position.set(x, y, z); parent.add(w); box(0.3, 0.2, 0.1, 0xe0343b, x, y - 0.5, z + 0.12, parent); }
+wreath(-1, 3.2, -3.85); wreath(TX + 3.5, 3.0, TZ + 4.2);
+// magasin de sapins
+const SAX = -10, SAZ = 11;
+patch(SAX, SAZ, 9, 6, 0xe1e6ee);
+const sapinShop = new THREE.Group(); sapinShop.position.set(SAX, 0, SAZ); scene.add(sapinShop);
+box(3, 2.4, 2, 0xc7302e, -3, 1.2, -2, sapinShop); plane(3.6, 0.8, signTex([{ t: 'SAPINS 🎄', size: 90, y: 64, color: '#fff' }], { w: 512, h: 128, bg: '#1f6b33', border: '#fff' }), -3, 2.8, -0.95, 0, sapinShop);
+const sapins = []; for (let i = 0; i < 8; i++) { const t = tree(0, 0, 0.35 + (i % 3) * 0.08); t.position.set(SAX - 1.5 + (i % 4) * 1.6, 0, SAZ - 0.8 + Math.floor(i / 4) * 2.2); sapins.push(t); }
+const balls = []; sapins.forEach((t, i) => { for (let k = 0; k < 4; k++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 6), new THREE.MeshPhongMaterial({ color: [0xe0343b, 0xf2c230, 0x2c6fd1, 0xe86aa8][k], shininess: 80 })); b.position.set(Math.cos(k * 1.7) * 1.5, 2.2 + k * 0.7, Math.sin(k * 1.7) * 1.5); t.add(b); balls.push(b); } });
+// le Grinch
+const grinch = character({ shirt: 0xc7302e, pants: 0xc7302e, skin: 0x7dbb3a, hat: 'tuque', hatColor: 0xc7302e, face: 'angry', pos: [SAX + 3.4, 0, SAZ + 2.6], ry: -0.8 });
+const stolen = new THREE.Mesh(new THREE.SphereGeometry(0.3, 8, 6), new THREE.MeshPhongMaterial({ color: 0xe0343b, shininess: 80 })); stolen.position.set(0, -1.2, 0.3); grinch.userData.armR.add(stolen);
+const giftG = box(0.8, 0.8, 0.8, 0x2c6fd1, SAX + 4.2, 0.4, SAZ + 3.2); box(0.85, 0.12, 0.85, 0xf2c230, SAX + 4.2, 0.82, SAZ + 3.2);
+xmas.visible = sapinShop.visible = grinch.visible = giftG.visible = !!CFG.xmas; sapins.forEach((t) => (t.visible = !!CFG.xmas));
+
+// ---------- éclairage jour / nuit ----------
+const hemi = scene.children.find((o) => o.isHemisphereLight);
+const DAY = { bg: new THREE.Color(0xdfe6ee), hemiC: new THREE.Color(0xf4f7ff), hemiI: 1.35, sunC: new THREE.Color(0xfff4e6), sunI: 1.6 };
+const NIGHT = { bg: new THREE.Color(0x0b1430), hemiC: new THREE.Color(0x7d93d6), hemiI: 0.55, sunC: new THREE.Color(0x9fb6ff), sunI: 0.35 };
+const DUSK = { bg: new THREE.Color(0xf2a36b), hemiC: new THREE.Color(0xffd9b8), hemiI: 1.0, sunC: new THREE.Color(0xffb070), sunI: 1.2 };
+const LIGHTS = { day: DAY, night: NIGHT, dusk: DUSK };
+const lampG = new THREE.Group(); scene.add(lampG);
+function lamp(x, y, z, c = 0xffb45a, i = 40, d = 26) { const l = new THREE.PointLight(c, i, d, 1.6); l.position.set(x, y, z); lampG.add(l); return l; }
+const tmpC = new THREE.Color();
+function lightAt(k) { // k: 0 = jour, 1 = nuit (ou palette nommée)
+  const a = LIGHTS[k] || NIGHT;
+  scene.background.copy(a.bg); scene.fog.color.copy(a.bg);
+  hemi.color.copy(a.hemiC); hemi.intensity = a.hemiI; sun.color.copy(a.sunC); sun.intensity = a.sunI;
+  lampG.visible = (k === 'night');
+}
+
+// ---------- sapin géant (place) ----------
+const SPX = CFG.sapin ? CFG.sapin[0] : 9, SPZ = CFG.sapin ? CFG.sapin[1] : 9;
+const sapinG = new THREE.Group(); sapinG.position.set(SPX, 0, SPZ); scene.add(sapinG); sapinG.visible = false;
+const sapinBulbs = [];
+{
+  cyl(0.9, 1.1, 3, 8, 0x6b4a2f, 0, 1.5, 0, sapinG);
+  const L = [[6.5, 6, 4.5], [5.2, 5.5, 8], [4, 5, 11.2], [2.8, 4.5, 14.2], [1.6, 3.6, 16.8]];
+  for (const [r, h, y] of L) {
+    const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 9), mat(0x1f6b34)); c.position.y = y; c.castShadow = true; sapinG.add(c);
+    const s = new THREE.Mesh(new THREE.ConeGeometry(r * 0.5, h * 0.35, 9), mat(0xf7f9fc)); s.position.y = y + h * 0.33; sapinG.add(s);
+    for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2 + y; const rr = r * 0.78; const b = new THREE.Mesh(new THREE.SphereGeometry(0.28, 6, 4), new THREE.MeshBasicMaterial({ color: [0xff3b3b, 0xffd23f, 0x3b9bff, 0x3bff6b, 0xff7ad9][i % 5] })); b.position.set(Math.cos(a) * rr, y - h * 0.25, Math.sin(a) * rr); sapinG.add(b); sapinBulbs.push(b); }
+  }
+  const star = new THREE.Mesh(new THREE.OctahedronGeometry(1.1, 0), new THREE.MeshBasicMaterial({ color: 0xffd23f })); star.position.y = 19.4; star.scale.set(1, 1.3, 0.4); sapinG.add(star); sapinG.userData.star = star;
+  // cadeaux
+  [[2.5, 1.8, 0xd8262b], [-2.2, 2.6, 0x1d4fa8], [0.4, 3.2, 0xf2c230], [-3.1, -1, 0x2e9b48]].forEach(([x, z, c]) => { box(1.2, 1, 1.2, c, x, 0.5, z, sapinG); box(1.25, 0.2, 0.25, 0xffffff, x, 1.02, z, sapinG); });
+  const pl = new THREE.PointLight(0xffc477, 0, 30, 1.6); pl.position.set(0, 9, 7); sapinG.add(pl); sapinG.userData.pl = pl;
+}
+// sapin : merci aux spectateurs du live
+plane(4.6, 1.2, signTex([{ t: 'SAPIN DES ROSES 🌹', size: 46, y: 62 }, { t: 'merci au live du 24 nov.', size: 30, y: 112, color: '#c8102e' }], { w: 520, h: 140, bg: '#fbf7ec', border: '#5a3b22' }), 0, 1.3, 3.9, 0, sapinG);
+box(0.15, 1.2, 0.15, 0x6b4a2f, -1.8, 0.6, 3.85, sapinG); box(0.15, 1.2, 0.15, 0x6b4a2f, 1.8, 0.6, 3.85, sapinG);
+
+// ---------- trottoir des gifts ----------
+const TRX = CFG.trottoir ? CFG.trottoir[0] : 5.2, TRZ = CFG.trottoir ? CFG.trottoir[1] : 8;
+const trottoirG = new THREE.Group(); scene.add(trottoirG); trottoirG.visible = !!CFG.trottoirOn;
+patch(TRX, TRZ + (CFG.gifts || []).length * 0.95, 2.2, (CFG.gifts || []).length * 1.9 + 2, 0xb9bec8);
+(CFG.gifts || []).forEach((n, i) => {
+  const m = plane(1.7, 1.7, signTex([{ t: '★', size: 120, y: 120, color: '#d6a531' }, { t: n, size: n.length > 6 ? 46 : 58, y: 205, color: '#3a2a10' }], { w: 256, h: 256, bg: '#f3e2a8', border: '#b8892a' }), TRX, 0.04, TRZ + i * 1.9, 0, trottoirG);
+  m.rotation.set(-Math.PI / 2, 0, Math.PI);
+});
+
+// ---------- usine « Vieilles Épices » + statue de Vinsso ----------
+const UX = -20, UZ = 120;
+const usine = new THREE.Group(); usine.position.set(UX, 0, UZ); scene.add(usine);
+{
+  patch(UX, UZ + 2, 30, 22, 0x8a8f99);
+  box(20, 9, 12, 0x9b2d24, 0, 4.5, -4, usine); box(20.4, 0.6, 12.4, 0x3a3f4a, 0, 9.2, -4, usine);
+  for (let i = 0; i < 3; i++) { box(6.6, 2.2, 12, 0x7c231c, -6.6 + i * 6.6, 10.4, -4, usine); }
+  for (const x of [-6, 6]) { cyl(1, 1.2, 10, 10, 0x5a5f6a, x, 14, -8, usine); }
+  for (let i = 0; i < 6; i++) box(2, 2.4, 0.1, 0xffd27a, -7.5 + i * 3, 4, 2.05, usine);
+  box(5, 5, 0.1, 0x3a3f4a, 0, 2.5, 2.06, usine);
+  plane(16, 2.6, signTex([{ t: 'USINE VIEILLES ÉPICES', size: 70, y: 80, color: '#ffffff' }, { t: 'déodorant · savon · fierté', size: 36, y: 128, color: '#ffd23f' }], { w: 900, h: 150, bg: '#7c1d16', border: '#ffffff' }), 0, 7.4, 2.1, 0, usine);
+  box(3, 1.4, 3, 0xb9bec8, 0, 0.7, 8, usine);
+  const sv = character({ shirt: 0x9b2d24, pos: [UX, 1.4, UZ + 8], ry: 0 }); sv.scale.setScalar(1.7);
+  sv.traverse((o) => { if (o.isMesh) o.material = new THREE.MeshStandardMaterial({ color: 0xe0b23a, metalness: 0.6, roughness: 0.3 }); }); anim(sv, 0, 'cheer'); usine.userData.statue = sv;
+  plane(3, 0.7, signTex([{ t: 'VINSSO', size: 70, y: 70, color: '#3a2a10' }], { w: 320, h: 100, bg: '#f3e2a8', border: '#b8892a' }), 0, 0.7, 9.52, 0, usine);
+  usine.userData.smoke = []; for (let i = 0; i < 8; i++) { const sm = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshLambertMaterial({ color: 0xdfe3ea, transparent: true, opacity: 0.6 })); usine.add(sm); usine.userData.smoke.push(sm); }
+  const ul = new THREE.PointLight(0xffc477, 60, 30, 1.5); ul.position.set(0, 6, 9); usine.add(ul);
+}
+
+// ---------- centre de construction de LP ----------
+const CX = CFG.lpCentre ? CFG.lpCentre[0] : 28, CZ = CFG.lpCentre ? CFG.lpCentre[1] : 120;
+const lpG = new THREE.Group(); lpG.position.set(CX, 0, CZ); scene.add(lpG);
+let lpChar;
+{
+  patch(CX, CZ + 2, 34, 24, 0x9a8f7c);
+  box(18, 8, 11, 0xf2b81f, 0, 4, -5, lpG); box(18.4, 0.6, 11.4, 0x3a3f4a, 0, 8.2, -5, lpG);
+  box(6, 5.4, 0.1, 0x3a3f4a, -4, 2.7, 0.56, lpG); for (let i = 0; i < 4; i++) box(0.1, 5.4, 0.12, 0xf2b81f, -6.5 + i * 1.7, 2.7, 0.6, lpG);
+  for (let i = 0; i < 3; i++) box(2, 2, 0.1, 0xffe6a0, 2 + i * 2.6, 4.5, 0.56, lpG);
+  plane(15, 2.4, signTex([{ t: 'CENTRE DE CONSTRUCTION LP', size: 60, y: 74, color: '#1d1d1d' }, { t: 'chef de chantier : LP', size: 34, y: 122, color: '#c8102e' }], { w: 900, h: 150, bg: '#ffffff', border: '#1d1d1d' }), 0, 9.8, 0.6, 0, lpG);
+  // grue
+  box(1, 22, 1, 0xf2b81f, 12, 11, -8, lpG); box(20, 0.9, 0.9, 0xf2b81f, 6, 22, -8, lpG); box(2.4, 2, 2.4, 0x3a3f4a, 12, 21, -8, lpG); box(0.1, 8, 0.1, 0x222222, -1, 18, -8, lpG); box(3, 0.4, 1.2, 0xc8102e, -1, 14, -8, lpG);
+  // piles de bois, cônes, briques
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) box(4, 0.4, 0.4, 0xc79a5b, -12, 0.2 + i * 0.42, 3 + j * 0.45, lpG);
+  for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.35, 0.9, 8), mat(0xff6a1a)); c.position.set(-6 + i * 2.6, 0.45, 7); lpG.add(c); }
+  for (let i = 0; i < 3; i++) for (let j = 0; j < 3 - i; j++) box(1.2, 0.6, 0.6, 0xa8432f, 9 + j * 1.25 + i * 0.6, 0.3 + i * 0.6, 4, lpG);
+  lpChar = character({ shirt: 0xff7a1a, pants: 0x2a3550, hat: 'helmet', hatColor: 0xf2c230, pos: [CX, 0, CZ + 5], ry: 0 });
+  lpChar.scale.setScalar(1.3);
+  plane(2.4, 0.6, signTex([{ t: 'LP', size: 64, y: 70 }], { w: 300, h: 100, bg: '#fbf7ec', border: '#5a3b22' }), 0, 4.0, 0, 0, lpChar);
+  const ll = new THREE.PointLight(0xffd27a, 50, 30, 1.5); ll.position.set(0, 6, 8); lpG.add(ll);
+}
+// ---------- forêt enchantée + statue de Royal ----------
+const FOX = -70, FOZ = 112;
+const foret = new THREE.Group(); scene.add(foret);
+const fireflies = [];
+{
+  patch(FOX, FOZ, 2.4, 40, 0x8c6a44); // chemin
+  let r = 7; const rr = () => { r = (r * 9301 + 49297) % 233280; return r / 233280; };
+  for (let i = 0; i < 70; i++) { const side = i % 2 ? 1 : -1; const x = FOX + side * (5.5 + rr() * 14), z = FOZ - 20 + rr() * 40; const tr = tree(x, z, 1.2 + rr() * 1.2); foret.add(tr); }
+  for (let i = 0; i < 18; i++) { const side = i % 2 ? 1 : -1; const g = new THREE.Group(); g.position.set(FOX + side * (1.8 + rr() * 2), 0, FOZ - 18 + i * 2.1); foret.add(g); cyl(0.12, 0.15, 0.5, 6, 0xf3efe2, 0, 0.25, 0, g); const cap = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 6, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: [0xff5ad6, 0x5ae0ff, 0xb07cff][i % 3] })); cap.position.y = 0.5; g.add(cap); }
+  for (let i = 0; i < 40; i++) { const f = new THREE.Mesh(new THREE.SphereGeometry(0.09, 5, 4), new THREE.MeshBasicMaterial({ color: 0xfff27a })); f.userData = { x: FOX + (rr() - 0.5) * 12, z: FOZ - 18 + rr() * 36, y: 0.8 + rr() * 3, o: rr() * 6 }; foret.add(f); fireflies.push(f); }
+  // statue de Royal (arbitre) + phrase gravée
+  box(3, 1.4, 3, 0xb9bec8, FOX, 0.7, FOZ + 14);
+  const sr = character({ shirt: 0x111111, hat: 'cap', hatColor: 0x111111, pos: [FOX, 1.4, FOZ + 14], ry: 0 }); sr.scale.setScalar(1.7);
+  sr.traverse((o) => { if (o.isMesh) o.material = mat(0xa9b4c2); }); anim(sr, 0, 'point'); foret.userData.statue = sr;
+  plane(3.2, 0.7, signTex([{ t: 'ROYAL', size: 70, y: 70, color: '#1d2b55' }], { w: 320, h: 100, bg: '#e7ecf3', border: '#8a96a8' }), FOX, 0.7, FOZ + 15.52, 0);
+  const q = plane(2.2, 7, signTex(CFG.royalQuote ? (CFG.royalQuote.match(/.{1,22}(\s|$)/g) || [CFG.royalQuote]).slice(0, 7).map((l, i) => ({ t: l.trim(), size: 30, y: 60 + i * 44, color: '#3a2a10' })).concat([{ t: '— Royal', size: 30, y: 60 + Math.min(7, (CFG.royalQuote.match(/.{1,22}(\s|$)/g) || [1]).length) * 44 + 10, color: '#8a5a1a' }]) : [{ t: '« … »', size: 40, y: 120 }], { w: 300, h: 420, bg: '#efe2c0', border: '#8a6a44' }), FOX, 0.03, FOZ + 4); q.rotation.x = -Math.PI / 2; foret.userData.quote = q;
+  const fl = new THREE.PointLight(0xb07cff, 50, 30, 1.5); fl.position.set(FOX, 5, FOZ + 6); foret.add(fl);
+}
+// ---------- aéroport ----------
+const APX = CFG.airport ? CFG.airport[0] : 78, APZ = CFG.airport ? CFG.airport[1] : 0;
+const airport = new THREE.Group(); airport.position.set(APX, 0, APZ); scene.add(airport); airport.visible = !!CFG.airportOn;
+let plane1, pilotSeat, passengers = [];
+{
+  patch(APX, APZ + 8, 70, 9, 0x4a4f5a); // piste
+  for (let i = 0; i < 14; i++) patch(APX - 30 + i * 4.6, APZ + 8, 2, 0.4, 0xf2f2f2);
+  patch(APX - 6, APZ - 6, 26, 12, 0x6d7380); // tarmac
+  // terminal
+  box(26, 7, 9, 0xdfe6ee, 0, 3.5, -18, airport); box(26.4, 0.6, 9.4, 0x1d4fa8, 0, 7.2, -18, airport);
+  for (let i = 0; i < 8; i++) box(2.4, 3.6, 0.1, 0x8fc6ff, -10.5 + i * 3, 3.4, -13.45, airport);
+  box(6, 9.5, 6, 0xc9d2de, 15, 4.75, -18, airport); box(7, 2.4, 7, 0x2a3550, 15, 10.6, -18, airport); box(6.6, 1.6, 6.6, 0x8fc6ff, 15, 10.6, -18, airport); // tour
+  plane(18, 2.2, signTex([{ t: CFG.airportName || 'AÉROPORT INTERNATIONAL', size: 46, y: 62, color: '#ffffff' }, { t: CFG.airportSub || 'SAINT-TABARNOUCHE · ALP', size: 34, y: 110, color: '#ffd23f' }], { w: 900, h: 140, bg: '#1d4fa8', border: '#ffffff' }), 0, 8.8, -13.35, 0, airport);
+  for (const [x, z] of [[-14, -8], [6, -8], [-20, 14], [0, 14]]) { const l = new THREE.PointLight(0xffd9a0, 60, 32, 1.4); l.position.set(x, 8, z); airport.add(l); }
+  // statue du maire à l'entrée
+  box(2.6, 1.4, 2.6, 0xb9bec8, -8, 0.7, -10, airport);
+  const st = character(CFG.statueName ? { hat: 'hair', shirt: 0xd6a531, pos: [APX - 8, 1.4, APZ - 10], ry: 0.3 } : { mayor: true, beard: true, hat: 'tuque', shirt: 0xd6a531, pants: 0xd6a531, skin: 0xd6a531, boots: 0xd6a531, pos: [APX - 8, 1.4, APZ - 10], ry: 0.3 });
+  st.scale.setScalar(1.6); st.traverse((o) => { if (o.isMesh) o.material = new THREE.MeshStandardMaterial({ color: 0xe0b23a, metalness: 0.6, roughness: 0.3 }); }); anim(st, 0, 'wave'); airport.userData.statue = st;
+  if (CFG.statueName) plane(3.4, 0.7, signTex([{ t: CFG.statueName, size: 52, y: 66, color: '#3a2a10' }], { w: 380, h: 100, bg: '#f3e2a8', border: '#b8892a' }), -8, 0.75, -8.68, 0, airport);
+  // avion
+  plane1 = new THREE.Group(); plane1.position.set(APX - 14, 0, APZ + 8); plane1.rotation.y = Math.PI / 2; scene.add(plane1);
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.7, 20, 12), mat(0xf7f9fc)); body.rotation.x = Math.PI / 2; body.position.y = 3; body.castShadow = true; plane1.add(body);
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(1.7, 12, 8), mat(0xf7f9fc)); nose.position.set(0, 3, 10); nose.scale.z = 1.4; plane1.add(nose);
+  box(3.45, 0.5, 20, 0xc8102e, 0, 2.2, 0, plane1); // bande
+  box(22, 0.4, 3.4, 0xdfe6ee, 0, 2.6, 0.5, plane1); // ailes
+  box(0.4, 4, 3, 0xc8102e, 0, 5.6, -9, plane1); box(7, 0.3, 2.2, 0xdfe6ee, 0, 3.4, -9, plane1);
+  for (let i = 0; i < 9; i++) { box(0.1, 0.55, 0.7, 0x2a3550, 1.68, 3.6, -6.5 + i * 1.6, plane1); box(0.1, 0.55, 0.7, 0x2a3550, -1.68, 3.6, -6.5 + i * 1.6, plane1); }
+  box(2.4, 0.8, 0.2, 0x2a3550, 0, 4, 11.6, plane1); // cockpit
+  for (const x of [-5.5, 5.5]) { const e = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 3, 10), mat(0x9aa4b8)); e.rotation.x = Math.PI / 2; e.position.set(x, 1.8, 1.2); plane1.add(e); }
+  [[0, 0.9, 7], [-3, 0.9, -1], [3, 0.9, -1]].forEach(([x, y, z]) => { box(0.3, 1.8, 0.3, 0x333333, x, y, z, plane1); });
+  plane(9, 1.2, signTex([{ t: 'AIR TABARNOUCHE', size: 64, y: 70, color: '#c8102e' }], { w: 720, h: 110, bg: '#f7f9fc', border: '#f7f9fc' }), 1.72, 4.6, 0, Math.PI / 2, plane1);
+  plane1.visible = !!CFG.airportOn;
+  // passagers (file vers l'escalier)
+  box(1.6, 0.2, 4.5, 0x9aa4b8, 0, 1.5, 0, airport).visible = false;
+  (CFG.gifts || []).slice(0, 11).forEach((n, i) => {
+    const c = character({ shirt: [0x3a7bd5, 0xe0343b, 0x2e9b48, 0xf2c230, 0x8e44ad, 0xff7a3b][i % 6], hat: ['tuque', 'cap', 'hair', 'longhair', 'helmet'][i % 5], hatColor: [0x6b4a2f, 0x1d4fa8, 0xd8262b, 0x3b2416, 0x2e9b48][i % 5], pos: [APX - 20 + i * 1.6, 0, APZ + 2], ry: Math.PI / 2 });
+    c.visible = !!CFG.airportOn; c.userData.tag = n; passengers.push(c);
+  });
+}
+
+// ---------- autour de l'aéroport : hôtel, garderie chiens/chats, parc des avions, Tabar30 + TEM ----------
+const around = new THREE.Group(); around.position.set(APX, 0, APZ); scene.add(around); around.visible = false;
+let temTrain;
+const MLX = -52, MLZ = -42; // centre d'achats (relatif à l'aéroport)
+const TRZ2 = -30;          // voie du TEM (relatif)
+{
+  // hôtel
+  box(10, 16, 8, 0xe9e2d0, -30, 8, -16, around); box(10.4, 0.6, 8.4, 0x2a3550, -30, 16.3, -16, around);
+  for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) box(1.4, 1.4, 0.1, 0xffe6a0, -33.6 + c * 2.4, 2.6 + r * 2.4, -11.95, around);
+  plane(9, 1.6, signTex([{ t: "HÔTEL DE L'ALP", size: 62, y: 72, color: '#ffffff' }], { w: 640, h: 110, bg: '#2a3550', border: '#ffd23f' }), -30, 17.6, -11.9, 0, around);
+  // garderie chiens & chats
+  box(10, 4.5, 7, 0xff9fc6, 30, 2.25, -16, around); box(10.6, 0.5, 7.6, 0x8e44ad, 30, 4.7, -16, around);
+  box(2, 3, 0.1, 0x5a3b22, 30, 1.5, -12.45, around);
+  plane(9.4, 1.6, signTex([{ t: 'GARDERIE CHIENS & CHATS', size: 50, y: 64, color: '#ffffff' }, { t: '🐶 🐱', size: 40, y: 112 }], { w: 760, h: 140, bg: '#8e44ad', border: '#ffffff' }), 30, 6, -12.4, 0, around);
+  const pets = [];
+  for (let i = 0; i < 6; i++) { const g = new THREE.Group(); const dog = i % 2 === 0; const c = [0xc68a5a, 0x3b2416, 0xf2f2f2, 0xff9a3b, 0x777777, 0x222222][i];
+    box(dog ? 1.1 : 0.8, 0.6, 0.5, c, 0, 0.55, 0, g); box(0.5, 0.5, 0.5, c, dog ? 0.7 : 0.5, 0.95, 0, g);
+    box(0.15, 0.3, 0.15, c, (dog ? 0.7 : 0.5) + 0.1, 1.3, 0.15, g); box(0.15, 0.3, 0.15, c, (dog ? 0.7 : 0.5) + 0.1, 1.3, -0.15, g);
+    for (const [x, z] of [[-0.35, 0.18], [-0.35, -0.18], [0.35, 0.18], [0.35, -0.18]]) box(0.15, 0.3, 0.15, c, x, 0.15, z, g);
+    g.position.set(25 + i * 1.8, 0, -9 + (i % 3)); g.userData.o = i; around.add(g); pets.push(g); }
+  around.userData.pets = pets;
+  box(12, 0.8, 0.15, 0xffffff, 30, 0.4, -7.4, around);
+  // parc pour observer les avions (de l'autre côté de la piste)
+  patch(APX - 4, APZ + 24, 22, 8, 0x6fa86a);
+  for (let i = 0; i < 3; i++) { box(2.4, 0.2, 0.7, 0x8a5a2b, -12 + i * 6, 0.6, 24, around); box(2.4, 0.7, 0.15, 0x8a5a2b, -12 + i * 6, 1, 24.35, around); }
+  for (let i = 0; i < 12; i++) box(0.12, 1, 0.12, 0x5a3b22, -15 + i * 2, 0.5, 20.6, around);
+  box(22, 0.1, 0.1, 0x5a3b22, -4, 0.95, 20.6, around);
+  plane(6, 1.3, signTex([{ t: 'PARC DES AVIONS ✈️', size: 50, y: 64, color: '#1d4fa8' }], { w: 460, h: 100, bg: '#fbf7ec', border: '#1d4fa8' }), 4, 2, 21, Math.PI, around);
+  box(0.2, 2, 0.2, 0x5a3b22, 2, 1, 21.05, around); box(0.2, 2, 0.2, 0x5a3b22, 6, 1, 21.05, around);
+  const watchers = [];
+  for (let i = 0; i < 4; i++) { const c = character({ shirt: [0x3a7bd5, 0xe0343b, 0x2e9b48, 0xf2c230][i], hat: ['tuque', 'cap', 'hair', 'longhair'][i], hatColor: [0xd8262b, 0x1d4fa8, 0x3b2416, 0x6b4a2f][i], pos: [APX - 10 + i * 3, 0, APZ + 22.5], ry: Math.PI }); c.visible = false; watchers.push(c); }
+  around.userData.watchers = watchers;
+  // centre d'achats Tabar30
+  box(26, 7, 14, 0xd9dde4, MLX, 3.5, MLZ, around); box(26.4, 0.6, 14.4, 0x1d1d1d, MLX, 7.2, MLZ, around);
+  for (let i = 0; i < 6; i++) box(3, 3.6, 0.1, 0x8fc6ff, MLX - 10 + i * 4, 2.2, MLZ + 7.05, around);
+  plane(18, 2.4, signTex([{ t: 'QUARTIER TABAR30', size: 72, y: 80, color: '#ffffff' }, { t: "centre d'achats", size: 34, y: 126, color: '#ffd23f' }], { w: 900, h: 150, bg: '#1d1d1d', border: '#ffffff' }), MLX, 9, MLZ + 7.1, 0, around);
+  // voie du TEM : du centre d'achats jusqu'au terminal
+  patch(APX + (MLX + 4) / 2 - 2, APZ + TRZ2, Math.abs(MLX) + 14, 2.4, 0x55504a);
+  for (const dz of [-0.6, 0.6]) box(Math.abs(MLX) + 14, 0.15, 0.15, 0x9aa4b8, (MLX + 4) / 2 - 2, 0.12, TRZ2 + dz, around);
+  for (let i = 0; i < 26; i++) box(0.4, 0.1, 2, 0x6b4a2f, MLX - 6 + i * 2.5, 0.06, TRZ2, around);
+  box(7, 4, 4, 0xdfe6ee, -16, 2, TRZ2 - 3.5, around); box(7.4, 0.4, 4.4, 0x0fa3a3, -16, 4.1, TRZ2 - 3.5, around);
+  plane(6, 1, signTex([{ t: 'GARE TEM · ALP', size: 50, y: 62, color: '#ffffff' }], { w: 460, h: 90, bg: '#0fa3a3', border: '#ffffff' }), -16, 3.4, TRZ2 - 1.45, 0, around);
+  temTrain = new THREE.Group(); around.add(temTrain);
+  for (let i = 0; i < 3; i++) { const x = -i * 7.4; box(7, 3, 2.6, 0xf7f9fc, x, 1.9, 0, temTrain); box(7.02, 0.6, 2.62, 0x0fa3a3, x, 1.2, 0, temTrain); for (let w = 0; w < 4; w++) { box(1.1, 0.9, 0.05, 0x2a3550, x - 2.4 + w * 1.6, 2.5, 1.32, temTrain); box(1.1, 0.9, 0.05, 0x2a3550, x - 2.4 + w * 1.6, 2.5, -1.32, temTrain); } }
+  box(0.1, 1.2, 2, 0x2a3550, 3.52, 2.4, 0, temTrain);
+  plane(5, 0.7, signTex([{ t: 'TEM · Train Express Tabarnouche', size: 34, y: 46, color: '#0fa3a3' }], { w: 600, h: 70, bg: '#f7f9fc', border: '#f7f9fc' }), -7.4, 2.5, 1.36, 0, temTrain);
+  temTrain.position.set(MLX + 10, 0, TRZ2);
+  for (const [x, z] of [[-30, -10], [30, -10], [MLX, MLZ + 9], [-4, 24]]) { const l = new THREE.PointLight(0xffd9a0, 50, 30, 1.4); l.position.set(x, 7, z); around.add(l); }
+}
+// tags de noms au-dessus des passagers
+const tagG = passengers.map((c) => { const p = plane(2.4, 0.6, signTex([{ t: c.userData.tag, size: 64, y: 70 }], { w: 300, h: 100, bg: '#fbf7ec', border: '#5a3b22' }), 0, 4.0, 0, 0, c); return p; });
+
+// ================= EXPLORATION LIBRE =================
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const $ = (s) => document.querySelector(s);
+
+// ---------- état du monde : tout ce qui est bâti ----------
+['cabane', 'maisons', 'garderie', 'poutine', 'patinoire', 'poupees'].forEach((k) => { builds[k].visible = true; builds[k].scale.y = 1; });
+builds.quads.visible = false;
+timParts.visible = true; timParts.scale.y = 1; crane.visible = false; queueSigns.visible = true;
+staffChars.forEach((c) => (c.visible = true)); queueChars.forEach((c) => (c.visible = true));
+dust.forEach((d) => (d.visible = false)); confetti.forEach((c) => (c.visible = false));
+quadIntro.visible = false;
+// ---------- constructions du 25 novembre (vidéos recensement + aéroport) ----------
+lightAt('day'); lampG.visible = false;
+scene.traverse((o) => { if (o.isPointLight) o.visible = false; });
+sapinG.visible = true; sapinG.scale.set(1, 1, 1); trottoirG.visible = true;
+airport.visible = true; airport.scale.set(1, 1, 1); plane1.visible = true; airport.userData.statue.visible = true;
+around.visible = true; around.userData.watchers.forEach((c) => (c.visible = true));
+passengers.forEach((c, i) => { c.visible = true; c.position.set(APX - 20 + i * 1.6, 0, APZ + 2.5); c.rotation.y = 0; });
+moto.position.set(9, 0, 47.2); moto.rotation.y = -Math.PI / 2;
+// pancarte « prochain vote » devant les 3 terrains
+plane(6, 1.1, signTex([{ t: 'PROCHAIN VOTE 🗳️', size: 80, y: 90, color: '#fff' }], { w: 640, h: 170, bg: '#e0343b', border: '#fff' }), 0, 3.6, LOTZ - 3.2);
+box(0.2, 3.2, 0.2, 0x6b4a2f, -2.6, 1.6, LOTZ - 3.3); box(0.2, 3.2, 0.2, 0x6b4a2f, 2.6, 1.6, LOTZ - 3.3);
+
+// ---------- lieux ----------
+// f = distance devant la façade (+z) où on arrive ; yaw 0 = on regarde vers -z
+const PLACES = [
+  { id: 'place', e: '🏛️', n: 'Hôtel de ville', d: 'Là où le maire travaille. Le mur des OG et le recensement sont ici.', x: -1, z: -7, f: 9, j: 1 },
+  { id: 'arena', e: '🏒', n: "L'aréna", d: 'Hockey, 2e division et équipe féminine. La cantine est juste à côté.', x: -26, z: -6, f: 11, j: 3 },
+  { id: 'interieur', e: '🥅', n: "Intérieur de l'aréna", d: 'Les 3 équipes : Vive le Québec, l\'équipe féminine et les commanditaires.', x: -10, z: -140, f: 2, j: 5 },
+  { id: 'tim', e: '☕', n: 'Chez Tim', d: 'Le café du coin, avec la file des premiers clients.', x: -22, z: 16, f: 9, j: 4 },
+  { id: 'sapins', e: '🎄', n: 'Les sapins de Noël', d: 'Le magasin de sapins… surveillé par le Grinch.', x: -10, z: 11, f: 7, j: 6 },
+  { id: 'poupees', e: '🎀', n: 'Les Poupées qui parlent', d: 'La boutique de TALK. Grande ouverture !', x: 13, z: 18, f: 9, j: 7 },
+  { id: 'cabane', e: '🍁', n: 'La cabane à sucre', d: 'Choisie par vous au vote. Tire sur la neige incluse.', x: -36, z: 32, f: 9, j: 5 },
+  { id: 'maisons', e: '🏡', n: 'Rue des Érables', d: 'Les premières maisons des abonnés.', x: -1, z: 47, f: 0, j: 6, yaw: 0.0, h: true },
+  { id: 'garderie', e: '🧸', n: 'La garderie', d: 'Demandée par user_coralie27.', x: -28, z: 40, f: 10, j: 7 },
+  { id: 'poutine', e: '🍟', n: "La Poutine d'Or", d: 'Gagnante du vote du Jour 6. J est la boss.', x: -46, z: -4, f: 10, j: 7 },
+  { id: 'patinoire', e: '⛸️', n: 'La patinoire extérieure', d: 'Gagnante du Jour 8 : 1 500 $ du coffre.', x: 26, z: 27, f: 9, j: 8 },
+  { id: 'vote', e: '🗳️', n: 'Les terrains du prochain vote', d: '', x: 0, z: 30, f: 8, j: 8 },
+  { id: 'sapin', e: '🌲', n: 'Le sapin géant', d: 'Le sapin des roses : débloqué par le live du 24 novembre (100 roses). Merci !', x: 9, z: 9, f: 9, j: 9 },
+  { id: 'trottoir', e: '⭐', n: 'Le trottoir des gifts', d: 'Les noms des 11 personnes qui ont aidé pendant le live sont gravés dans le trottoir.', x: -2, z: 12, f: -2.5, j: 9, yaw: Math.PI },
+  { id: 'usine', e: '🏭', n: 'Usine Vieilles Épices', d: "L'usine de Vinsso, avec sa statue en or devant.", x: -20, z: 120, f: 15, j: 9 },
+  { id: 'lp', e: '🏗️', n: 'Centre de construction LP', d: 'Le chef de chantier de la ville : LP, le plus généreux du live.', x: 28, z: 120, f: 13, j: 9 },
+  { id: 'foret', e: '🍄', n: 'La forêt enchantée', d: 'La forêt de Royal, avec sa statue au bout du chemin. Faut venir dans la forêt…', x: -70, z: 112, f: 20, j: 9 },
+  { id: 'alp', e: '✈️', n: 'Aéroport Louis-P.-Tessier', d: "L'ALP : terminal, tour de contrôle, l'avion d'Air Tabarnouche et la statue en or à l'entrée. Le vol 001 cherche son pilote !", x: 110, z: 86, f: 10, j: 10 },
+  { id: 'hotel', e: '🏨', n: "L'hôtel de l'ALP", d: "L'hôtel juste à côté de l'aéroport.", x: 80, z: 84, f: 9, j: 10 },
+  { id: 'animaux', e: '🐶', n: 'Garderie chiens & chats', d: 'Pour faire garder ton animal pendant ton voyage.', x: 140, z: 84, f: 10, j: 10 },
+  { id: 'avions', e: '🛫', n: 'Parc des avions', d: "Le parc pour regarder les avions décoller, de l'autre côté de la piste.", x: 106, z: 124, f: 3, j: 10 },
+  { id: 'tabar30', e: '🛍️', n: 'Quartier Tabar30', d: "Le grand centre d'achats, relié à l'aéroport par le train TEM.", x: 58, z: 58, f: 11, j: 10 },
+  { id: 'tem', e: '🚆', n: 'Gare du TEM', d: "Train Express Tabarnouche : du Quartier Tabar30 jusqu'à l'aéroport.", x: 94, z: 66.5, f: 6, j: 10 },
+  { id: 'paroisse', e: '⛪', n: 'La paroisse', d: 'Sœur Marie et Sœur Rosa.', x: 40, z: 5, f: 10, j: 4 },
+  { id: 'quinc', e: '🔨', n: 'La quincaillerie', d: 'Tenue par Mike.', x: 52, z: 6, f: 8, j: 4 },
+  { id: 'saq', e: '🧃', n: 'La SAQ… de jus', d: 'Version pour enfants : juste du jus.', x: 64, z: 6, f: 8, j: 4 },
+  { id: 'crisstement', e: '👕', n: 'Boutique Crisstement', d: 'La boutique de vêtements de Lavende.', x: 76, z: 6, f: 8, j: 5 },
+  { id: 'creme', e: '🍦', n: 'La Folie Glacée', d: 'La crèmerie.', x: 40, z: -15, f: 8, j: 4 },
+  { id: 'biblio', e: '📚', n: 'La Calisthèque', d: 'La bibliothèque.', x: 53, z: -15, f: 8, j: 4 },
+  { id: 'mart', e: '🛒', n: 'Walks to the Mart', d: 'Le grand magasin que vous demandiez (« À quand un Walmart? »). Épiciers et métiers devant.', x: 70, z: -16, f: 10, j: 7 },
+  { id: 'banque', e: '🏦', n: 'La banque', d: '', x: 30, z: -40, f: 8, j: 4 },
+  { id: 'epicerie', e: '🥕', n: "L'épicerie", d: 'Fondée par GallyxQc.', x: 42, z: -40, f: 8, j: 4 },
+  { id: 'lajoie', e: '🐄', n: 'La ferme Lajoie', d: '', x: 54, z: -40, f: 8, j: 4 },
+  { id: 'caserne', e: '🚒', n: 'La caserne', d: 'Les pompiers de la ville.', x: 66, z: -40, f: 8, j: 4 },
+  { id: 'spa', e: '💆', n: 'Le spa', d: 'Massothérapie et bain chaud.', x: 78, z: -40, f: 8, j: 4 },
+  { id: 'galerie', e: '🛍️', n: 'Galerie de la Capitale', d: 'Le centre commercial, nommé par Mathix : Applenouch, Sphero, la sandwicherie.', x: 42, z: -78, f: 12, j: 6 },
+  { id: 'ferme', e: '🌾', n: 'La ferme Michaud', d: 'La ferme et la maison de Théa.', x: -76, z: -16, f: 12, j: 5 },
+  { id: 'gym', e: '💪', n: 'Gym Nark', d: 'Le gym de gamixlepoisson.', x: -74, z: -74, f: 8, j: 6 },
+  { id: 'police', e: '🚓', n: 'Le poste de police', d: 'Commandant Émile et son équipe.', x: -58, z: -74, f: 9, j: 6 },
+  { id: 'ecole', e: '🏫', n: "L'école secondaire", d: 'Celle d\'Oli.', x: -42, z: -75, f: 9, j: 6 },
+  { id: 'retraite', e: '👵', n: 'La maison de retraite', d: '', x: -24, z: -74, f: 10, j: 6 },
+];
+const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM"};
+PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
+const PL_MAPZ = { interieur: -93 };
+const PL = Object.fromEntries(PLACES.map((p) => [p.id, p]));
+PL.vote.d = 'La ville vote pour la suite : ' + DATA.prochainVote.join(' · ') + '. Le commentaire le plus liké décide.';
+// où travaille chaque habitant
+const WORK = { 'iamtalk': 'poupees', 'Lavende': 'crisstement', 'gamixlepoisson': 'gym', '..L.SHANA.L..': 'galerie', 'Mathix': 'galerie', 'Ludo': 'galerie', 'emmagmorena': 'galerie', 'Mike': 'quinc', 'Émile': 'police', 'Maudit Grizzli': 'police', 'Sœur Marie': 'paroisse', 'Sœur Rosa': 'paroisse', 'beaa.privatee': 'sapins', 'Oli': 'interieur', 'jxst_eve21': 'interieur', 'Anna': 'interieur', 'Rachou': 'interieur', 'not_roroleb': 'maisons', 'user_coralie27': 'garderie', 'Théa Michaud': 'ferme', 'Anthony': 'tim', 'edward.dubthibaul': 'poutine', 'J ♡': 'poutine', 'malie3410': 'arena', 'GallyxQc': 'epicerie' };
+const BMAP = { poutine: 'poutine', place: 'place', arena: 'arena', garderie: 'garderie', garage: 'maisons', commerces: 'mart', ferme: 'ferme', tim: 'tim', jo: 'place' };
+const EXTRA = [
+  { p: 'LP (louphil1)', r: 'Chef de chantier, Centre de construction LP', at: 'lp', j: 9 },
+  { p: 'Vinsso (vinsso1)', r: 'Usine Vieilles Épices · statue en or', at: 'usine', j: 9 },
+  { p: 'Royal (royal_jpb)', r: 'Arbitre de hockey et poète · statue dans la forêt', at: 'foret', j: 9 },
+  ...[['Solopy', 'solopy45'], ['Gab', 'gab.stage6.2t'], ['Kéké', 'nailek97'], ['Chilly', 'chillyof'], ['Cora', ''], ['Cla', 'claa0618'], ['P-Y', 'py_180'], ['Thom', 'thom27090']].map(([n, h]) => ({ p: h ? `${n} (${h})` : n, r: n === 'P-Y' ? 'Fermier laitier · trottoir des gifts' : 'Nom gravé au trottoir des gifts', at: 'trottoir', j: 9 })),
+];
+const RES = EXTRA.concat(DATA.residents).map((r) => {
+  if (r.lot !== undefined) { const side = r.lot % 2, k = Math.floor(r.lot / 2); return { ...r, at: 'maisons', house: { x: -13 + k * 4.8, z: side ? 43 : 51.5, side } }; }
+  return { ...r, at: WORK[r.p] || BMAP[r.b] || 'place' };
+});
+const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+// ---------- rendu plein écran ----------
+const LOW = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, screen.height) < 700;
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, LOW ? 1.5 : 2));
+if (LOW) { renderer.shadowMap.enabled = false; scene.traverse((o) => { o.castShadow = false; o.receiveShadow = false; }); sun.castShadow = false; }
+function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+scene.fog.near = 40; scene.fog.far = 150;
+
+// ---------- le joueur ----------
+const ME_COL = [[0xe0343b, 0xd8262b], [0x1f56b8, 0xf2c230], [0x2e9b48, 0xffffff], [0x7b4fd0, 0xe86aa8], [0xff8a3d, 0x1d2b55]];
+let meStyle = Math.floor(Math.random() * ME_COL.length);
+let me = null, meTag = null, meName = '';
+function makeMe(name) {
+  const old = me; const [sh, tq] = ME_COL[meStyle];
+  me = character({ shirt: sh, pants: 0x22252e, hat: 'tuque', hatColor: tq, boots: 0x3b2a20 });
+  if (old) { me.position.copy(old.position); me.rotation.y = old.rotation.y; scene.remove(old); } else me.position.set(0.3, 0, 16);
+  me.traverse((o) => { o.userData.isMe = true; });
+  if (name) { meTag = nameTag(name, 0, 3.55, 0, me, true, Math.min(3.6, 1.2 + name.length * 0.17)); }
+}
+makeMe('');
+
+// ---------- collisions (boîtes et cylindres du décor) ----------
+scene.updateMatrixWorld(true);
+const CELL = 10, grid = new Map(), colliders = [];
+function isChar(o) { for (let p = o; p; p = p.parent) { if (p.userData && p.userData.armL) return true; if (!p.visible) return true; } return false; }
+const _b = new THREE.Box3();
+scene.traverse((o) => {
+  if (!o.isMesh || o === ground || o.userData.isMe) return;
+  const t = o.geometry.type; if (t !== 'BoxGeometry' && t !== 'CylinderGeometry') return;
+  if (isChar(o)) return;
+  _b.setFromObject(o);
+  if (_b.min.y > 1.7 || _b.max.y < 0.45) return;
+  const sx = _b.max.x - _b.min.x, sz = _b.max.z - _b.min.z;
+  if (sx < 0.1 && sz < 0.1) return;
+  if (sx > 60 || sz > 60) return;
+  const c = [_b.min.x, _b.min.z, _b.max.x, _b.max.z, _b.max.y]; colliders.push(c);
+  for (let i = Math.floor(c[0] / CELL); i <= Math.floor(c[2] / CELL); i++) for (let k = Math.floor(c[1] / CELL); k <= Math.floor(c[3] / CELL); k++) { const key = i + ',' + k; if (!grid.has(key)) grid.set(key, []); grid.get(key).push(c); }
+});
+const R = 0.42;
+function collide(p) {
+  const key = Math.floor(p.x / CELL) + ',' + Math.floor(p.z / CELL);
+  for (let pass = 0; pass < 2; pass++) {
+    for (let di = -1; di <= 1; di++) for (let dk = -1; dk <= 1; dk++) {
+      const arr = grid.get((Math.floor(p.x / CELL) + di) + ',' + (Math.floor(p.z / CELL) + dk)); if (!arr) continue;
+      for (const c of arr) {
+        const x0 = c[0] - R, z0 = c[1] - R, x1 = c[2] + R, z1 = c[3] + R;
+        if (p.x <= x0 || p.x >= x1 || p.z <= z0 || p.z >= z1) continue;
+        const dl = p.x - x0, dr = x1 - p.x, dn = p.z - z0, ds = z1 - p.z; const m = Math.min(dl, dr, dn, ds);
+        if (m === dl) p.x = x0; else if (m === dr) p.x = x1; else if (m === dn) p.z = z0; else p.z = z1;
+      }
+    }
+  }
+  p.x = clamp(p.x, -140, 190); p.z = clamp(p.z, -190, 170);
+}
+
+function blocked(x, y, z) {
+  const arr = grid.get(Math.floor(x / CELL) + ',' + Math.floor(z / CELL)); if (!arr) return false;
+  for (const c of arr) if (x > c[0] - 0.3 && x < c[2] + 0.3 && z > c[1] - 0.3 && z < c[3] + 0.3 && y < c[4] + 0.6) return true;
+  return false;
+}
+// le terrain gris de la future concession de quads n'existe pas encore
+scene.children.forEach((o) => { if (o.isMesh && o.geometry.type === 'PlaneGeometry' && Math.abs(o.position.x + 31) < 0.1 && Math.abs(o.position.z - 62) < 0.1) o.visible = false; });
+// ---------- contrôles ----------
+let camSm = null, yaw = 0, pitch = innerWidth < innerHeight ? 0.38 : 0.32, dist = innerWidth < innerHeight ? 12.5 : 9, aerial = 0, aerialTarget = 0;
+const keys = {};
+addEventListener('keydown', (e) => { if (e.target.tagName === 'INPUT') return; keys[e.code] = true; if (e.code === 'KeyM') toggleMap(); });
+addEventListener('keyup', (e) => { keys[e.code] = false; });
+const joy = { x: 0, y: 0, id: null };
+const jEl = $('#joy'), jKnob = $('#knob');
+function joyMove(e) { const r = jEl.getBoundingClientRect(); const cx = r.left + r.width / 2, cy = r.top + r.height / 2; let dx = e.clientX - cx, dy = e.clientY - cy; const L = Math.hypot(dx, dy), M = r.width / 2 - 10; if (L > M) { dx *= M / L; dy *= M / L; } joy.x = dx / M; joy.y = dy / M; jKnob.style.transform = `translate(${dx}px,${dy}px)`; }
+jEl.addEventListener('pointerdown', (e) => { joy.id = e.pointerId; jEl.setPointerCapture(e.pointerId); joyMove(e); e.preventDefault(); });
+jEl.addEventListener('pointermove', (e) => { if (e.pointerId === joy.id) joyMove(e); });
+const joyEnd = (e) => { if (e.pointerId !== joy.id) return; joy.id = null; joy.x = joy.y = 0; jKnob.style.transform = ''; };
+jEl.addEventListener('pointerup', joyEnd); jEl.addEventListener('pointercancel', joyEnd);
+// glisser sur la scène = tourner la caméra ; 2 doigts / molette = zoom
+const drags = new Map();
+canvas.addEventListener('pointerdown', (e) => { drags.set(e.pointerId, [e.clientX, e.clientY]); canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', (e) => {
+  const p = drags.get(e.pointerId); if (!p) return;
+  if (drags.size === 2) { const [a, b] = [...drags.values()]; const d0 = Math.hypot(a[0] - b[0], a[1] - b[1]); drags.set(e.pointerId, [e.clientX, e.clientY]); const [a2, b2] = [...drags.values()]; const d1 = Math.hypot(a2[0] - b2[0], a2[1] - b2[1]); dist = clamp(dist * d0 / Math.max(1, d1), 4, 22); return; }
+  yaw -= (e.clientX - p[0]) * 0.006; pitch = clamp(pitch + (e.clientY - p[1]) * 0.004, 0.05, 1.2); drags.set(e.pointerId, [e.clientX, e.clientY]);
+});
+const dragEnd = (e) => drags.delete(e.pointerId);
+canvas.addEventListener('pointerup', dragEnd); canvas.addEventListener('pointercancel', dragEnd);
+canvas.addEventListener('wheel', (e) => { dist = clamp(dist * (1 + Math.sign(e.deltaY) * 0.1), 4, 22); e.preventDefault(); }, { passive: false });
+let running = false; $('#run').addEventListener('click', () => { running = !running; $('#run').classList.toggle('on', running); });
+$('#sky').addEventListener('click', () => { aerialTarget = aerialTarget ? 0 : 1; $('#sky').classList.toggle('on', !!aerialTarget); });
+
+// ---------- téléportation ----------
+let beacon = null;
+{ const g = new THREE.Group(); scene.add(g); const m = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.2, 4), new THREE.MeshBasicMaterial({ color: 0xffd23f })); m.rotation.x = Math.PI; g.add(m); const ring = new THREE.Mesh(new THREE.RingGeometry(1.1, 1.5, 24), new THREE.MeshBasicMaterial({ color: 0xffd23f, transparent: true, opacity: 0.8, side: THREE.DoubleSide })); ring.rotation.x = -Math.PI / 2; ring.position.y = -5.5; g.add(ring); g.visible = false; beacon = g; }
+let fly = null;
+function goTo(x, z, faceYaw, mark, pitch1) {
+  const from = me.position.clone();
+  fly = { t: 0, from, to: new THREE.Vector3(x, 0, z), yaw0: yaw, yaw1: faceYaw, p0: pitch, p1: pitch1 ?? Math.min(pitch, 0.45) };
+  if (mark) { beacon.position.set(mark[0], 6, mark[1]); beacon.visible = true; } else beacon.visible = false;
+  aerialTarget = 0; $('#sky').classList.remove('on'); closePanels();
+}
+function goPlace(id) {
+  const p = PL[id]; if (!p) return;
+  if (id === 'maisons') return goTo(-1, 47, Math.PI / 2, null);
+  goTo(p.x, p.z + p.f, p.yaw || 0, [p.x, p.z]);
+}
+function goResident(r) {
+  if (r.house) { const h = r.house; goTo(h.x, 47, h.side ? 0 : Math.PI, [h.x, h.z], 0.85); showCard(PL.maisons, r); return; }
+  goPlace(r.at); showCard(PL[r.at], r);
+}
+
+// ---------- carte (mini + plein écran) ----------
+const mm = $('#mm'), mctx = mm.getContext('2d');
+const BOUND = { x0: -92, x1: 148, z0: -96, z1: 135 };
+function drawMap(ctx, W, H, big) {
+  const s = Math.min(W / (BOUND.x1 - BOUND.x0), H / (BOUND.z1 - BOUND.z0));
+  const ox = (W - (BOUND.x1 - BOUND.x0) * s) / 2, oz = (H - (BOUND.z1 - BOUND.z0) * s) / 2;
+  const P = (x, z) => [ox + (x - BOUND.x0) * s, oz + (z - BOUND.z0) * s];
+  ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#eef2f7'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#c9b293';
+  for (const [x, z, w, d] of [[0, 6, 5, 30], [-14, 4, 30, 4.5], [15, -1, 26, 4.5], [0, 21, 5, 18], [-1, 47, 32, 4], [58, -9.5, 50, 4.5]]) { const [a, b] = P(x - w / 2, z - d / 2); ctx.fillRect(a, b, w * s, d * s); }
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const placed = [];
+  for (const p of PLACES) { const [a, b] = P(p.x, PL_MAPZ[p.id] ?? p.z); ctx.font = `${big ? 22 : 11}px "Noto Color Emoji", sans-serif`; ctx.fillText(p.e, a, b);
+    if (big) { ctx.font = '800 10px Nunito, sans-serif'; const w = ctx.measureText(p.s).width + 4, r = [a - w / 2, b + 11, a + w / 2, b + 23];
+      if (!placed.some((q) => r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1])) { placed.push(r); ctx.lineWidth = 3; ctx.strokeStyle = '#eef2f7'; ctx.strokeText(p.s, a, b + 17); ctx.fillStyle = '#1c1f2a'; ctx.fillText(p.s, a, b + 17); } } }
+  const [px, pz] = P(clamp(me.position.x, BOUND.x0, BOUND.x1), clamp(me.position.z, BOUND.z0, BOUND.z1));
+  ctx.save(); ctx.translate(px, pz); ctx.rotate(-me.rotation.y + Math.PI); ctx.fillStyle = '#e0343b'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); const k = big ? 12 : 7; ctx.moveTo(0, -k); ctx.lineTo(k * 0.7, k * 0.8); ctx.lineTo(-k * 0.7, k * 0.8); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
+  return { P, s };
+}
+const bigMap = $('#bigmap'), bctx = bigMap.getContext('2d'); let mapOpen = false, mapGeo = null;
+function toggleMap(force) { mapOpen = force ?? !mapOpen; $('#mapwrap').classList.toggle('open', mapOpen); if (mapOpen) { closePanels(true); renderBig(); } }
+function renderBig() {
+  const r = bigMap.getBoundingClientRect(); const dpr = Math.min(2, devicePixelRatio || 1);
+  bigMap.width = r.width * dpr; bigMap.height = r.height * dpr; bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  mapGeo = drawMap(bctx, r.width, r.height, true);
+}
+mm.addEventListener('click', () => toggleMap(true));
+$('#mapclose').addEventListener('click', () => toggleMap(false));
+bigMap.addEventListener('click', (e) => {
+  const r = bigMap.getBoundingClientRect(); const x = e.clientX - r.left, y = e.clientY - r.top;
+  let best = null, bd = 30; for (const p of PLACES) { const [a, b] = mapGeo.P(p.x, PL_MAPZ[p.id] ?? p.z); const d = Math.hypot(a - x, b - y); if (d < bd) { bd = d; best = p; } }
+  if (best) { toggleMap(false); goPlace(best.id); showCard(best); }
+});
+
+// ---------- fiche du lieu ----------
+const card = $('#card'); let cardPlace = null, cardPinned = 0;
+function chip(r) { return `<button class="chip" data-p="${encodeURIComponent(r.p)}"><b>${esc(r.p)}</b><span>${esc(r.r)}</span></button>`; }
+function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function showCard(p, focus) {
+  if (!p) return; cardPlace = p.id; cardPinned = performance.now() + 4000;
+  const who = RES.filter((r) => r.at === p.id);
+  card.innerHTML = `<div class="ch"><span class="ce">${p.e}</span><div><div class="cn">${esc(p.n)}</div><div class="cj">Bâti au Jour ${p.j}</div></div></div>`
+    + (focus ? `<div class="found">📍 ${esc(focus.p)} · ${esc(focus.r)}</div>` : '')
+    + (p.d ? `<p class="cd">${esc(p.d)}</p>` : '')
+    + (who.length ? `<div class="chips">${who.map(chip).join('')}</div>` : '');
+  card.classList.add('show');
+}
+function hideCard() { card.classList.remove('show'); cardPlace = null; }
+card.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (!b) return; const r = RES.find((x) => x.p === decodeURIComponent(b.dataset.p)); if (r) goResident(r); });
+
+// ---------- habitants (recherche « trouve ta place ») ----------
+const list = $('#list');
+function renderList(q) {
+  const n = norm(q || '');
+  const rows = RES.filter((r) => !n || norm(r.p).includes(n) || norm(r.r).includes(n) || norm(PL[r.at].n).includes(n));
+  list.innerHTML = rows.length ? rows.map((r) => `<button class="row" data-p="${encodeURIComponent(r.p)}"><span class="re">${PL[r.at].e}</span><span class="rt"><b>${esc(r.p)}</b><small>${esc(r.r)} · ${esc(PL[r.at].n)}</small></span><span class="go">Y aller</span></button>`).join('')
+    : `<div class="empty">Pas encore dans la ville. Commente ton nom + la job que tu veux sur le dernier TikTok : le maire bâtit les demandes les plus likées.</div>`;
+}
+list.addEventListener('click', (e) => { const b = e.target.closest('.row'); if (!b) return; const r = RES.find((x) => x.p === decodeURIComponent(b.dataset.p)); if (r) goResident(r); });
+$('#q').addEventListener('input', (e) => renderList(e.target.value));
+$('#btnWho').addEventListener('click', () => { const o = !$('#who').classList.contains('open'); closePanels(); if (o) { $('#who').classList.add('open'); renderList($('#q').value); } });
+$('#whoclose').addEventListener('click', () => closePanels());
+function closePanels(keepMap) { $('#who').classList.remove('open'); if (!keepMap) toggleMap(false); }
+
+// ---------- HUD ----------
+const fmtN = (n) => n.toLocaleString('fr-CA').replace(/ | |,/g, ' ');
+$('#pop').textContent = fmtN(DATA.habitants); $('#cof').textContent = fmtN(DATA.coffre) + ' $'; $('#jour').textContent = 'JOUR ' + DATA.jour;
+$('#goal').style.width = Math.min(100, DATA.habitants / DATA.objectif * 100) + '%';
+$('#goalt').textContent = fmtN(DATA.habitants) + ' / ' + fmtN(DATA.objectif) + ' habitants';
+
+// ---------- écran d'accueil ----------
+const sw = $('#swatches');
+ME_COL.forEach(([c], i) => { const b = document.createElement('button'); b.className = 'sw' + (i === meStyle ? ' on' : ''); b.style.background = '#' + c.toString(16).padStart(6, '0'); b.setAttribute('aria-label', 'Couleur ' + (i + 1)); b.onclick = () => { meStyle = i; sw.querySelectorAll('.sw').forEach((x, k) => x.classList.toggle('on', k === i)); }; sw.appendChild(b); });
+function enter() {
+  meName = $('#name').value.trim().slice(0, 24);
+  if (me && meTag) { me.remove(meTag); }
+  makeMe(meName);
+  try { localStorage.setItem('stt-nom', meName); localStorage.setItem('stt-col', meStyle); } catch (e) {}
+  $('#intro').classList.add('gone');
+  const r = meName && RES.find((x) => norm(x.p) === norm(meName)) || (meName && norm(meName).length >= 3 && RES.find((x) => norm(x.p).includes(norm(meName))));
+  if (r) { toast(`Bienvenue chez vous, ${r.p} ! 🎉`); goResident(r); }
+  else if (meName) toast(`Bienvenue à Saint-Tabarnouche, ${meName} !`);
+}
+try { const n = localStorage.getItem('stt-nom'); if (n) $('#name').value = n; const c = +localStorage.getItem('stt-col'); if (c >= 0 && c < ME_COL.length && localStorage.getItem('stt-col') !== null) { meStyle = c; sw.querySelectorAll('.sw').forEach((x, k) => x.classList.toggle('on', k === c)); } } catch (e) {}
+$('#enter').addEventListener('click', enter);
+$('#name').addEventListener('keydown', (e) => { if (e.key === 'Enter') enter(); });
+let toastT = 0; function toast(s) { const t = $('#toast'); t.textContent = s; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3200); }
+
+// ---------- boucle ----------
+const clock = new THREE.Clock(); let T0 = 0; const tmp = new THREE.Vector3(); let lastNear = null;
+function frame() {
+  const dt = Math.min(0.05, clock.getDelta()); T0 += dt; const t = T0;
+  // déplacement
+  let ix = joy.x, iy = joy.y;
+  if (keys.KeyW || keys.ArrowUp || keys.KeyZ) iy -= 1; if (keys.KeyS || keys.ArrowDown) iy += 1;
+  if (keys.KeyA || keys.ArrowLeft || keys.KeyQ) ix -= 1; if (keys.KeyD || keys.ArrowRight) ix += 1;
+  const L = Math.hypot(ix, iy); if (L > 1) { ix /= L; iy /= L; }
+  const fast = running || keys.ShiftLeft || keys.ShiftRight;
+  const speed = (fast ? 11 : 6) * Math.min(1, L);
+  let moving = false;
+  if (fly) {
+    fly.t += dt / 1.1; const k = ease(clamp(fly.t));
+    me.position.lerpVectors(fly.from, fly.to, k); me.position.y = Math.sin(k * Math.PI) * 14;
+    let dy = fly.yaw1 - fly.yaw0; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); yaw = fly.yaw0 + dy * k; pitch = lerp(fly.p0, fly.p1, k);
+    me.rotation.y = yaw + Math.PI;
+    if (fly.t >= 1) { me.position.y = 0; fly = null; }
+  } else if (speed > 0.05) {
+    const fx = -Math.sin(yaw), fz = -Math.cos(yaw), rx = Math.cos(yaw), rz = -Math.sin(yaw);
+    const mx = fx * -iy + rx * ix, mz = fz * -iy + rz * ix; const ml = Math.hypot(mx, mz) || 1;
+    me.position.x += mx / ml * speed * dt; me.position.z += mz / ml * speed * dt;
+    collide(me.position);
+    const target = Math.atan2(mx, mz); let d = target - me.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); me.rotation.y += d * Math.min(1, dt * 12);
+    moving = true; beacon.visible = beacon.visible && me.position.distanceTo(tmp.set(beacon.position.x, 0, beacon.position.z)) > 3;
+  }
+  // animation du perso
+  const u = me.userData;
+  if (moving) { const sp = fast ? 15 : 10; const a = Math.sin(t * sp) * 0.7; u.legL.rotation.x = a; u.legR.rotation.x = -a; u.armL.rotation.x = -a * 0.8; u.armR.rotation.x = a * 0.8; u.armL.rotation.z = u.armR.rotation.z = 0; me.position.y = Math.abs(Math.sin(t * sp)) * 0.08; }
+  else if (!fly) { u.legL.rotation.x = u.legR.rotation.x = 0; anim(me, t, 'idle'); me.position.y = 0; }
+  // caméra
+  aerial += (aerialTarget - aerial) * Math.min(1, dt * 3);
+  const D = lerp(dist, 75, aerial), P = lerp(pitch, 1.15, aerial);
+  const cx = me.position.x + Math.sin(yaw) * Math.cos(P) * D, cz = me.position.z + Math.cos(yaw) * Math.cos(P) * D, cy = Math.max(1.2, me.position.y + 2.2 + Math.sin(P) * D);
+  let camK = 1;
+  if (aerial < 0.2) { const hx = me.position.x, hy = me.position.y + 2.0, hz = me.position.z; for (let i = 1; i <= 14; i++) { const k = i / 14; if (blocked(lerp(hx, cx, k), lerp(hy, cy, k), lerp(hz, cz, k))) { camK = Math.max(0.12, (i - 1) / 14); break; } } }
+  camSm = camSm === null ? camK : (camK < camSm ? camK : camSm + (camK - camSm) * Math.min(1, dt * 3));
+  camera.position.set(lerp(me.position.x, cx, camSm), lerp(me.position.y + 2.2, cy, camSm), lerp(me.position.z, cz, camSm)); camera.lookAt(me.position.x, me.position.y + 2.0, me.position.z);
+  scene.fog.far = lerp(150, 260, aerial);
+  sunAt(me.position.x, me.position.z);
+  // monde vivant
+  flagAt(t); snowAt(t, camera.position);
+  beacon.rotation.y = t * 2; beacon.children[0].position.y = Math.sin(t * 4) * 0.4;
+  builds.cabane.userData.smoke.forEach((s, i) => { const ph = (t * 0.4 + i / 4) % 1; s.position.set(2.5 + Math.sin(ph * 5 + i) * 0.3, 6.6 + ph * 3, -1); s.scale.setScalar(0.6 + ph * 1.5); s.material.opacity = 0.6 * (1 - ph); });
+  anim(mayor, t, 'wave'); anim(mayor2, t, 'point');
+  villagers.forEach((v, i) => anim(v, t, 'idle', i));
+  steam.forEach((s, i) => { const ph = (t * 0.8 + i / 3) % 1; s.position.set(0.8 + Math.sin(ph * 6 + i) * 0.1, 1.6 + ph * 1.2, 2.15); s.scale.setScalar(0.6 + ph); });
+  steamT.forEach((s, i) => { const ph = (t * 0.6 + i / 3) % 1; s.position.set(Math.sin(ph * 6 + i) * 0.2, 2.3 + ph * 2.0, 0); s.scale.setScalar(0.6 + ph * 1.2); s.material.opacity = 0.7 * (1 - ph); });
+  tubSteam.forEach((s, i) => { const ph = (t * 0.5 + i / 6) % 1; s.position.set(Math.cos(i * 1.7) * 0.9, 1.0 + ph * 2.2, Math.sin(i * 1.7) * 0.9); s.scale.setScalar(0.5 + ph * 1.4); s.material.opacity = 0.55 * (1 - ph); });
+  anim(cantineGuy, t, 'idle'); anim(official, t, 'idle');
+  staffChars.forEach((c, i) => anim(c, t, 'idle', i));
+  queueChars.forEach((c, i) => c.userData.head && anim(c, t, 'idle', i * 0.9));
+  quadQ.position.y = Math.abs(Math.sin(t * 7)) * 0.03; anim(quadQ.userData.rider, t, 'wave', 3);
+  anim(thea, t, 'wave'); (theaFarm.userData.animals || []).forEach((a, i) => { a.position.y = Math.abs(Math.sin(t * 3 + i)) * 0.06; });
+  [soeurMarie, soeurRosa, mike, jusKid, lavende, anthony, ludo, shana, emma, emile, grizzli, tsun, oliE].forEach((c, i) => anim(c, t, 'idle', i));
+  metierChars.forEach((c, i) => anim(c, t, 'idle', i));
+  vlqChars.forEach((c, i) => anim(c, t, 'idle', i)); femChars.forEach((c, i) => anim(c, t, 'idle', i)); anim(coachEve, t, 'point');
+  anim(statue, 0, 'wave');
+  anim(gamixG, t, 'idle'); gamixG.userData.armL.rotation.z = -2.9; gamixG.userData.armR.rotation.z = 2.9; barbell.position.set(0, 3.0 + Math.abs(Math.sin(t * 3)) * 0.5, 0);
+  elders.forEach((e, i) => { e.rotation.x = Math.sin(t * 2 + i) * 0.12; });
+  const blink = Math.floor(t * 4) % 2; lightR.material = mat(blink ? 0xff2222 : 0x551111); lightB.material = mat(blink ? 0x221144 : 0x2255ff);
+  bulbs.forEach((b, i) => { b.visible = (Math.floor(t * 2) + i) % 3 !== 0; }); anim(grinch, t, 'idle');
+  builds.patinoire.userData.skaters.forEach((c, i) => { const a = t * 0.5 + i * 1.05; c.position.set(Math.cos(a) * 5.5, 0.06, Math.sin(a) * 2.8); c.rotation.y = -a; anim(c, t, 'idle', i); });
+  { const g = builds.garderie.userData; g.kids.forEach((c, i) => { c.position.y = Math.abs(Math.sin(t * 5 + i)) * 0.3; anim(c, t, 'cheer', i); }); anim(g.coralie, t, 'wave'); }
+  { const g = builds.poutine.userData; anim(g.boss, t, 'wave'); g.line.forEach((c, i) => anim(c, t, 'idle', i)); }
+  { const g = builds.poupees.userData; anim(g.talk, t, 'wave'); g.balloons.forEach((b, i) => { b.position.y = 4.6 + (i % 3) * 0.6 + Math.sin(t * 2 + i) * 0.15; }); }
+  sapinG.userData.star.rotation.y = t * 1.2; sapinBulbs.forEach((b, i) => { b.visible = (Math.floor(t * 2) + i) % 4 !== 0; });
+  usine.userData.smoke.forEach((sm, i) => { const ph = (t * 0.3 + i / 8) % 1; const x = i % 2 ? 6 : -6; sm.position.set(x + Math.sin(ph * 4 + i) * 0.6, 19 + ph * 8, -8); sm.scale.setScalar(0.8 + ph * 2); sm.material.opacity = 0.6 * (1 - ph); });
+  fireflies.forEach((f) => { const u = f.userData; f.position.set(u.x + Math.sin(t * 0.7 + u.o) * 0.8, u.y + Math.sin(t * 1.3 + u.o * 2) * 0.4, u.z + Math.cos(t * 0.6 + u.o) * 0.8); });
+  around.userData.pets.forEach((g) => { const o = g.userData.o; g.position.y = Math.abs(Math.sin(t * 6 + o)) * 0.25; g.rotation.y = Math.sin(t * 0.8 + o) * 0.8; });
+  around.userData.watchers.forEach((c, i) => anim(c, t, 'point', i)); passengers.forEach((c, i) => anim(c, t, 'wave', i)); anim(lpChar, t, 'wave');
+  { const k = (Math.sin(t * 0.25) + 1) / 2; temTrain.position.x = lerp(MLX + 10, -9, ease(k)); }
+  moto.userData.body.rotation.x = -0.35 - Math.sin(t * 3) * 0.1; moto.userData.body.position.y = 0.85;
+  // lieu le plus proche → fiche
+  if (!fly) {
+    let near = null, nd = 1e9;
+    for (const p of PLACES) { const dx = me.position.x - p.x, dz = me.position.z - (p.z + p.f * 0.6); const d = Math.hypot(dx, dz); if (d < nd) { nd = d; near = p; } }
+    if (nd < 9 && near) { if (cardPlace !== near.id && (performance.now() > cardPinned || !cardPlace)) showCard(near); }
+    else if (cardPlace && performance.now() > cardPinned) hideCard();
+  }
+  renderer.render(scene, camera);
+  drawMap(mctx, mm.width, mm.height, false);
+  if (mapOpen && Math.floor(t * 10) % 3 === 0) renderBig();
+  requestAnimationFrame(frame);
+}
+yaw = 0; me.rotation.y = Math.PI;
+window.READY = true; window.__go = (q) => { const n = norm(q); const p = PLACES.find((x) => norm(x.n).includes(n) || norm(x.s).includes(n)); if (p) { goPlace(p.id); showCard(p); } }; window.__dbg = () => ({ camSm, dist, x: me.position.x, z: me.position.z });
+$('#loading').remove();
+requestAnimationFrame(frame);
+
+
+</script>
+
+
+</body>
+</html>

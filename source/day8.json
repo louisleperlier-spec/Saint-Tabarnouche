@@ -1,0 +1,219 @@
+{
+ "cfg": {
+  "day": 8,
+  "pill": "JOUR 8 · J-1",
+  "popFrom": 7492,
+  "popTo": 7492,
+  "cofFrom": 9100,
+  "cofTo": 9100,
+  "cost": 1500,
+  "cofAfter": 7600,
+  "win": "patinoire",
+  "vote": [
+   [
+    "⚡",
+    "Un bureau d'Hydro-Québec"
+   ],
+   [
+    "⛷️",
+    "Une montagne de ski"
+   ],
+   [
+    "🛻",
+    "Concession de quads"
+   ]
+  ],
+  "goal": 10000,
+  "goal2": 10000,
+  "xmas": true,
+  "next": "recensement demain",
+  "builtBefore": [
+   "cabane",
+   "maisons",
+   "garderie",
+   "poutine"
+  ],
+  "kinds": [
+   "hook",
+   "rule",
+   "build",
+   "jobs",
+   "census",
+   "vote"
+  ],
+  "houseNames": [
+   "JT9816",
+   "Margot",
+   "justine",
+   "Urfav_blondie",
+   "Émilie",
+   "Lélé",
+   "Marie",
+   "edou8",
+   "Bastéyien",
+   "Les boys",
+   "Zaélie",
+   "alyy"
+  ],
+  "jobs": [
+   {
+    "n": "edward.dubthibaul",
+    "t": "Je veux être employé de la poutine d'or",
+    "l": "3",
+    "r": "Poutine d'Or 🍟",
+    "c": "#e08a1e"
+   },
+   {
+    "n": "beaa.privatee",
+    "t": "J'peux être le grinch?",
+    "l": "2",
+    "r": "Le Grinch 🎄",
+    "c": "#2e9b48"
+   },
+   {
+    "n": "malie3410",
+    "t": "je peux être la commanditaire des game de hockey svppp",
+    "l": "3",
+    "r": "Commanditaire 🏒",
+    "c": "#1f56b8"
+   }
+  ]
+ },
+ "scenes": [
+  {
+   "clip": "j8_0",
+   "caps": [
+    [
+     "Y'a 8 jours, ici…",
+     "y'avait RIEN ❄️",
+     "Y'a huit jours, ici, y'avait rien."
+    ],
+    [
+     "TikTok a bâti",
+     "CETTE VILLE 🤯",
+     "TikTok a bâti cette ville."
+    ],
+    [
+     "Mais demain c'est le recensement",
+     "pis il m'en manque 2 508 ⏰",
+     "Mais demain, c'est le recensement... pis il m'en manque deux mille cinq cent huit."
+    ]
+   ]
+  },
+  {
+   "clip": "j8_1",
+   "caps": [
+    [
+     "",
+     "",
+     "Chaque abonné, c'est un habitant."
+    ],
+    [
+     "Commente ton nom",
+     "pis ta job 💼",
+     "Commente ton nom pis ta job,"
+    ],
+    [
+     "",
+     "je te mets dans la ville 🏘️",
+     "pis je te mets dans la ville."
+    ]
+   ]
+  },
+  {
+   "clip": "j8_2",
+   "caps": [
+    [
+     "Hier vous avez voté :",
+     "LA PATINOIRE ⛸️",
+     "Hier, vous avez voté : la patinoire!"
+    ],
+    [
+     "Ça coûte",
+     "1 500 $ 💸",
+     "Ça coûte mille cinq cents piasses."
+    ],
+    [
+     "Le coffre tombe à",
+     "7 600 $",
+     "Le coffre tombe à sept mille six cents."
+    ]
+   ]
+  },
+  {
+   "clip": "j8_3",
+   "caps": [
+    [
+     "Vous êtes 31",
+     "à demander une job 💼",
+     "Pis vous êtes trente et un à demander une job."
+    ],
+    [
+     "Edward",
+     "engagé à la Poutine d'Or 🍟",
+     "Edward, t'es engagé à la Poutine d'Or."
+    ],
+    [
+     "Bea",
+     "c'est toi le Grinch 🎄",
+     "Bea, c'est toi le Grinch."
+    ],
+    [
+     "Malie",
+     "commanditaire du hockey 🏒",
+     "Malie, tu commandites le hockey."
+    ]
+   ]
+  },
+  {
+   "clip": "j8_4",
+   "caps": [
+    [
+     "On est",
+     "7 492",
+     "On est sept mille quatre cent quatre-vingt-douze."
+    ],
+    [
+     "Le recensement",
+     "c'est DEMAIN ⏰",
+     "Le recensement, c'est demain."
+    ],
+    [
+     "Objectif",
+     "10 000 🏙️",
+     "L'objectif : dix mille."
+    ],
+    [
+     "Il en manque",
+     "2 508 😬",
+     "Il en manque deux mille cinq cent huit."
+    ],
+    [
+     "Tag l'ami qui serait",
+     "le pire voisin 👇",
+     "Tag l'ami qui serait le pire voisin de la ville!"
+    ]
+   ]
+  },
+  {
+   "clip": "j8_5",
+   "caps": [
+    [
+     "",
+     "Pis après, on bâtit quoi?",
+     "Pis après, on bâtit quoi?"
+    ],
+    [
+     "",
+     "",
+     "Un bureau d'Hydro-Québec, une montagne de ski, ou une concession de quads?"
+    ],
+    [
+     "Commente",
+     "ton vote 👇",
+     "Commente ton vote!"
+    ]
+   ]
+  }
+ ]
+}
