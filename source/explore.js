@@ -305,6 +305,18 @@ $('#pop').textContent = fmtN(DATA.habitants); $('#cof').textContent = fmtN(DATA.
 $('#goal').style.width = Math.min(100, DATA.habitants / DATA.objectif * 100) + '%';
 $('#goalt').textContent = fmtN(DATA.habitants) + ' / ' + fmtN(DATA.objectif) + ' habitants';
 
+// ---------- compteur de visiteurs (abacus, gratuit, sans compte) ----------
+(function visites() {
+  const base = 'https://abacus.jasoncameron.dev/';
+  let seen = false; try { seen = !!localStorage.getItem('stt-vu'); } catch (e) {}
+  const url = base + (seen ? 'get' : 'hit') + '/saint-tabarnouche-ville/visiteurs';
+  const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
+  fetch(url, { signal: ctl.signal }).then((r) => r.json()).then((d) => {
+    if (typeof d.value !== 'number') return;
+    try { localStorage.setItem('stt-vu', '1'); } catch (e) {}
+    $('#vis').textContent = fmtN(d.value); $('#visw').hidden = false;
+  }).catch(() => {});
+})();
 // ---------- écran d'accueil ----------
 const sw = $('#swatches');
 ME_COL.forEach(([c], i) => { const b = document.createElement('button'); b.className = 'sw' + (i === meStyle ? ' on' : ''); b.style.background = '#' + c.toString(16).padStart(6, '0'); b.setAttribute('aria-label', 'Couleur ' + (i + 1)); b.onclick = () => { meStyle = i; sw.querySelectorAll('.sw').forEach((x, k) => x.classList.toggle('on', k === i)); }; sw.appendChild(b); });

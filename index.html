@@ -7,6 +7,7 @@
 <meta property="og:title" content="Visite Saint-Tabarnouche">
 <meta property="og:description" content="La ville bâtie par TikTok. Trouve ta maison ou ta job.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <title>Visite Saint-Tabarnouche</title>
@@ -26,6 +27,8 @@ button{font:inherit;cursor:pointer}
 .pill .l{font-size:10px;font-weight:800;letter-spacing:.6px;opacity:.8}
 .pill .v{font-size:18px;font-weight:900}
 #cofw .v{color:var(--gold)}
+#visw .v{color:#7fd3ff}
+@media (max-width:420px){#jour{display:none}}
 #jour{white-space:nowrap;background:var(--red);color:#fff;font-weight:900;font-size:13px;border-radius:20px;padding:6px 12px;margin-top:8px}
 #mm{margin-left:auto;width:112px;height:126px;border-radius:14px;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:auto;cursor:pointer;background:#eef2f7}
 #goalbox{position:fixed;top:calc(max(10px,env(safe-area-inset-top)) + 54px);left:12px;width:min(230px,52vw);background:var(--hud);color:#fff;border-radius:12px;padding:6px 10px;z-index:5;font-size:11px;font-weight:800}
@@ -89,6 +92,7 @@ button{font:inherit;cursor:pointer}
 <div id="hud">
   <div class="pill"><div class="l">POPULATION</div><div class="v" id="pop">0</div></div>
   <div class="pill" id="cofw"><div class="l">COFFRE</div><div class="v" id="cof">0</div></div>
+  <div class="pill" id="visw" hidden><div class="l">VISITEURS</div><div class="v" id="vis">0</div></div>
   <div id="jour">JOUR</div>
   <canvas id="mm" width="224" height="252" title="Carte"></canvas>
 </div>
@@ -1834,6 +1838,18 @@ $('#pop').textContent = fmtN(DATA.habitants); $('#cof').textContent = fmtN(DATA.
 $('#goal').style.width = Math.min(100, DATA.habitants / DATA.objectif * 100) + '%';
 $('#goalt').textContent = fmtN(DATA.habitants) + ' / ' + fmtN(DATA.objectif) + ' habitants';
 
+// ---------- compteur de visiteurs (abacus, gratuit, sans compte) ----------
+(function visites() {
+  const base = 'https://abacus.jasoncameron.dev/';
+  let seen = false; try { seen = !!localStorage.getItem('stt-vu'); } catch (e) {}
+  const url = base + (seen ? 'get' : 'hit') + '/saint-tabarnouche-ville/visiteurs';
+  const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
+  fetch(url, { signal: ctl.signal }).then((r) => r.json()).then((d) => {
+    if (typeof d.value !== 'number') return;
+    try { localStorage.setItem('stt-vu', '1'); } catch (e) {}
+    $('#vis').textContent = fmtN(d.value); $('#visw').hidden = false;
+  }).catch(() => {});
+})();
 // ---------- écran d'accueil ----------
 const sw = $('#swatches');
 ME_COL.forEach(([c], i) => { const b = document.createElement('button'); b.className = 'sw' + (i === meStyle ? ' on' : ''); b.style.background = '#' + c.toString(16).padStart(6, '0'); b.setAttribute('aria-label', 'Couleur ' + (i + 1)); b.onclick = () => { meStyle = i; sw.querySelectorAll('.sw').forEach((x, k) => x.classList.toggle('on', k === i)); }; sw.appendChild(b); });
