@@ -1840,15 +1840,28 @@ $('#goalt').textContent = fmtN(DATA.habitants) + ' / ' + fmtN(DATA.objectif) + '
 
 // ---------- compteur de visiteurs (abacus, gratuit, sans compte) ----------
 (function visites() {
+  // Compteur de visites (abacus). La pastille s'affiche tout de suite, puis le chiffre arrive.
   const base = 'https://abacus.jasoncameron.dev/';
-  let seen = false; try { seen = !!localStorage.getItem('stt-vu'); } catch (e) {}
-  const url = base + (seen ? 'get' : 'hit') + '/saint-tabarnouche-ville/visiteurs';
-  const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
-  fetch(url, { signal: ctl.signal }).then((r) => r.json()).then((d) => {
-    if (typeof d.value !== 'number') return;
-    try { localStorage.setItem('stt-vu', '1'); } catch (e) {}
-    $('#vis').textContent = fmtN(d.value); $('#visw').hidden = false;
-  }).catch(() => {});
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
+  const show = (n) => { $('#vis').textContent = fmtN(n); };
+  $('#vis').textContent = '…'; $('#visw').hidden = false;
+  const last = Number(ls('stt-vn')); if (last > 0) show(last);
+  let tries = 0;
+  function go() {
+    const mode = ls('stt-vu') ? 'get' : 'hit';
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 12000);
+    fetch(base + mode + '/saint-tabarnouche-ville/visiteurs', { signal: ctl.signal, cache: 'no-store' })
+      .then((r) => r.json()).then((d) => {
+        clearTimeout(t);
+        if (typeof d.value !== 'number') throw 0;
+        ls('stt-vu', '1'); ls('stt-vn', String(d.value)); show(d.value);
+      }).catch(() => {
+        clearTimeout(t);
+        if (++tries < 3) setTimeout(go, 2500 * tries);
+        else if (!(last > 0)) $('#visw').hidden = true;
+      });
+  }
+  go();
 })();
 // ---------- écran d'accueil ----------
 const sw = $('#swatches');
