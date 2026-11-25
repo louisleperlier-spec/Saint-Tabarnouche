@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bâtisseurs contre Grinch</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@800;900&display=swap">
+<style>
+/* Layout: panneau de jeu compact pour capture de fenêtre dans LIVE Studio, panneau de contrôle caché dessous */
+:root{
+  --bg:#0e1630; --panel:#1d2b55; --ink:#ffffff; --muted:#aab6dd;
+  --vert:#2fbf5b; --vert-d:#1d8a3e; --rouge:#e0343b; --rouge-d:#9e1f25; --or:#ffd23f;
+  --display:"Baloo 2","Nunito",system-ui,sans-serif; --body:"Nunito",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--body)}
+body{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+.stage{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.top{display:flex;gap:12px;align-items:stretch}
+.wins{flex:none;background:var(--or);color:var(--panel);border-radius:18px;padding:6px 14px;text-align:center;box-shadow:0 6px 0 #c79a1a;display:flex;flex-direction:column;justify-content:center}
+.wins b{font-family:var(--display);font-size:40px;line-height:1}
+.wins span{font-weight:900;font-size:13px;letter-spacing:.04em}
+.goal{flex:1;min-width:0;background:linear-gradient(#2f5be0,#2348b8);border:3px solid #fff;border-radius:18px;padding:8px 12px;box-shadow:0 6px 0 #17306f}
+.goal-h{display:flex;justify-content:space-between;gap:8px;font-weight:900;font-size:16px}
+.goal-h .n{font-variant-numeric:tabular-nums;color:var(--or)}
+.next{font-size:13px;color:#dfe7ff;font-weight:800;margin-top:2px}
+.track{position:relative;height:22px;border-radius:12px;background:#0b1640;margin-top:6px;overflow:hidden;border:2px solid #0b1640}
+.fill{position:absolute;inset:0 auto 0 0;width:50%;background:linear-gradient(90deg,var(--vert-d),var(--vert));border-radius:10px;transition:width .35s ease}
+.mid{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffffff55}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team{border-radius:16px;padding:8px 10px;border:3px solid #fff}
+.team.v{background:var(--vert-d)} .team.r{background:var(--rouge-d)}
+.team h3{margin:0 0 6px;font-family:var(--display);font-size:18px;line-height:1}
+.gifts{display:flex;gap:6px}
+.g{flex:1;min-width:0;background:#ffffff22;border-radius:10px;text-align:center;padding:4px 2px}
+.g .e{font-size:26px;line-height:1.1}
+.g .p{font-weight:900;font-size:14px}
+.free{display:flex;gap:10px;font-weight:900;font-size:14px}
+.free div{flex:1;background:var(--panel);border-radius:12px;padding:6px 10px;display:flex;justify-content:space-between;gap:6px}
+.free .n{font-variant-numeric:tabular-nums;color:var(--or)}
+.note{text-align:center;color:var(--muted);font-size:12px;font-weight:800}
+.flash{white-space:pre-line;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:var(--display);font-size:46px;text-align:center;line-height:1;color:#fff;-webkit-text-stroke:8px #111;paint-order:stroke fill;opacity:0;transition:opacity .3s}
+.flash.on{opacity:1}
+/* contrôle */
+.ctl{max-width:520px;margin:20px auto 0;background:var(--panel);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.ctl h2{margin:0;font-size:16px}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;font-weight:900;border:0;border-radius:10px;padding:8px 10px;cursor:pointer;color:#fff}
+button:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.bv{background:var(--vert-d)} .br{background:var(--rouge-d)} .bn{background:#3a4a80}
+.help{font-size:13px;color:var(--muted);line-height:1.4}
+.help kbd{background:#0b1640;border-radius:5px;padding:1px 6px;color:#fff}
+label{font-size:13px;font-weight:800;display:flex;flex-direction:column;gap:3px}
+textarea,input{font:inherit;font-size:13px;background:#0b1640;color:#fff;border:1px solid #3a4a80;border-radius:8px;padding:6px}
+@media (prefers-reduced-motion:reduce){.fill,.flash{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="top">
+    <div class="wins"><b id="wins">0/10</b><span>BÂTIMENTS</span></div>
+    <div class="goal">
+      <div class="goal-h"><span>Ne laisse pas le Grinch gagner!</span><span class="n" id="score">50/100</span></div>
+      <div class="next">🏗️ En construction : <span id="bat">Sapin géant</span></div>
+      <div class="track"><div class="fill" id="fill"></div><div class="mid"></div></div>
+    </div>
+  </div>
+  <div class="teams">
+    <div class="team v"><h3>🔨 Les Bâtisseurs</h3><div class="gifts" id="gv"></div></div>
+    <div class="team r"><h3>😈 Le Grinch</h3><div class="gifts" id="gr"></div></div>
+  </div>
+  <div class="free">
+    <div>❤️ <span id="likesTxt">100 likes = +5</span><span class="n" id="likes">0</span></div>
+    <div>➕ Abonnement <span class="n">+3</span></div>
+  </div>
+  <div class="note">Les likes et les abonnements aident les Bâtisseurs gratuitement. Cadeaux : 18 ans et + seulement.</div>
+</div>
+<div class="flash" id="flash"></div>
+
+<div class="ctl" id="ctl">
+  <h2>Contrôle (cache cette partie dans LIVE Studio)</h2>
+  <div class="row" id="cv"></div>
+  <div class="row" id="cr"></div>
+  <div class="row">
+    <button class="bn" data-k="l">❤️ +10 likes (L)</button>
+    <button class="bn" data-k="f">➕ Abonnement (F)</button>
+    <button class="bn" data-k="z">↩️ Annuler (Z)</button>
+    <button class="bn" id="reset">Recommencer</button>
+  </div>
+  <p class="help">Raccourcis : Bâtisseurs <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>, Grinch <kbd>7</kbd> <kbd>8</kbd> <kbd>9</kbd>, likes <kbd>L</kbd>, abonnement <kbd>F</kbd>, annuler <kbd>Z</kbd>. Avec TikFinity, une action « touche du clavier » par cadeau peut appuyer sur ces touches pour toi (la fenêtre doit être active).</p>
+  <label for="cfg">Cadeaux (une ligne : équipe ; emoji ; nom ; points)
+    <textarea id="cfg" rows="6"></textarea></label>
+  <label for="blds">Bâtiments à construire, dans l'ordre (un par ligne)
+    <textarea id="blds" rows="5"></textarea></label>
+  <div class="row"><button class="bn" id="save">Enregistrer</button></div>
+</div>
+
+<script>
+(function(){
+const DEF_CFG=`v;🌹;Rose;1
+v;🫰;Cœur doigts;5
+v;🍩;Beignet;30
+r;🍦;Crème glacée;1
+r;🧴;Parfum;20
+r;🌶️;Piment;5`;
+const DEF_BLD=`Sapin géant
+Aéroport
+Caserne de pompiers
+Garage de Gab
+7-Onze
+Nouveau quartier
+Stade Tabarnouche
+Forêt enchantée
+Parc et terrain de soccer
+Hôtel de l'aéroport`;
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let cfg,blds,st={score:50,wins:0,likes:0},hist=[];
+try{const s=JSON.parse(ls.get('st')||'null');if(s)st=s}catch(e){}
+function parse(){
+  cfg=(ls.get('cfg')||DEF_CFG).split('\n').map(l=>l.split(';').map(x=>x.trim())).filter(a=>a.length===4&&(a[0]==='v'||a[0]==='r')).map(a=>({t:a[0],e:a[1],n:a[2],p:Math.abs(+a[3]||0)}));
+  blds=(ls.get('blds')||DEF_BLD).split('\n').map(s=>s.trim()).filter(Boolean);
+  document.getElementById('cfg').value=ls.get('cfg')||DEF_CFG;
+  document.getElementById('blds').value=ls.get('blds')||DEF_BLD;
+}
+function render(){
+  const gv=cfg.filter(g=>g.t==='v'),gr=cfg.filter(g=>g.t==='r');
+  const card=(g,s)=>`<div class="g"><div class="e">${g.e}</div><div class="p">${s}${g.p}</div></div>`;
+  document.getElementById('gv').innerHTML=gv.slice(0,3).map(g=>card(g,'+')).join('');
+  document.getElementById('gr').innerHTML=gr.slice(0,3).map(g=>card(g,'−')).join('');
+  const keysV=['1','2','3'],keysR=['7','8','9'];
+  document.getElementById('cv').innerHTML=gv.slice(0,3).map((g,i)=>`<button class="bv" data-k="${keysV[i]}">${g.e} ${g.n} +${g.p} (${keysV[i]})</button>`).join('');
+  document.getElementById('cr').innerHTML=gr.slice(0,3).map((g,i)=>`<button class="br" data-k="${keysR[i]}">${g.e} ${g.n} −${g.p} (${keysR[i]})</button>`).join('');
+  draw();
+}
+function draw(){
+  document.getElementById('fill').style.width=st.score+'%';
+  document.getElementById('score').textContent=st.score+'/100';
+  document.getElementById('wins').textContent=st.wins+'/'+blds.length;
+  document.getElementById('bat').textContent=blds[st.wins]||'Ville complète!';
+  document.getElementById('likes').textContent=st.likes%100+'/100';
+  ls.set('st',JSON.stringify(st));
+}
+let ft;
+function flash(t){const f=document.getElementById('flash');f.textContent=t;f.classList.add('on');clearTimeout(ft);ft=setTimeout(()=>f.classList.remove('on'),2600)}
+function add(d){
+  hist.push(JSON.stringify(st));if(hist.length>50)hist.shift();
+  st.score=Math.max(0,Math.min(100,st.score+d));
+  if(st.score>=100){const b=blds[st.wins]||'Bâtiment';st.wins++;st.score=50;flash('🏗️ '+b+'\nCONSTRUIT!')}
+  else if(st.score<=0){st.score=50;flash('😈 Le Grinch a tout rasé!\nOn recommence!')}
+  draw();
+}
+function key(k){
+  const gv=cfg.filter(g=>g.t==='v'),gr=cfg.filter(g=>g.t==='r');
+  const iv=['1','2','3'].indexOf(k),ir=['7','8','9'].indexOf(k);
+  if(iv>=0&&gv[iv])add(gv[iv].p);
+  else if(ir>=0&&gr[ir])add(-gr[ir].p);
+  else if(k==='l'){const before=Math.floor(st.likes/100);st.likes+=10;if(Math.floor(st.likes/100)>before)add(5);else{hist.push(JSON.stringify(st));draw()}}
+  else if(k==='f')add(3);
+  else if(k==='z'&&hist.length){st=JSON.parse(hist.pop());draw()}
+}
+document.addEventListener('keydown',e=>{if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT')return;key(e.key.toLowerCase())});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b)key(b.dataset.k)});
+document.getElementById('reset').addEventListener('click',()=>{hist.push(JSON.stringify(st));st={score:50,wins:0,likes:0};draw()});
+document.getElementById('save').addEventListener('click',()=>{ls.set('cfg',document.getElementById('cfg').value);ls.set('blds',document.getElementById('blds').value);parse();render()});
+parse();render();
+})();
+</script>
+</body>
+</html>
