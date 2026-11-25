@@ -1,0 +1,35 @@
+/* Mode app : barre d'onglets en bas + fiches (Vidéos & lives, Recensement, Boutique). */
+:root{--tabh:calc(62px + env(safe-area-inset-bottom,0px))}
+#tabs{position:fixed;left:0;right:0;bottom:0;height:var(--tabh);padding-bottom:env(safe-area-inset-bottom,0px);display:flex;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(0,0,0,.12);z-index:12}
+#tabs button{flex:1;border:0;background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:900 10.5px "Nunito",system-ui,sans-serif;letter-spacing:.2px;padding:0}
+#tabs button span{font-size:22px;line-height:1;filter:grayscale(.6);opacity:.75}
+#tabs button.on{color:var(--red)}#tabs button.on span{filter:none;opacity:1}
+@media (min-width:700px){#tabs{left:50%;right:auto;bottom:12px;transform:translateX(-50%);width:520px;height:62px;padding:0;border-radius:18px;border:1px solid var(--line)}}
+body.tabs #tools{bottom:calc(var(--tabh) + 14px)}
+body.tabs #joy{bottom:calc(var(--tabh) + 18px)}
+body.tabs #card{bottom:calc(var(--tabh) + 156px)}
+body.tabs #help{bottom:calc(var(--tabh) + 10px)}
+body.tabs #btnWho{display:none}
+body.tabs #who{bottom:var(--tabh);max-height:calc(86vh - var(--tabh))}
+@media (hover:hover) and (pointer:fine){body.tabs #card{bottom:96px}body.tabs #help{bottom:14px}}
+@media (min-width:700px){body.tabs #who{bottom:90px}}
+#sheet{position:fixed;left:0;right:0;bottom:var(--tabh);max-height:calc(86vh - var(--tabh));background:var(--paper);color:var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.3);transform:translateY(calc(100% + var(--tabh) + 10px));transition:transform .3s;z-index:9;display:flex;flex-direction:column;padding:14px 16px 12px}
+#sheet.open{transform:none}
+@media (min-width:700px){#sheet{left:auto;right:16px;top:16px;bottom:90px;width:380px;max-height:none;border-radius:20px;transform:translateX(110%)}}
+#sheet .sb{overflow:auto;flex:1;touch-action:pan-y;-webkit-overflow-scrolling:touch;user-select:text;-webkit-user-select:text}
+#sheet h3{font:800 17px "Baloo 2","Nunito",sans-serif;margin:14px 0 6px}
+#sheet p{margin:4px 0;font-weight:700;font-size:14px;line-height:1.35}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.stat{background:var(--chip);border-radius:14px;padding:10px 12px}.stat small{display:block;font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.4px}.stat b{font:900 24px "Nunito"}
+.bar{height:12px;border-radius:7px;background:var(--chip);overflow:hidden;margin:8px 0 2px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--red),#ff7a3b)}
+.li{display:flex;gap:10px;align-items:center;padding:9px 2px;border-bottom:1px solid var(--line);font-weight:800;font-size:14px;line-height:1.25}
+.li .e{font-size:22px;width:28px;text-align:center}.li .t{flex:1}.li small{display:block;color:var(--muted);font-size:12px}
+.tag{background:var(--gold);color:#1c1f2a;font-weight:900;font-size:11px;border-radius:20px;padding:3px 8px;white-space:nowrap}
+.tag.soon{background:var(--chip);color:var(--muted)}
+.btn{display:block;width:100%;margin-top:10px;text-align:center;border:0;background:var(--red);color:#fff;text-decoration:none;font-weight:900;font-size:15px;padding:12px;border-radius:12px}
+.btn.alt{background:var(--blue)}.btn.ghost{background:var(--chip);color:var(--ink)}
+.livebox{background:linear-gradient(135deg,var(--red),#ff7a3b);color:#fff;border-radius:16px;padding:12px 14px;margin-top:6px}
+.livebox b{font:800 20px "Baloo 2","Nunito",sans-serif;display:block}
+#install{position:fixed;left:12px;right:12px;top:calc(max(10px,env(safe-area-inset-top)) + 96px);background:var(--ink);color:var(--paper);border-radius:14px;padding:10px 12px;font-weight:800;font-size:13px;line-height:1.3;z-index:13;display:none;gap:10px;align-items:center}
+#install.show{display:flex}#install button{border:0;background:none;color:inherit;font-size:18px;font-weight:900}
+#sheet.open ~ #install,body:has(#who.open) #install,body:has(#mapwrap.open) #install{display:none}
