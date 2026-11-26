@@ -96,7 +96,7 @@ const PLACES = [
   { id: 'banque', e: '🏦', n: 'La banque', d: '', x: 30, z: -40, f: 8, j: 4 },
   { id: 'epicerie', e: '🥕', n: "L'épicerie", d: 'Fondée par GallyxQc.', x: 42, z: -40, f: 8, j: 4 },
   { id: 'lajoie', e: '🐄', n: 'La ferme Lajoie', d: '', x: 54, z: -40, f: 8, j: 4 },
-  { id: 'caserne', e: '🚒', n: 'La caserne', d: 'Les pompiers de la ville.', x: 66, z: -40, f: 8, j: 4 },
+  { id: 'caserne', e: '🚒', n: 'La caserne', d: 'Les pompiers de la ville. Commandants : Legacy et Xav.', x: 66, z: -40, f: 8, j: 4 },
   { id: 'spa', e: '💆', n: 'Le spa', d: 'Massothérapie et bain chaud.', x: 78, z: -40, f: 8, j: 4 },
   { id: 'galerie', e: '🛍️', n: 'Galerie de la Capitale', d: 'Le centre commercial, nommé par Mathix : Applenouch, Sphero, la sandwicherie.', x: 42, z: -78, f: 12, j: 6 },
   { id: 'ferme', e: '🌾', n: 'La ferme Michaud', d: 'La ferme et la maison de Théa.', x: -76, z: -16, f: 12, j: 5 },
@@ -104,8 +104,20 @@ const PLACES = [
   { id: 'police', e: '🚓', n: 'Le poste de police', d: 'Commandant Émile et son équipe.', x: -58, z: -74, f: 9, j: 6 },
   { id: 'ecole', e: '🏫', n: "L'école secondaire", d: 'Celle d\'Oli.', x: -42, z: -75, f: 9, j: 6 },
   { id: 'retraite', e: '👵', n: 'La maison de retraite', d: '', x: -24, z: -74, f: 10, j: 6 },
+  { id: 'allee25', e: '⭐', n: 'Trottoir des gifts du 25 nov', d: 'Les 40 noms du live du 25 novembre, gravés dans le trottoir qui mène à la Grande Tour. Merci !', x: 0, z: 60, f: -3, j: 11, yaw: Math.PI },
+  { id: 'tour', e: '🗼', n: 'La Grande Tour', d: 'La merveille du monde de Saint-Tabarnouche, débloquée au live du 25 nov. Le nom de Jaypvvv12 est en haut, la statue de Dylan à l\'entrée.', x: 0, z: 92, f: -22, j: 11, yaw: Math.PI },
+  { id: 'dylan', e: '🦞', n: 'Chez Dylan', d: 'Le resto de fruits de mer. Gérant : Dylan.', x: 16, z: 90, f: 9, j: 11 },
+  { id: 'paquin', e: '🗿', n: 'Le monument de Paquin', d: 'Un obélisque avec une pointe en or, au nom de Paquin.', x: -16, z: 70, f: 6, j: 11 },
+  { id: 'roteux', e: '🌭', n: 'Les roteux à CaseOh', d: 'Le stand de roteux (hot-dogs) de CaseOh.', x: 10, z: 70, f: 5, j: 11 },
+  { id: 'slimclim', e: '❄️', n: 'SlimClim', d: "Nettoyage d'air climatisé, avec le camion SlimClim.", x: -30, z: 72, f: 8, j: 11 },
+  { id: 'gab', e: '🔧', n: 'Garage Gab', d: 'Le garage de Gab, là depuis le Jour 1.', x: 30, z: 76, f: 9, j: 11 },
+  { id: 'fermepy', e: '🐄', n: 'Ferme laitière P-Y', d: 'La ferme de P-Y : grange, silo et vaches.', x: -50, z: 72, f: 9, j: 11 },
+  { id: 'royal', e: '🍄', n: 'La maison champignon de Royal', d: 'Dans la forêt enchantée, avec son nom sur la porte.', x: -65.5, z: 106, f: 0, j: 11, yaw: -Math.PI / 2 },
+  { id: 'raph', e: '🏍️', n: 'Raph Sports Motorisés', d: 'Motos, motoneiges et véhicules récréatifs. Boss : Raph, avec sa statue en or.', x: 112, z: 2, f: 10, j: 11 },
+  { id: 'ski', e: '⛷️', n: 'La piste de ski', d: 'La montagne de Saint-Tabarnouche, avec chalet et remontée. Gérante : Cora.', x: 116, z: 34, f: 7, j: 11 },
+  { id: 'nasta', e: '🚀', n: 'NASTA Saint-Tabarnouche', d: "L'agence spatiale de la ville. Proprio et astronaute : Seb (avec son certificat). Regarde la Lune dans le ciel !", x: 118, z: -40, f: 10, j: 11 },
 ];
-const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM"};
+const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA"};
 PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
 const PL_MAPZ = { interieur: -93 };
 const PL = Object.fromEntries(PLACES.map((p) => [p.id, p]));
@@ -116,12 +128,21 @@ const BMAP = { poutine: 'poutine', place: 'place', arena: 'arena', garderie: 'ga
 const EXTRA = [
   { p: 'LP (louphil1)', r: 'Chef de chantier, Centre de construction LP', at: 'lp', j: 9 },
   { p: 'Vinsso (vinsso1)', r: 'Usine Vieilles Épices · statue en or', at: 'usine', j: 9 },
-  { p: 'Royal (royal_jpb)', r: 'Arbitre de hockey et poète · statue dans la forêt', at: 'foret', j: 9 },
-  ...[['Solopy', 'solopy45'], ['Gab', 'gab.stage6.2t'], ['Kéké', 'nailek97'], ['Chilly', 'chillyof'], ['Cora', ''], ['Cla', 'claa0618'], ['P-Y', 'py_180'], ['Thom', 'thom27090']].map(([n, h]) => ({ p: h ? `${n} (${h})` : n, r: n === 'P-Y' ? 'Fermier laitier · trottoir des gifts' : 'Nom gravé au trottoir des gifts', at: 'trottoir', j: 9 })),
+  { p: 'Royal (royal_jpb)', r: 'Arbitre de hockey et poète · maison champignon et statue dans la forêt', at: 'royal', j: 9 },
+  ...[['Solopy', 'solopy45'], ['Gab', 'gab.stage6.2t'], ['Kéké', 'nailek97'], ['Chilly', 'chillyof'], ['Cora', ''], ['Cla', 'claa0618'], ['P-Y', 'py_180'], ['Thom', 'thom27090']].map(([n, h]) => ({ p: h ? `${n} (${h})` : n, r: { 'P-Y': 'Proprio de la ferme laitière P-Y', Gab: 'Proprio du Garage Gab', Cora: 'Gérante de la piste de ski' }[n] || 'Nom gravé au trottoir des gifts', at: { 'P-Y': 'fermepy', Gab: 'gab', Cora: 'ski' }[n] || 'trottoir', j: 9 })),
+  // live du 25 novembre
+  ...[
+    ['Legacy', 'Commandant de la caserne', 'caserne'], ['Xav', 'Commandant de la caserne', 'caserne'],
+    ['Paquin', 'A son monument', 'paquin'], ['CaseOh', 'Vendeur de roteux', 'roteux'],
+    ['Raph', 'Boss de Raph Sports Motorisés · statue', 'raph'], ['SlimClim', "Nettoyage d'air climatisé", 'slimclim'],
+    ['Seb', 'Astronaute et proprio de NASTA (certificat)', 'nasta'], ['Dylan', 'Gérant de Chez Dylan · statue à la Grande Tour', 'dylan'],
+    ['Jaypvvv12', 'Son nom est sur la Grande Tour', 'tour'], ['MLTT_48', 'Veut 2 équipes de hockey (grosse rivalité)', 'arena'],
+  ].map(([p, r, at]) => ({ p, r, at, j: 11 })),
+  ...L25.gifts.filter((n) => !['LEGACY', 'XAV', 'PAQUIN', 'CASEOH', 'RAPH', 'SLIMCLIM', 'SEB', 'MLTT_48'].includes(n)).map((p) => ({ p, r: 'Nom gravé au trottoir des gifts (25 nov)', at: 'allee25', j: 11 })),
 ];
 const RES = EXTRA.concat(DATA.residents).map((r) => {
   if (r.lot !== undefined) { const side = r.lot % 2, k = Math.floor(r.lot / 2); return { ...r, at: 'maisons', house: { x: -13 + k * 4.8, z: side ? 43 : 51.5, side } }; }
-  return { ...r, at: WORK[r.p] || BMAP[r.b] || 'place' };
+  return { ...r, at: r.at || WORK[r.p] || BMAP[r.b] || 'place' };
 });
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
@@ -448,6 +469,7 @@ function frame() {
     if (nd < 9 && near) { if (cardPlace !== near.id && (performance.now() > cardPinned || !cardPlace)) showCard(near); }
     else if (cardPlace && performance.now() > cardPinned) hideCard();
   }
+  live25Update(t);
   clayUpdate(t);
   renderer.render(scene, camera);
   drawMap(mctx, mm.width, mm.height, false);
