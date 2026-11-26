@@ -20,9 +20,11 @@ js = 'const THREE = window.THREE;' + '\n' + fonts + '\n' + stub + '\n' + '\n'.jo
 js = js.replace("preserveDrawingBuffer: true", "preserveDrawingBuffer: false")
 for w in ['world4.js', 'world5.js', 'world6.js']:
     js += open(f'{D}/{w}').read() + '\n'
-js += storyBuild + '\n' + open(f'{D}/explore.js').read() + '\n'
+js += storyBuild + '\n' + open(f'{D}/argile.js').read() + '\n' + open(f'{D}/explore.js').read() + '\n'
 html = open(f'{D}/shell.html').read()
-three = open(f'{D}/three.min.js').read().replace('</script', '<\\/script')
 html = html.replace('<!--DATA-->', '<script type="application/json" id="data">' + data + '</script>').replace('/*MAIN*/', js)
 open(f'{D}/index.html', 'w').write(html)
 print(len(html))
+# page complète pour Vercel (racine du repo)
+R = os.path.dirname(D)
+open(f'{R}/index.html', 'w').write(open(f'{D}/page-head.html').read() + html + open(f'{D}/page-foot.html').read())

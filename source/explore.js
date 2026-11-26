@@ -141,7 +141,7 @@ function makeMe(name) {
   const old = me; const [sh, tq] = ME_COL[meStyle];
   me = character({ shirt: sh, pants: 0x22252e, hat: 'tuque', hatColor: tq, boots: 0x3b2a20 });
   if (old) { me.position.copy(old.position); me.rotation.y = old.rotation.y; scene.remove(old); } else me.position.set(0.3, 0, 16);
-  me.traverse((o) => { o.userData.isMe = true; });
+  clayify(me); me.traverse((o) => { o.userData.isMe = true; });
   if (name) { meTag = nameTag(name, 0, 3.55, 0, me, true, Math.min(3.6, 1.2 + name.length * 0.17)); }
 }
 makeMe('');
@@ -212,6 +212,12 @@ canvas.addEventListener('pointerup', dragEnd); canvas.addEventListener('pointerc
 canvas.addEventListener('wheel', (e) => { dist = clamp(dist * (1 + Math.sign(e.deltaY) * 0.1), 4, 22); e.preventDefault(); }, { passive: false });
 let running = false; $('#run').addEventListener('click', () => { running = !running; $('#run').classList.toggle('on', running); });
 $('#sky').addEventListener('click', () => { aerialTarget = aerialTarget ? 0 : 1; $('#sky').classList.toggle('on', !!aerialTarget); });
+// mode cinéma 🎬 : la caméra fait des plans de film toute seule (bouton, ?cine=1, ou après 60 s sans toucher)
+let cineOn = new URLSearchParams(location.search).has('cine'), cineT0 = 0, lastInput = performance.now();
+function setCine(on) { cineOn = on; $('#cine').classList.toggle('on', on); document.body.classList.toggle('cine', on); }
+$('#cine').addEventListener('click', (e) => { e.stopPropagation(); setCine(!cineOn); lastInput = performance.now(); });
+for (const ev of ['keydown', 'pointerdown', 'wheel']) addEventListener(ev, (e) => { lastInput = performance.now(); if (cineOn && !(e.target && e.target.closest && e.target.closest('#cine'))) setCine(false); }, { capture: true, passive: true });
+const CINE_SPOTS = PLACES.filter((p) => !p.merch);
 
 // ---------- téléportation ----------
 let beacon = null;
@@ -399,6 +405,8 @@ function frame() {
   camera.position.set(lerp(me.position.x, cx, camSm), lerp(me.position.y + 2.2, cy, camSm), lerp(me.position.z, cz, camSm)); camera.lookAt(me.position.x, me.position.y + 2.0, me.position.z);
   scene.fog.far = lerp(150, 260, aerial);
   sunAt(me.position.x, me.position.z);
+  if (!cineOn && $('#intro').classList.contains('gone') && performance.now() - lastInput > 60000 && !mapOpen) { setCine(true); cineT0 = t; }
+  if (cineOn) { const [cp, cl] = clayCine(t - cineT0 + 3, CINE_SPOTS); camera.position.copy(cp); camera.lookAt(cl); sunAt(cl.x, cl.z); scene.fog.far = 230; }
   // monde vivant
   flagAt(t); snowAt(t, camera.position);
   beacon.rotation.y = t * 2; beacon.children[0].position.y = Math.sin(t * 4) * 0.4;
@@ -440,6 +448,7 @@ function frame() {
     if (nd < 9 && near) { if (cardPlace !== near.id && (performance.now() > cardPinned || !cardPlace)) showCard(near); }
     else if (cardPlace && performance.now() > cardPinned) hideCard();
   }
+  clayUpdate(t);
   renderer.render(scene, camera);
   drawMap(mctx, mm.width, mm.height, false);
   if (mapOpen && Math.floor(t * 10) % 3 === 0) renderBig();
