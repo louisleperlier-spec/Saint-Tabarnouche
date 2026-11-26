@@ -8,3 +8,4 @@ Ville 3D à visiter dans le navigateur (cellulaire et ordi), bâtie à partir du
 - `source/argile.js` : le look « pâte à modeler » (formes arrondies, neige qui tombe des sapins, fumée des cheminées, bonhomme de neige, traces, ciel avec coucher de soleil et fenêtres qui s'allument, caméra cinéma). Collé après le monde, avant `explore.js`. Pour une vidéo : coller `argile.js` à la fin de `main.js` et appeler `clayUpdate(t, { sky: false })` juste avant `renderer.render` dans `renderAt`.
 - Bâtir : `python3 source/build.py` réécrit `index.html` (page complète) et `source/index.html` (version Artifact).
 - Options d'URL : `?heure=jour|dore|soir|nuit` fige l'heure, `?cine=1` part en mode cinéma 🎬.
+- `jeu-neige.html` : bataille de balles de neige en pâte à modeler qui joue toute seule (2 équipes, forts, boule géante, catapulte, traîneaux, chien voleur de tuque, assaut, nouvelle manche à l'infini). `?vitesse=4` accélère.
