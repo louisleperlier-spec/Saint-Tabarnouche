@@ -115,14 +115,17 @@ const PLACES = [
   { id: 'royal', e: '🍄', n: 'La maison champignon de Royal', d: 'Dans la forêt enchantée, avec son nom sur la porte.', x: -65.5, z: 106, f: 0, j: 11, yaw: -Math.PI / 2 },
   { id: 'raph', e: '🏍️', n: 'Raph Sports Motorisés', d: 'Motos, motoneiges et véhicules récréatifs. Boss : Raph, avec sa statue en or.', x: 112, z: 2, f: 10, j: 11 },
   { id: 'ski', e: '⛷️', n: 'La piste de ski', d: 'La montagne de Saint-Tabarnouche, avec chalet et remontée. Gérante : Cora.', x: 116, z: 34, f: 7, j: 11 },
-  { id: 'nasta', e: '🚀', n: 'NASTA Saint-Tabarnouche', d: "L'agence spatiale de la ville. Proprio et astronaute : Seb (avec son certificat). Regarde la Lune dans le ciel !", x: 118, z: -40, f: 10, j: 11 },
+  { id: 'nasta', e: '🚀', n: 'NASTA Saint-Tabarnouche', d: "L'agence spatiale de la ville. Proprio et astronaute : Seb (avec son certificat). Regarde la Lune dans le ciel, et va la visiter avec « Trouve ta place » !", x: 118, z: -40, f: 10, j: 11 },
+  { id: 'lune', e: '🌕', n: 'La Lune de Saint-Tabarnouche', d: 'Marche sur la Lune ! Le drapeau ST-T, la base lunaire de la NASTA, le rover et la Terre dans le ciel. La passerelle mène à la station de Seb.', x: 420, z: 0, f: 12, j: 11 },
+  { id: 'station', e: '🛰️', n: 'Station spatiale de Seb', d: "La station de la NASTA en orbite. Commandant : Seb, avec son certificat. Tu la vois aussi tourner dans le ciel au-dessus de la NASTA.", x: 420, z: -64, f: 7, j: 11 },
   { id: 'jo', e: '🏅', n: 'Les Jeux olympiques de Saint-Tabarnouche', d: 'Le stade : piste de course, podium, gradins et la flamme. Débloqués au live du 25 nov.', x: -30, z: 92, f: 13, j: 11 },
   { id: 'indep', e: '⚜️', n: "Place de l'Indépendance", d: 'Le grand drapeau de Saint-Tabarnouche : la ville a proclamé son indépendance au live du 25 nov.', x: -14, z: 84, f: 9, j: 11 },
   { id: 'rivalite', e: '🏒', n: 'La grande rivalité', d: 'Les 2 équipes de hockey de MLTT_48 : les Bleus contre les Rouges.', x: 136, z: -12, f: 10, j: 11 },
 ];
-const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA", "jo": "Jeux olympiques", "indep": "Indépendance", "rivalite": "Rivalité hockey"};
+const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA", "jo": "Jeux olympiques", "indep": "Indépendance", "rivalite": "Rivalité hockey", "lune": "La Lune", "station": "Station spatiale"};
 PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
-const PL_MAPZ = { interieur: -93 };
+const PL_MAPZ = { interieur: -93, lune: -88, station: -78 };
+const PL_MAPX = { lune: 146, station: 146 };
 const PL = Object.fromEntries(PLACES.map((p) => [p.id, p]));
 PL.vote.d = 'La ville vote pour la suite : ' + DATA.prochainVote.join(' · ') + '. Le commentaire le plus liké décide.';
 // où travaille chaque habitant
@@ -138,7 +141,7 @@ const EXTRA = [
     ['Legacy', 'Commandant de la caserne', 'caserne'], ['Xav', 'Commandant de la caserne', 'caserne'],
     ['Paquin', 'A son monument', 'paquin'], ['CaseOh', 'Vendeur de roteux', 'roteux'],
     ['Raph', 'Boss de Raph Sports Motorisés · statue', 'raph'], ['SlimClim', "Nettoyage d'air climatisé", 'slimclim'],
-    ['Seb', 'Astronaute et proprio de NASTA (certificat)', 'nasta'], ['Dylan', 'Gérant de Chez Dylan · statue à la Grande Tour', 'dylan'],
+    ['Seb', 'Astronaute, proprio de NASTA et commandant de la station spatiale (certificat)', 'station'], ['Dylan', 'Gérant de Chez Dylan · statue à la Grande Tour', 'dylan'],
     ['Jaypvvv12', 'Son nom est sur la Grande Tour', 'tour'], ['MLTT_48', 'Ses 2 équipes de hockey : les Bleus contre les Rouges', 'rivalite'],
   ].map(([p, r, at]) => ({ p, r, at, j: 11 })),
   ...L25.gifts.filter((n) => !['LEGACY', 'XAV', 'PAQUIN', 'CASEOH', 'RAPH', 'SLIMCLIM', 'SEB', 'MLTT_48'].includes(n)).map((p) => ({ p, r: 'Nom gravé au trottoir des gifts (25 nov)', at: 'allee25', j: 11 })),
@@ -274,7 +277,7 @@ function drawMap(ctx, W, H, big) {
   ctx.fillStyle = '#c9b293';
   for (const [x, z, w, d] of [[0, 6, 5, 30], [-14, 4, 30, 4.5], [15, -1, 26, 4.5], [0, 21, 5, 18], [-1, 47, 32, 4], [58, -9.5, 50, 4.5]]) { const [a, b] = P(x - w / 2, z - d / 2); ctx.fillRect(a, b, w * s, d * s); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const placed = [];
-  for (const p of PLACES) { const [a, b] = P(p.x, PL_MAPZ[p.id] ?? p.z); ctx.font = `${big ? 22 : 11}px "Noto Color Emoji", sans-serif`; ctx.fillText(p.e, a, b);
+  for (const p of PLACES) { const [a, b] = P(PL_MAPX[p.id] ?? p.x, PL_MAPZ[p.id] ?? p.z); ctx.font = `${big ? 22 : 11}px "Noto Color Emoji", sans-serif`; ctx.fillText(p.e, a, b);
     if (big) { ctx.font = '800 10px Nunito, sans-serif'; const w = ctx.measureText(p.s).width + 4, r = [a - w / 2, b + 11, a + w / 2, b + 23];
       if (!placed.some((q) => r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1])) { placed.push(r); ctx.lineWidth = 3; ctx.strokeStyle = '#eef2f7'; ctx.strokeText(p.s, a, b + 17); ctx.fillStyle = '#1c1f2a'; ctx.fillText(p.s, a, b + 17); } } }
   const [px, pz] = P(clamp(me.position.x, BOUND.x0, BOUND.x1), clamp(me.position.z, BOUND.z0, BOUND.z1));
@@ -292,7 +295,7 @@ mm.addEventListener('click', () => toggleMap(true));
 $('#mapclose').addEventListener('click', () => toggleMap(false));
 bigMap.addEventListener('click', (e) => {
   const r = bigMap.getBoundingClientRect(); const x = e.clientX - r.left, y = e.clientY - r.top;
-  let best = null, bd = 30; for (const p of PLACES) { const [a, b] = mapGeo.P(p.x, PL_MAPZ[p.id] ?? p.z); const d = Math.hypot(a - x, b - y); if (d < bd) { bd = d; best = p; } }
+  let best = null, bd = 30; for (const p of PLACES) { const [a, b] = mapGeo.P(PL_MAPX[p.id] ?? p.x, PL_MAPZ[p.id] ?? p.z); const d = Math.hypot(a - x, b - y); if (d < bd) { bd = d; best = p; } }
   if (best) { toggleMap(false); goPlace(best.id); showCard(best); }
 });
 
@@ -473,6 +476,7 @@ function frame() {
     else if (cardPlace && performance.now() > cardPinned) hideCard();
   }
   live25Update(t);
+  espaceUpdate(t);
   clayUpdate(t);
   renderer.render(scene, camera);
   drawMap(mctx, mm.width, mm.height, false);
