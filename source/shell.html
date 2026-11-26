@@ -26,6 +26,7 @@ button{font:inherit;cursor:pointer}
 .tb{width:58px;height:58px;border-radius:50%;border:3px solid #fff;background:var(--hud);color:#fff;font-size:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.25)}
 .tb small{font-size:9px;font-weight:900;margin-top:2px;letter-spacing:.3px}
 .tb.on{background:var(--red)}
+body.cine #card,body.cine #help,body.cine #joy{opacity:0;pointer-events:none;transition:opacity .4s}
 #joy{position:fixed;left:22px;bottom:calc(26px + env(safe-area-inset-bottom));width:128px;height:128px;border-radius:50%;background:rgba(36,40,54,.28);border:3px solid rgba(255,255,255,.7);z-index:6;touch-action:none}
 #knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.3)}
 @media (hover:hover) and (pointer:fine){#joy{display:none}}
@@ -91,6 +92,7 @@ button{font:inherit;cursor:pointer}
   <button class="tb" id="btnWho" aria-label="Habitants">🔎<small>HABITANTS</small></button>
   <button class="tb" id="sky" aria-label="Vue du ciel">🦅<small>CIEL</small></button>
   <button class="tb" id="run" aria-label="Courir">🏃<small>COURIR</small></button>
+  <button class="tb" id="cine" aria-label="Mode cinéma">🎬<small>CINÉMA</small></button>
 </div>
 <div id="card"></div>
 <div id="who">
