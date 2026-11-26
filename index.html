@@ -1714,16 +1714,75 @@ const L25 = {};
   sign(5, 0.9, [{ t: 'CMDTS LEGACY & XAV', size: 60, y: 58, color: '#fff' }], { w: 600, h: 110, bg: '#c8102e', border: '#7a1f1f' }, 66, 4.9, -36.2);
   person({ shirt: 0xc8102e, pants: 0x22252e, hat: 'helmet', hatColor: 0xf2c230, frontTex: staffFront('LEGACY'), pos: [64.6, 0, -33.2], ry: 0.2 });
   person({ shirt: 0xc8102e, pants: 0x22252e, hat: 'helmet', hatColor: 0xf2c230, frontTex: staffFront('XAV'), pos: [67.4, 0, -33.2], ry: -0.2 });
+
+  // ---------- 14. Jeux olympiques de Saint-Tabarnouche (stade, piste, podium, flamme) ----------
+  const JX = -30, JZ = 92;
+  const jo = group(JX, JZ);
+  { const ring = new THREE.Mesh(new THREE.RingGeometry(6, 8.4, 40), mat(0xc0483b)); ring.rotation.x = -Math.PI / 2; ring.scale.set(1.45, 1, 1); ring.position.y = 0.04; jo.add(ring);
+    const field = new THREE.Mesh(new THREE.CircleGeometry(6, 40), mat(0x5fae5a)); field.rotation.x = -Math.PI / 2; field.scale.set(1.45, 1, 1); field.position.y = 0.05; jo.add(field);
+    for (let i = 0; i < 4; i++) { const l = new THREE.Mesh(new THREE.RingGeometry(6.55 + i * 0.6, 6.6 + i * 0.6, 40), mat(0xffffff)); l.rotation.x = -Math.PI / 2; l.scale.set(1.45, 1, 1); l.position.y = 0.06; jo.add(l); } }
+  for (let r = 0; r < 4; r++) box(20, 0.6, 1.1, [0x1f56b8, 0xe0343b, 0xf2c230, 0x2e9b48][r], 0, 0.3 + r * 0.6, -10 - r * 1.1, jo); // gradins
+  const fans = []; for (let i = 0; i < 12; i++) { const r = i % 3; const c = character({ shirt: [0x1f56b8, 0xe0343b, 0xf2c230, 0x2e9b48, 0x8e44ad][i % 5], hat: ['tuque', 'cap', 'hair'][i % 3], hatColor: 0x6b4a2f, pos: [JX - 8 + Math.floor(i / 3) * 5 + r * 1.3, 0.6 + (r + 1) * 0.6, JZ - 10 - (r + 1) * 1.1 + 0.4], ry: 0 }); c.scale.setScalar(0.7); fans.push(c); }
+  L25.fans = fans;
+  sign(16, 1.8, [{ t: '🏅 JEUX OLYMPIQUES 🏅', size: 74, y: 66, color: '#ffffff' }, { t: 'DE SAINT-TABARNOUCHE', size: 46, y: 135, color: '#ffe48a' }], { w: 1000, h: 180, bg: '#1d2b55', border: '#d6a531' }, 0, 4.6, -14.6, 0, jo);
+  for (const x of [-8.2, 8.2]) box(0.5, 4.2, 0.5, 0x1d2b55, x, 2.1, -14.8, jo);
+  // podium 2-1-3
+  [[-1.5, 1.1, 0xc9ccd2, '2'], [0, 1.6, 0xd6a531, '1'], [1.5, 0.8, 0xb07a46, '3']].forEach(([x, h, c, n]) => { box(1.5, h, 1.5, c, x, h / 2, 0, jo); plane(0.9, 0.7, signTex([{ t: n, size: 150, y: 128, color: '#fff' }], { w: 256, h: 256, bg: '#' + c.toString(16).padStart(6, '0'), border: '#' + c.toString(16).padStart(6, '0') }), x, h * 0.5, 0.77, 0, jo); });
+  const champs = [[0, 1.6], [-1.5, 1.1], [1.5, 0.8]].map(([x, y], i) => { const c = character({ shirt: [0xe0343b, 0x1f56b8, 0x2e9b48][i], hat: 'hair', hatColor: 0x3b2416, pos: [JX + x, y, JZ], ry: 0 }); box(0.5, 0.5, 0.08, [0xd6a531, 0xc9ccd2, 0xb07a46][i], 0, 1.75, 0.33, c); return c; });
+  L25.champs = champs;
+  // vasque + flamme
+  cyl(0.35, 0.5, 4, 8, 0x8a96a8, 9.5, 2, 3.5, jo); cyl(1.2, 0.5, 0.8, 12, gold, 9.5, 4.4, 3.5, jo);
+  const fl = new THREE.Mesh(new THREE.ConeGeometry(0.85, 2.2, 8), new THREE.MeshBasicMaterial({ color: 0xff8a1f })); fl.position.set(9.5, 5.9, 3.5); jo.add(fl);
+  const fl2 = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1.4, 8), new THREE.MeshBasicMaterial({ color: 0xffe066 })); fl2.position.set(9.5, 5.6, 3.5); jo.add(fl2); L25.flame = [fl, fl2];
+  // coureurs sur la piste
+  const runners = []; for (let i = 0; i < 4; i++) { const c = character({ shirt: [0xe0343b, 0x1f56b8, 0xf2c230, 0x2e9b48][i], hat: 'hair', hatColor: 0x3b2416, pos: [JX, 0, JZ], ry: 0 }); c.scale.setScalar(0.85); runners.push(c); }
+  L25.runners = runners; L25.jo = [JX, JZ];
+
+  // ---------- 15. Indépendance de Saint-Tabarnouche (place, grand drapeau, déclaration) ----------
+  const IX = -14, IZ = 84;
+  const ind = group(IX, IZ);
+  const pav = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.4, 0.4, 24), stone); pav.position.y = 0.2; ind.add(pav);
+  cyl(0.15, 0.2, 14, 8, 0xdfe3ea, 0, 7, 0, ind); const iball = new THREE.Mesh(new THREE.SphereGeometry(0.3, 10, 8), gold); iball.position.y = 14.1; ind.add(iball);
+  const indFlagTex = texCanvas(480, 300, (ctx, w, h) => { ctx.fillStyle = '#1f56b8'; ctx.fillRect(0, 0, w, h); ctx.fillStyle = '#ffffff'; ctx.fillRect(w / 2 - 22, 0, 44, h); ctx.fillRect(0, h / 2 - 22, w, 44); ctx.font = '900 70px "Noto Color Emoji", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#ffd24a'; ctx.font = '900 64px "Baloo 2"'; ctx.fillText('ST-T', w / 4, h / 4 + 4); ctx.fillText('ST-T', 3 * w / 4, 3 * h / 4 + 4); ctx.fillStyle = '#ffffff'; ctx.font = '120px "Noto Color Emoji", sans-serif'; ctx.fillText('⚜', 3 * w / 4, h / 4 + 6); ctx.fillText('⚜', w / 4, 3 * h / 4 + 6); });
+  const iflag = new THREE.Mesh(new THREE.PlaneGeometry(5, 3.1, 14, 4), new THREE.MeshLambertMaterial({ map: indFlagTex, side: THREE.DoubleSide })); iflag.position.set(2.55, 12.3, 0); ind.add(iflag);
+  L25.flag = iflag; L25.flagBase = Float32Array.from(iflag.geometry.attributes.position.array);
+  box(3.6, 2.4, 0.4, 0xefe2c0, 0, 1.6, 2.6, ind);
+  sign(3.3, 2.1, [{ t: "L'INDÉPENDANCE", size: 50, y: 52, color: '#1d2b55' }, { t: 'DE SAINT-TABARNOUCHE', size: 34, y: 100, color: '#1d2b55' }, { t: 'Proclamée au live', size: 30, y: 160, color: '#8a5a1a' }, { t: 'du 25 novembre 2026', size: 30, y: 200, color: '#8a5a1a' }], { w: 420, h: 260, bg: '#fbf3dc', border: '#d6a531' }, 0, 1.6, 2.81, 0, ind);
+  for (let i = 0; i < 6; i++) { const a = Math.PI * 0.2 + i * Math.PI * 0.12; const f = new THREE.Mesh(new THREE.PlaneGeometry(1, 0.65), new THREE.MeshLambertMaterial({ map: indFlagTex, side: THREE.DoubleSide })); cyl(0.05, 0.05, 2.6, 5, 0xdfe3ea, Math.cos(a) * 4.2, 1.3, Math.sin(a) * 4.2 * -1, ind); f.position.set(Math.cos(a) * 4.2 + 0.5, 2.3, -Math.sin(a) * 4.2); ind.add(f); }
+
+  // ---------- 16. Rivalité de hockey : les 2 équipes de MLTT ----------
+  const HX = 136, HZ = -12;
+  const hk = group(HX, HZ);
+  const ice = new THREE.Mesh(new THREE.PlaneGeometry(16, 9), mat(0xe6f3fb)); ice.rotation.x = -Math.PI / 2; ice.position.y = 0.05; hk.add(ice);
+  box(0.08, 0.02, 9, 0xd8262b, 0, 0.07, 0, hk); box(0.08, 0.02, 9, 0x1f56b8, -3, 0.07, 0, hk); box(0.08, 0.02, 9, 0x1f56b8, 3, 0.07, 0, hk);
+  box(16.4, 0.7, 0.2, 0xffffff, 0, 0.35, -4.6, hk); box(16.4, 0.7, 0.2, 0xffffff, 0, 0.35, 4.6, hk); box(0.2, 0.7, 9.4, 0xffffff, -8.2, 0.35, 0, hk); box(0.2, 0.7, 9.4, 0xffffff, 8.2, 0.35, 0, hk);
+  for (const x of [-7, 7]) { box(0.1, 1, 1.6, 0xd8262b, x, 0.5, 0, hk); }
+  const teamA = [], teamB = [];
+  for (let i = 0; i < 4; i++) { teamA.push(character({ shirt: 0x1f56b8, pants: 0x1d2b55, hat: 'helmet', hatColor: 0x1f56b8, frontTex: jerseyFront('#1f56b8'), pos: [HX - 5 + (i % 2) * 2, 0, HZ - 2 + i * 1.3], ry: Math.PI / 2 })); teamB.push(character({ shirt: 0xd8262b, pants: 0x22252e, hat: 'helmet', hatColor: 0xd8262b, frontTex: jerseyFront('#d8262b'), pos: [HX + 5 - (i % 2) * 2, 0, HZ - 2 + i * 1.3], ry: -Math.PI / 2 })); }
+  [...teamA, ...teamB].forEach((c) => c.scale.setScalar(0.8));
+  const puck = cyl(0.18, 0.18, 0.08, 10, 0x111111, HX, 0.1, HZ); L25.hockey = { teamA, teamB, puck, x: HX, z: HZ };
+  // tableau « la grande rivalité »
+  for (const x of [-3.8, 3.8]) box(0.3, 6, 0.3, 0x22252e, x, 3, -6, hk);
+  sign(8, 2.2, [{ t: '🏒 LA GRANDE RIVALITÉ 🏒', size: 58, y: 50, color: '#ffe066' }, { t: 'LES BLEUS   vs   LES ROUGES', size: 50, y: 118, color: '#ffffff' }, { t: 'Les 2 équipes de MLTT_48', size: 36, y: 178, color: '#9fd3ff' }], { w: 820, h: 220, bg: '#111827', border: '#d6a531' }, 0, 5.2, -5.84, 0, hk);
+  for (let i = 0; i < 2; i++) box(6, 0.5, 1, [0x1f56b8, 0xd8262b][i], i ? 4.5 : -4.5, 0.25, 6.2, hk);
+
   // chemins vers les nouveaux coins
   patch(0, 54.5, 4.2, 7, 0x8c6a44); patch(-25, 66.5, 50, 3, 0x8c6a44); patch(20, 66.5, 30, 3, 0x8c6a44);
   patch(100, 11, 40, 4.5); patch(118, -16, 4.5, 50); patch(118, 15, 4.5, 4); patch(124, -33, 12, 3);
 }
+function stride25(c, t, ph) { const u = c.userData, a = Math.sin(t * 9 + ph) * 0.7; u.legL.rotation.x = a; u.legR.rotation.x = -a; u.armL.rotation.x = -a * 0.8; u.armR.rotation.x = a * 0.8; }
 function live25Update(t) {
   if (L25.star) L25.star.rotation.y = t * 1.2;
   if (L25.hotdog) L25.hotdog.position.y = 3.9 + Math.sin(t * 2) * 0.15;
   if (L25.homard) L25.homard.rotation.y = Math.sin(t * 0.8) * 0.3;
   if (L25.cows) L25.cows.forEach((c, i) => { c.children[3].rotation.x = Math.sin(t * 1.5 + i) * 0.15; });
   if (L25.skiers) L25.skiers.forEach((s, i) => { const k = ((t * 0.07 + i / 3) % 1), [x0, z0] = L25.ski; const px = x0 + 1 + Math.sin(k * 14 + i) * 1.6 + k * 2, pz = z0 + 0.5 + k * 13.5; s.position.set(px, Math.max(0, 15 * (1 - Math.hypot(px - x0, pz - z0) / 13)) + 0.05, pz); s.rotation.y = Math.cos(k * 14 + i) * 0.5; });
+  if (L25.flame) { const k = 1 + Math.sin(t * 9) * 0.12; L25.flame[0].scale.set(k, 1 + Math.sin(t * 7) * 0.15, k); L25.flame[1].scale.y = 1 + Math.sin(t * 11) * 0.2; }
+  if (L25.runners) L25.runners.forEach((c, i) => { const a = t * 0.5 + i * 0.35, r = 7.2 - i * 0.35 + 0.35 * 1.5; c.position.set(L25.jo[0] + Math.cos(a) * r * 1.45, 0, L25.jo[1] + Math.sin(a) * r); c.rotation.y = -a + Math.PI; stride25(c, t * 1.6, i); });
+  if (L25.champs) L25.champs.forEach((c, i) => anim(c, t, 'cheer', i));
+  if (L25.fans) L25.fans.forEach((c, i) => anim(c, t, i % 2 ? 'cheer' : 'wave', i));
+  if (L25.flag) { const p = L25.flag.geometry.attributes.position.array, b = L25.flagBase; for (let i = 0; i < p.length; i += 3) { const x = b[i] + 2.5; p[i + 2] = Math.sin(x * 1.6 - t * 4) * 0.18 * x / 2.5; } L25.flag.geometry.attributes.position.needsUpdate = true; }
+  if (L25.hockey) { const h = L25.hockey, px = Math.sin(t * 0.9) * 6, pz = Math.sin(t * 1.7) * 3; h.puck.position.set(h.x + px, 0.1, h.z + pz); h.teamA.forEach((c, i) => { c.position.x = h.x - 4.5 + (i % 2) * 2 + px * 0.35; c.position.z = h.z - 2.5 + i * 1.5 + pz * 0.3; stride25(c, t * 1.4, i); }); h.teamB.forEach((c, i) => { c.position.x = h.x + 4.5 - (i % 2) * 2 + px * 0.35; c.position.z = h.z - 2.5 + i * 1.5 + pz * 0.3; stride25(c, t * 1.4, i + 2); }); }
 }
 
 // ================= LOOK « PÂTE À MODELER » (argile.js) =================
@@ -2235,8 +2294,11 @@ const PLACES = [
   { id: 'raph', e: '🏍️', n: 'Raph Sports Motorisés', d: 'Motos, motoneiges et véhicules récréatifs. Boss : Raph, avec sa statue en or.', x: 112, z: 2, f: 10, j: 11 },
   { id: 'ski', e: '⛷️', n: 'La piste de ski', d: 'La montagne de Saint-Tabarnouche, avec chalet et remontée. Gérante : Cora.', x: 116, z: 34, f: 7, j: 11 },
   { id: 'nasta', e: '🚀', n: 'NASTA Saint-Tabarnouche', d: "L'agence spatiale de la ville. Proprio et astronaute : Seb (avec son certificat). Regarde la Lune dans le ciel !", x: 118, z: -40, f: 10, j: 11 },
+  { id: 'jo', e: '🏅', n: 'Les Jeux olympiques de Saint-Tabarnouche', d: 'Le stade : piste de course, podium, gradins et la flamme. Débloqués au live du 25 nov.', x: -30, z: 92, f: 13, j: 11 },
+  { id: 'indep', e: '⚜️', n: "Place de l'Indépendance", d: 'Le grand drapeau de Saint-Tabarnouche : la ville a proclamé son indépendance au live du 25 nov.', x: -14, z: 84, f: 9, j: 11 },
+  { id: 'rivalite', e: '🏒', n: 'La grande rivalité', d: 'Les 2 équipes de hockey de MLTT_48 : les Bleus contre les Rouges.', x: 136, z: -12, f: 10, j: 11 },
 ];
-const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA"};
+const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA", "jo": "Jeux olympiques", "indep": "Indépendance", "rivalite": "Rivalité hockey"};
 PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
 const PL_MAPZ = { interieur: -93 };
 const PL = Object.fromEntries(PLACES.map((p) => [p.id, p]));
@@ -2255,7 +2317,7 @@ const EXTRA = [
     ['Paquin', 'A son monument', 'paquin'], ['CaseOh', 'Vendeur de roteux', 'roteux'],
     ['Raph', 'Boss de Raph Sports Motorisés · statue', 'raph'], ['SlimClim', "Nettoyage d'air climatisé", 'slimclim'],
     ['Seb', 'Astronaute et proprio de NASTA (certificat)', 'nasta'], ['Dylan', 'Gérant de Chez Dylan · statue à la Grande Tour', 'dylan'],
-    ['Jaypvvv12', 'Son nom est sur la Grande Tour', 'tour'], ['MLTT_48', 'Veut 2 équipes de hockey (grosse rivalité)', 'arena'],
+    ['Jaypvvv12', 'Son nom est sur la Grande Tour', 'tour'], ['MLTT_48', 'Ses 2 équipes de hockey : les Bleus contre les Rouges', 'rivalite'],
   ].map(([p, r, at]) => ({ p, r, at, j: 11 })),
   ...L25.gifts.filter((n) => !['LEGACY', 'XAV', 'PAQUIN', 'CASEOH', 'RAPH', 'SLIMCLIM', 'SEB', 'MLTT_48'].includes(n)).map((p) => ({ p, r: 'Nom gravé au trottoir des gifts (25 nov)', at: 'allee25', j: 11 })),
 ];
