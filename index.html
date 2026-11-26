@@ -1834,9 +1834,20 @@ function closePanels(keepMap) { $('#who').classList.remove('open'); if (!keepMap
 
 // ---------- HUD ----------
 const fmtN = (n) => n.toLocaleString('fr-CA').replace(/ | |,/g, ' ');
-$('#pop').textContent = fmtN(DATA.habitants); $('#cof').textContent = fmtN(DATA.coffre) + ' $'; $('#jour').textContent = 'JOUR ' + DATA.jour;
-$('#goal').style.width = Math.min(100, DATA.habitants / DATA.objectif * 100) + '%';
-$('#goalt').textContent = fmtN(DATA.habitants) + ' / ' + fmtN(DATA.objectif) + ' habitants';
+function setPop(n) {
+  $('#pop').textContent = fmtN(n);
+  $('#goal').style.width = Math.min(100, n / DATA.objectif * 100) + '%';
+  $('#goalt').textContent = fmtN(n) + ' / ' + fmtN(DATA.objectif) + ' habitants';
+}
+setPop(DATA.habitants); $('#cof').textContent = fmtN(DATA.coffre) + ' $'; $('#jour').textContent = 'JOUR ' + DATA.jour;
+// Abonnés TikTok en direct (fonction Vercel /api/abonnes, relue aux 30 min). Sinon on garde le chiffre de base.
+function abonnes() {
+  if (!/^https?:$/.test(location.protocol)) return;
+  fetch('/api/abonnes').then((r) => r.json()).then((d) => {
+    if (typeof d.value === 'number' && d.value >= DATA.habitants * 0.8) setPop(d.value);
+  }).catch(() => {});
+}
+abonnes(); setInterval(abonnes, 30 * 60 * 1000);
 
 // ---------- compteur de visiteurs (abacus, gratuit, sans compte) ----------
 (function visites() {
