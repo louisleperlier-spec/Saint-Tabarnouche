@@ -123,6 +123,8 @@ const PLACES = [
   { id: 'rivalite', e: '🏒', n: 'La grande rivalité', d: 'Les 2 équipes de hockey de MLTT_48 : les Bleus contre les Rouges.', x: 136, z: -12, f: 10, j: 11 },
 ];
 const SHORT = {"place": "Hôtel de ville", "arena": "Aréna", "interieur": "Aréna (dedans) ↑", "tim": "Chez Tim", "sapins": "Sapins", "poupees": "Poupées (TALK)", "cabane": "Cabane à sucre", "maisons": "Rue des Érables", "garderie": "Garderie", "poutine": "Poutine d'Or", "patinoire": "Patinoire", "vote": "Prochain vote", "paroisse": "Paroisse", "quinc": "Quincaillerie", "saq": "SAQ de jus", "crisstement": "Crisstement", "creme": "Folie Glacée", "biblio": "Calisthèque", "mart": "Walks to the Mart", "banque": "Banque", "epicerie": "Épicerie", "lajoie": "Ferme Lajoie", "caserne": "Caserne", "spa": "Spa", "galerie": "Galerie", "ferme": "Ferme Michaud", "gym": "Gym Nark", "police": "Police", "ecole": "École", "retraite": "Retraite", "merch": "Boutique", "sapin": "Sapin géant", "trottoir": "Trottoir des gifts", "usine": "Vieilles Épices", "lp": "Centre LP", "foret": "Forêt enchantée", "alp": "Aéroport ALP", "hotel": "Hôtel ALP", "animaux": "Chiens & chats", "avions": "Parc des avions", "tabar30": "Tabar30", "tem": "Gare TEM", "allee25": "Gifts 25 nov", "tour": "Grande Tour", "dylan": "Chez Dylan", "paquin": "Monument Paquin", "roteux": "Roteux CaseOh", "slimclim": "SlimClim", "gab": "Garage Gab", "fermepy": "Ferme P-Y", "royal": "Maison de Royal", "raph": "Raph Sports", "ski": "Piste de ski", "nasta": "NASTA", "jo": "Jeux olympiques", "indep": "Indépendance", "rivalite": "Rivalité hockey", "lune": "La Lune", "station": "Station spatiale"};
+PLACES.push({ id: 'abonnes', e: '🏘️', n: 'Quartier des Abonnés', d: "Chaque abonné a sa maison ici. Écris ton pseudo TikTok dans « Trouve ta place » et la ville te donne la tienne, avec ton nom dessus.", x: 7, z: 163, f: 0, j: 11 });
+SHORT.abonnes = 'Quartier des Abonnés';
 PLACES.forEach((p) => { p.s = SHORT[p.id] || p.n; });
 const PL_MAPZ = { interieur: -93, lune: -88, station: -78 };
 const PL_MAPX = { lune: 146, station: 146 };
@@ -151,6 +153,42 @@ const RES = EXTRA.concat(DATA.residents).map((r) => {
   return { ...r, at: r.at || WORK[r.p] || BMAP[r.b] || 'place' };
 });
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+// ---------- Quartier des Abonnés : une maison pour chaque abonné ----------
+// Au sud de l'usine et du Centre LP. La maison d'un pseudo est toujours la même
+// (calculée à partir du pseudo), donc rien à enregistrer sur un serveur.
+const QA = { streets: [[150, 'rue des Likes'], [163, 'rue des Partages'], [176, 'rue des Commentaires']], xs: [-14.6, -9.8, -5, -0.2, 14.2, 19, 23.8, 28.6], houses: [], sign: null };
+{
+  const g = new THREE.Group(); scene.add(g); QA.g = g;
+  patch(7, 139, 4, 78, 0xb5946c); // chemin depuis le Centre LP jusqu'au bout du quartier
+  const cols = [0xe6a72a, 0x6fa8dc, 0xe86aa8, 0x2e8b4a, 0xc7302e, 0x9b6bd6, 0xf2efe6, 0x5bc0be, 0xf28c28];
+  const roofs = [0x3b3f4a, 0x7a1f1f, 0x2d3b55, 0x4a2f1b];
+  QA.streets.forEach(([z, nom], si) => {
+    patch(7, z, 50, 4, 0xb5946c);
+    plane(3.4, 0.75, signTex([{ t: nom.toUpperCase(), size: 70, y: 64, color: '#fff' }], { w: 512, h: 128, bg: '#1f56b8', border: '#fff' }), 4.6, 2.6, z - 2.3, 0, g);
+    cyl(0.07, 0.07, 2.4, 6, 0x555b66, 4.6, 1.2, z - 2.4, g);
+    QA.xs.forEach((x, k) => { for (const side of [0, 1]) {
+      const i = QA.houses.length, hz = side ? z + 4.25 : z - 4.25;
+      const h = gabled(3.6, 2.8, 3.4, cols[(i * 7 + si) % cols.length], roofs[(i * 3 + k) % roofs.length], x, hz, g, side ? Math.PI : 0);
+      box(0.9, 1.7, 0.12, 0x5a3b22, 0, 0.85, 1.72, h);
+      box(0.7, 0.6, 0.1, 0x9fd3e8, 1.1, 1.6, 1.72, h); box(0.7, 0.6, 0.1, 0x9fd3e8, -1.1, 1.6, 1.72, h);
+      QA.houses.push({ h, x, z: hz, street: z, nom, no: 10 + k * 4 + side * 2, side });
+    } });
+  });
+  // arche d'entrée sur le chemin
+  for (const sx of [4.6, 9.4]) box(0.4, 4.2, 0.4, 0x8b5a2b, sx, 2.1, 140, g);
+  const arch = () => signTex([{ t: 'QUARTIER DES ABONNÉS', size: 74, y: 70, color: '#7a1f1f' }, { t: '1 abonné = 1 maison 🏡', size: 52, y: 150 }], { w: 640, h: 200, bg: '#fbf7ec', border: '#7a1f1f' });
+  plane(5.6, 1.5, arch(), 7, 4.3, 139.75, Math.PI, g); plane(5.6, 1.5, arch(), 7, 4.3, 140.25, 0, g);
+}
+function qaHash(name) { let h = 2166136261; for (const c of norm(name)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function qaHouse(name) { return QA.houses[qaHash(name) % QA.houses.length]; }
+function qaClaim(name) {
+  const H = qaHouse(name);
+  if (QA.sign) { QA.sign.parent.remove(QA.sign); QA.sign = null; }
+  QA.sign = plane(3.2, 0.8, signTex([{ t: name, size: 80, y: 64 }], { w: 512, h: 128, bg: '#fff3c4', border: '#c79a3a' }), 0, 2.35, 1.78, 0, H.h);
+  try { localStorage.setItem('stt-maison', name); } catch (e) {}
+  return { p: name, r: `Ta maison · ${H.no}, ${H.nom}`, at: 'abonnes', qa: H };
+}
 
 // ---------- rendu plein écran ----------
 const LOW = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, screen.height) < 700;
@@ -204,7 +242,7 @@ function collide(p) {
       }
     }
   }
-  p.x = clamp(p.x, -140, 190); p.z = clamp(p.z, -190, 170);
+  p.x = clamp(p.x, -140, 190); p.z = clamp(p.z, -190, 190);
 }
 
 function blocked(x, y, z) {
@@ -262,13 +300,14 @@ function goPlace(id) {
   goTo(p.x, p.z + p.f, p.yaw || 0, [p.x, p.z]);
 }
 function goResident(r) {
+  if (r.qa) { const H = r.qa; goTo(H.x, H.street, H.side ? Math.PI : 0, [H.x, H.z], 0.85); showCard(PL.abonnes, r); return; }
   if (r.house) { const h = r.house; goTo(h.x, 47, h.side ? 0 : Math.PI, [h.x, h.z], 0.85); showCard(PL.maisons, r); return; }
   goPlace(r.at); showCard(PL[r.at], r);
 }
 
 // ---------- carte (mini + plein écran) ----------
 const mm = $('#mm'), mctx = mm.getContext('2d');
-const BOUND = { x0: -92, x1: 148, z0: -96, z1: 135 };
+const BOUND = { x0: -92, x1: 148, z0: -96, z1: 182 };
 function drawMap(ctx, W, H, big) {
   const s = Math.min(W / (BOUND.x1 - BOUND.x0), H / (BOUND.z1 - BOUND.z0));
   const ox = (W - (BOUND.x1 - BOUND.x0) * s) / 2, oz = (H - (BOUND.z1 - BOUND.z0) * s) / 2;
@@ -323,10 +362,13 @@ const list = $('#list');
 function renderList(q) {
   const n = norm(q || '');
   const rows = RES.filter((r) => !n || norm(r.p).includes(n) || norm(r.r).includes(n) || norm(PL[r.at].n).includes(n));
-  list.innerHTML = rows.length ? rows.map((r) => `<button class="row" data-p="${encodeURIComponent(r.p)}"><span class="re">${PL[r.at].e}</span><span class="rt"><b>${esc(r.p)}</b><small>${esc(r.r)} · ${esc(PL[r.at].n)}</small></span><span class="go">Y aller</span></button>`).join('')
-    : `<div class="empty">Pas encore dans la ville. Commente ton nom + la job que tu veux sur le dernier TikTok : le maire bâtit les demandes les plus likées.</div>`;
+  const raw = (q || '').trim().replace(/^@/, '').slice(0, 24);
+  const exact = rows.some((r) => norm(r.p) === n);
+  const claim = raw && n.length >= 2 && !exact ? `<button class="row claim" data-claim="${encodeURIComponent(raw)}"><span class="re">🏡</span><span class="rt"><b>Ma maison : ${esc(raw)}</b><small>Quartier des Abonnés · ${esc(qaHouse(raw).no)}, ${esc(qaHouse(raw).nom)}</small></span><span class="go">Y aller</span></button>` : '';
+  list.innerHTML = claim + (rows.length ? rows.map((r) => `<button class="row" data-p="${encodeURIComponent(r.p)}"><span class="re">${PL[r.at].e}</span><span class="rt"><b>${esc(r.p)}</b><small>${esc(r.r)} · ${esc(PL[r.at].n)}</small></span><span class="go">Y aller</span></button>`).join('')
+    : (claim ? '' : `<div class="empty">Écris ton pseudo TikTok : chaque abonné a sa maison dans le Quartier des Abonnés.</div>`));
 }
-list.addEventListener('click', (e) => { const b = e.target.closest('.row'); if (!b) return; const r = RES.find((x) => x.p === decodeURIComponent(b.dataset.p)); if (r) goResident(r); });
+list.addEventListener('click', (e) => { const b = e.target.closest('.row'); if (!b) return; if (b.dataset.claim) { const nm = decodeURIComponent(b.dataset.claim); goResident(qaClaim(nm)); toast(`Voici ta maison, ${nm} ! 🏡`); return; } const r = RES.find((x) => x.p === decodeURIComponent(b.dataset.p)); if (r) goResident(r); });
 $('#q').addEventListener('input', (e) => renderList(e.target.value));
 $('#btnWho').addEventListener('click', () => { const o = !$('#who').classList.contains('open'); closePanels(); if (o) { $('#who').classList.add('open'); renderList($('#q').value); } });
 $('#whoclose').addEventListener('click', () => closePanels());
@@ -385,9 +427,10 @@ function enter() {
   $('#intro').classList.add('gone');
   const r = meName && RES.find((x) => norm(x.p) === norm(meName)) || (meName && norm(meName).length >= 3 && RES.find((x) => norm(x.p).includes(norm(meName))));
   if (r) { toast(`Bienvenue chez vous, ${r.p} ! 🎉`); goResident(r); }
-  else if (meName) toast(`Bienvenue à Saint-Tabarnouche, ${meName} !`);
+  else if (meName) { const m = qaClaim(meName.replace(/^@/, '')); toast(`Bienvenue ${meName} ! Voici ta maison 🏡`); goResident(m); }
 }
 try { const n = localStorage.getItem('stt-nom'); if (n) $('#name').value = n; const c = +localStorage.getItem('stt-col'); if (c >= 0 && c < ME_COL.length && localStorage.getItem('stt-col') !== null) { meStyle = c; sw.querySelectorAll('.sw').forEach((x, k) => x.classList.toggle('on', k === c)); } } catch (e) {}
+try { const mm0 = localStorage.getItem('stt-maison'); if (mm0) qaClaim(mm0); } catch (e) {}
 $('#enter').addEventListener('click', enter);
 $('#name').addEventListener('keydown', (e) => { if (e.key === 'Enter') enter(); });
 let toastT = 0; function toast(s) { const t = $('#toast'); t.textContent = s; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3200); }
