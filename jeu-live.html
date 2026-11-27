@@ -53,6 +53,9 @@ button:focus-visible{outline:3px solid var(--or);outline-offset:2px}
 .help kbd{background:#0b1640;border-radius:5px;padding:1px 6px;color:#fff}
 label{font-size:13px;font-weight:800;display:flex;flex-direction:column;gap:3px}
 textarea,input{font:inherit;font-size:13px;background:#0b1640;color:#fff;border:1px solid #3a4a80;border-radius:8px;padding:6px}
+.feed{min-height:22px;font-weight:900;font-size:15px;text-align:center;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pont{font-size:13px;font-weight:900;padding:6px 10px;border-radius:10px;background:#0b1640}
+.pont.ok{background:var(--vert-d)}
 @media (prefers-reduced-motion:reduce){.fill,.flash{transition:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -76,12 +79,14 @@ textarea,input{font:inherit;font-size:13px;background:#0b1640;color:#fff;border:
     <div>❤️ <span id="likesTxt">100 likes = +5</span><span class="n" id="likes">0</span></div>
     <div>➕ Abonnement <span class="n">+3</span></div>
   </div>
-  <div class="note">Les likes et les abonnements aident les Bâtisseurs gratuitement. Cadeaux : 18 ans et + seulement.</div>
+  <div class="feed" id="feed" aria-live="polite"></div>
+  <div class="note">Écris « bâtir » dans le chat pour aider (gratuit). Les likes et les abonnements aident les Bâtisseurs gratuitement. Cadeaux : 18 ans et + seulement.</div>
 </div>
 <div class="flash" id="flash"></div>
 
 <div class="ctl" id="ctl">
   <h2>Contrôle (cache cette partie dans LIVE Studio)</h2>
+  <div class="pont" id="pont" hidden></div>
   <div class="row" id="cv"></div>
   <div class="row" id="cr"></div>
   <div class="row">
@@ -90,8 +95,8 @@ textarea,input{font:inherit;font-size:13px;background:#0b1640;color:#fff;border:
     <button class="bn" data-k="z">↩️ Annuler (Z)</button>
     <button class="bn" id="reset">Recommencer</button>
   </div>
-  <p class="help">Raccourcis : Bâtisseurs <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>, Grinch <kbd>7</kbd> <kbd>8</kbd> <kbd>9</kbd>, likes <kbd>L</kbd>, abonnement <kbd>F</kbd>, annuler <kbd>Z</kbd>. Avec TikFinity, une action « touche du clavier » par cadeau peut appuyer sur ces touches pour toi (la fenêtre doit être active).</p>
-  <label for="cfg">Cadeaux (une ligne : équipe ; emoji ; nom ; points)
+  <p class="help">Raccourcis : Bâtisseurs <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>, Grinch <kbd>7</kbd> <kbd>8</kbd> <kbd>9</kbd>, likes <kbd>L</kbd>, abonnement <kbd>F</kbd>, annuler <kbd>Z</kbd>. Avec TikFinity, une action « touche du clavier » par cadeau peut appuyer sur ces touches pour toi (la fenêtre doit être active).<br>Automatique : lance <b>pont-tiktok/demarrer</b> et ouvre <b>http://localhost:21213</b>, les cadeaux, likes, abonnements et « bâtir » arrivent tout seuls. Les boutons restent là en secours.</p>
+  <label for="cfg">Cadeaux (une ligne : équipe ; emoji ; nom ; points ; nom du cadeau dans TikTok, en option)
     <textarea id="cfg" rows="6"></textarea></label>
   <label for="blds">Bâtiments à construire, dans l'ordre (un par ligne)
     <textarea id="blds" rows="5"></textarea></label>
@@ -101,10 +106,10 @@ textarea,input{font:inherit;font-size:13px;background:#0b1640;color:#fff;border:
 <script>
 (function(){
 const DEF_CFG=`v;🌹;Rose;1
-v;🫰;Cœur doigts;5
-v;🍩;Beignet;30
-r;🍦;Crème glacée;1
-r;🧴;Parfum;20
+v;🫰;Cœur doigts;5;Finger Heart
+v;🍩;Beignet;30;Doughnut
+r;🍦;Crème glacée;1;Ice Cream Cone
+r;🧴;Parfum;20;Perfume
 r;🌶️;Piment;5`;
 const DEF_BLD=`Sapin géant
 Aéroport
@@ -119,8 +124,10 @@ Hôtel de l'aéroport`;
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 let cfg,blds,st={score:50,wins:0,likes:0},hist=[];
 try{const s=JSON.parse(ls.get('st')||'null');if(s)st=s}catch(e){}
+const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const ALIAS={'finger heart':'coeur doigts','doughnut':'beignet','ice cream cone':'creme glacee','perfume':'parfum'};
 function parse(){
-  cfg=(ls.get('cfg')||DEF_CFG).split('\n').map(l=>l.split(';').map(x=>x.trim())).filter(a=>a.length===4&&(a[0]==='v'||a[0]==='r')).map(a=>({t:a[0],e:a[1],n:a[2],p:Math.abs(+a[3]||0)}));
+  cfg=(ls.get('cfg')||DEF_CFG).split('\n').map(l=>l.split(';').map(x=>x.trim())).filter(a=>a.length>=4&&(a[0]==='v'||a[0]==='r')).map(a=>({t:a[0],e:a[1],n:a[2],p:Math.abs(+a[3]||0),tk:(a[4]||'').split('/').map(norm).filter(Boolean)}));
   blds=(ls.get('blds')||DEF_BLD).split('\n').map(s=>s.trim()).filter(Boolean);
   document.getElementById('cfg').value=ls.get('cfg')||DEF_CFG;
   document.getElementById('blds').value=ls.get('blds')||DEF_BLD;
@@ -166,6 +173,39 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b)
 document.getElementById('reset').addEventListener('click',()=>{hist.push(JSON.stringify(st));st={score:50,wins:0,likes:0};draw()});
 document.getElementById('save').addEventListener('click',()=>{ls.set('cfg',document.getElementById('cfg').value);ls.set('blds',document.getElementById('blds').value);parse();render()});
 parse();render();
+
+// ---- Pont TikTok LIVE : cadeaux, likes, abonnements et commentaires automatiques ----
+// Actif quand la page vient de http://localhost:21213 (pont-tiktok/demarrer), ou avec ?pont=1
+let ftd;
+function feed(t){const f=document.getElementById('feed');f.textContent=t;clearTimeout(ftd);ftd=setTimeout(()=>{f.textContent=''},4000)}
+function likes(n){const before=Math.floor(st.likes/100);st.likes+=n;const gain=Math.floor(st.likes/100)-before;if(gain>0)add(5*gain);else draw()}
+const vuChat={};
+function evenement(m){
+  if(m.type==='cadeau'){
+    const k=norm(m.nom),g=cfg.find(c=>norm(c.n)===k||c.tk.includes(k)||norm(c.n)===ALIAS[k]);
+    if(g){add((g.t==='v'?1:-1)*g.p*m.n);feed(`${g.e} ${m.qui} ${g.t==='v'?'+':'−'}${g.p*m.n}`)}
+    else{const p=Math.min(10,Math.max(1,m.diamants||1))*m.n;add(p);feed(`🎁 ${m.qui} +${p}`)} // cadeau pas dans la liste = aide les Bâtisseurs, max 10 par cadeau
+  }else if(m.type==='likes'){likes(m.n)}
+  else if(m.type==='abonnement'){add(3);feed(`➕ ${m.qui} +3`)}
+  else if(m.type==='commentaire'){
+    const t=norm(m.texte),now=Date.now();
+    if((t.includes('batir')||m.texte.includes('🔨'))&&!(vuChat[m.id]>now-30000)){vuChat[m.id]=now;likes(10);feed(`🔨 ${m.qui} aide les Bâtisseurs`)}
+  }
+}
+(function(){
+  const q=new URLSearchParams(location.search).get('pont');
+  const local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  if(!local&&!q)return;
+  const url=q&&q.startsWith('ws')?q:local?`ws://${location.host}/pont`:'ws://localhost:21213/pont';
+  const box=document.getElementById('pont');box.hidden=false;
+  const show=(ok,t)=>{box.textContent=(ok?'🟢 ':'🟠 ')+t;box.classList.toggle('ok',ok)};
+  (function go(){
+    show(false,'Recherche du pont TikTok…');
+    let ws;try{ws=new WebSocket(url)}catch(e){return setTimeout(go,3000)}
+    ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}if(m.type==='etat')show(m.ok,m.texte);else evenement(m)};
+    ws.onclose=()=>{show(false,'Pont TikTok arrêté. Les boutons marchent encore.');setTimeout(go,3000)};
+  })();
+})();
 })();
 </script>
 </body>
