@@ -1,0 +1,11 @@
+{
+  "name": "pont-tiktok-saint-tabarnouche",
+  "private": true,
+  "type": "module",
+  "description": "Relie les cadeaux, likes et commentaires du LIVE TikTok au jeu Bâtisseurs contre Grinch",
+  "scripts": { "start": "node pont.js" },
+  "dependencies": {
+    "tiktok-live-connector": "2.5.0",
+    "ws": "8.18.0"
+  }
+}
